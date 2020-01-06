@@ -237,16 +237,17 @@ var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollP
   var stageSize = status.stageSize,
       contentSize = status.contentSize,
       directionPositionName = status.directionPositionName;
+  var lastScrollPosition = contentSize - stageSize;
 
-  if (~['lastScrollPosition', 'last'].indexOf(scrollPosition)) {
-    return contentSize - stageSize;
+  if (scrollPosition > lastScrollPosition || ~['lastScrollPosition', 'last'].indexOf(scrollPosition)) {
+    return lastScrollPosition;
   }
 
   if (~['string', 'object'].indexOf(_typeof(scrollPosition))) {
     var i = typeof scrollPosition === 'string' ? scrollPosition.split(',') : scrollPosition;
     var positionName = i[0];
-    var position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? contentSize - stageSize : $(positionName).offset()[directionPositionName.toLocaleLowerCase()];
-    return position + (parseInt(i[1]) || 0);
+    var position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : $(positionName).offset()[directionPositionName.toLocaleLowerCase()];
+    return Math.min(position + (parseInt(i[1]) || 0), lastScrollPosition);
   }
 
   return scrollPosition;

@@ -55,7 +55,7 @@ $('.dropPath').parallaxFit([
     },
   },
   {
-    end: '#speed',
+    end: ['#speed', -300],
     toStyle: {
       fill: '#ff15d0'
     },

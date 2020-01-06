@@ -54,16 +54,17 @@ export const getStringColor = (styleValue) => {
 
 export const scrollPositionStringToNumber = (scrollPosition, status = Status) => {
 	const { stageSize, contentSize, directionPositionName } = status
+	const lastScrollPosition = contentSize - stageSize
 	
-	if(~['lastScrollPosition', 'last'].indexOf(scrollPosition)) {
-		return contentSize - stageSize
+	if(scrollPosition > lastScrollPosition || ~['lastScrollPosition', 'last'].indexOf(scrollPosition)) {
+		return lastScrollPosition
 	}
 
   if(~['string', 'object'].indexOf(typeof scrollPosition)) {
 		const i = typeof scrollPosition === 'string' ? scrollPosition.split(',') : scrollPosition
 		const positionName = i[0]
-		const position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? contentSize - stageSize : $(positionName).offset()[directionPositionName.toLocaleLowerCase()]
-		return position + (parseInt(i[1]) || 0)
+		const position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : $(positionName).offset()[directionPositionName.toLocaleLowerCase()]
+		return Math.min(position + (parseInt(i[1]) || 0), lastScrollPosition)
 	}
 	
 	return scrollPosition

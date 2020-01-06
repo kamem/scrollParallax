@@ -108,8 +108,17 @@ describe('scrollPositionStringToNumber', () => {
   it('[タグ名,数値]の文字列で指定した場合は、タグの位置から数値を足した値を返すべき', () => {
     expect(scrollPositionStringToNumber('#test,-100', status)).toBe(-100)
   })
+  it('[last,数値]の文字列で指定した場合は、contentSize - stageSize + 数値の位置を返すべき', () => {
+    expect(scrollPositionStringToNumber('last,-100', status)).toBe(300)
+  })
   it('数字で渡したらそのまま返すべき', () => {
-    expect(scrollPositionStringToNumber(1000, status)).toBe(1000)
+    expect(scrollPositionStringToNumber(300, status)).toBe(300)
+  })
+  it('ただし、スクロールの最後以上の値だった場合は、スクロールの最後の位置に値を返すべき', () => {
+    expect(scrollPositionStringToNumber(1000, status)).toBe(400)
+  })
+  it('タグ指定の場合も同じくスクロール最後の位置を超えている場合は最後の値を返すべき', () => {
+    expect(scrollPositionStringToNumber('#test,500', status)).toBe(400)
   })
 })
 
