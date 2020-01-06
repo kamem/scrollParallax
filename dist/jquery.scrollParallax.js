@@ -110,7 +110,7 @@ function () {
   function ScrollStatus() {
     _classCallCheck(this, ScrollStatus);
 
-    this.$stage = $(global);
+    this.$stage = global;
     this.direction = 'y';
     this.functions = [];
     this.debugMode = false;
@@ -120,7 +120,7 @@ function () {
   _createClass(ScrollStatus, [{
     key: "setVal",
     value: function setVal(ops) {
-      this.$stage = ops.stage ? ops.stage : $(global);
+      this.$stage = ops.stage ? ops.stage : global;
       this.direction = ops.direction || this.direction;
       this.debugMode = ops.debugMode || this.debugMode;
       this.setDirectionInfo();
@@ -128,8 +128,8 @@ function () {
   }, {
     key: "update",
     value: function update() {
-      this.scrollPosition = this.$stage[this.scrollName]();
-      var innerWidth = global["inner".concat(this.stageSizeName)];
+      this.scrollPosition = this.$stage["page".concat(this.direction.toUpperCase(), "Offset")];
+      var innerWidth = this.$stage["inner".concat(this.stageSizeName)];
       this.stageSize = innerWidth ? innerWidth : document.documentElement["client".concat(this.stageSizeName)];
       this.contentSize = $(document)[this.stageSizeName.toLowerCase()]();
     }
@@ -137,7 +137,6 @@ function () {
     key: "setDirectionInfo",
     value: function setDirectionInfo() {
       this.directionPositionName = this.direction === 'y' ? 'Top' : 'Left';
-      this.scrollName = 'scroll' + this.directionPositionName;
       this.stageSizeName = this.direction === 'y' ? 'Height' : 'Width';
     }
   }]);
@@ -153,7 +152,7 @@ var Status = new ScrollStatus();
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getStyleValues; });
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getStyleValues; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return generateStyleValue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return generateStyleValueString; });
 /* unused harmony export generateColorString */
@@ -236,7 +235,7 @@ var getStringColor = function getStringColor(styleValue) {
 var _offset = function _offset(el, _ref) {
   var direction = _ref.direction;
   var directionPositionName = direction === 'y' ? 'Top' : 'Left';
-  var scrollPosition = window["page".concat(direction.toUpperCase(), "Offset")] || document.documentElement["scroll".concat(directionPositionName)];
+  var scrollPosition = global["page".concat(direction.toUpperCase(), "Offset")] || document.documentElement["scroll".concat(directionPositionName)];
   return el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + scrollPosition;
 };
 var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollPosition) {
@@ -490,6 +489,7 @@ var easing = {
     return easing.easeOutBounce(i * 2 - d, 0, c, d) * 0.5 + c * 0.5 + b;
   }
 };
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
 
 /***/ }),
 /* 2 */
@@ -976,7 +976,7 @@ $.fn.parallaxFit = function (ops) {
 /* event */
 
 
-_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].$stage.on('scroll resize load', function () {
+$(_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].$stage).on('scroll resize load', function () {
   _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].update();
   _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.forEach(function (func) {
     return func(_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"]);
@@ -984,7 +984,7 @@ _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].$sta
 });
 
 var scrollStop = function scrollStop() {
-  return _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].$stage.queue([]).stop();
+  return $(_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].$stage).queue([]).stop();
 };
 
 global.addEventListener('DOMMouseScroll', scrollStop, false);

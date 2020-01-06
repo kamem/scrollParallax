@@ -10,14 +10,6 @@ describe('Status', () => {
     Status.setVal({ direction: 'x' })
     expect(Status.directionPositionName).toEqual('Left')
   })
-  it('direction: yだった場合、scrollNameがscrollTopになるべき', () => {
-    Status.setVal({ direction: 'y' })
-    expect(Status.scrollName).toEqual('scrollTop')
-  })
-  it('direction: xだった場合、scrollNameがscrollLeftになるべき', () => {
-    Status.setVal({ direction: 'x' })
-    expect(Status.scrollName).toEqual('scrollLeft')
-  })
   it('direction: yだった場合、stageSizeNameがHeightになるべき', () => {
     Status.setVal({ direction: 'y' })
     expect(Status.stageSizeName).toEqual('Height')

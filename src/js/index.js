@@ -114,11 +114,11 @@ $.fn.parallaxFit = function(ops) {
 }
 
 /* event */
-Status.$stage.on('scroll resize load', () => {
+$(Status.$stage).on('scroll resize load', () => {
 	Status.update()
 	Status.functions.forEach(func => func(Status))
 })
 
-const scrollStop = () => Status.$stage.queue([]).stop()
+const scrollStop = () => $(Status.$stage).queue([]).stop()
 global.addEventListener('DOMMouseScroll', scrollStop, false)
 global.onmousewheel = document.onmousewheel = scrollStop
