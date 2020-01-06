@@ -3,7 +3,7 @@ import '../css/app.css'
 const $contents = $('#header, #install, #timing, #speed, #fit')
 const $nav = $('.gnav > ul > *')
 
-$contents.each(function(){
+$contents.each(function () {
   $(this).parallaxTiming([
     selectNav,
     selectNav
@@ -19,7 +19,7 @@ function selectNav(e) {
 
 $('.material').append('<div class="borders"></div>')
 const borderContent = 8
-for(let i = 0;i < borderContent;i++){
+for (let i = 0; i < borderContent; i++) {
   $('.borders').append('<div class="border"></div>')
   $('.border').eq(i).css({
     width: Math.floor(Math.random() * 300) + 300,
@@ -48,22 +48,22 @@ $('.dropPath').parallaxFit([
     start: 0,
     end: '#timing',
     fromStyle: {
-      fill: '#1176ff' 
+      fill: '#1176ff'
     },
     toStyle: {
-      fill: '#67ad0c' 
+      fill: '#67ad0c'
     },
   },
   {
     end: '#speed',
     toStyle: {
-      fill: '#ff15d0' 
+      fill: '#ff15d0'
     },
   },
   {
-    end: '#fit',
+    end: 'last',
     toStyle: {
-      fill: '#1176ff' 
+      fill: '#1176ff'
     },
   },
 ])
@@ -71,11 +71,11 @@ $('.dropPath').parallaxFit([
 $('.gear').parallaxSpeed({
   style: 'transform',
   contentScrollPositionStyleValue: 'rotate(0deg)',
-	speed: -0.2,
+  speed: -0.2,
 })
 
 
-$('.triangle').each(function(i) {
+$('.triangle').each(function (i) {
   $(this).parallaxSpeed({
     style: [
       'transform',
@@ -92,19 +92,19 @@ $('.triangle').each(function(i) {
   })
 })
 
-$('.circle').each(function(i){
+$('.circle').each(function (i) {
   $(this).parallaxFit([
     {
-      start:  ['#fit', -300 + i * 50],
-      end: ['#fit', i * 100],
+      start: ['last', -300 + i * 50],
+      end: ['last', i * 100],
       fromStyle: {
         opacity: 0,
-        transform:'scale(0.3)',
+        transform: 'scale(0.3)',
         top: $(this).css('top')
       },
       toStyle: {
         opacity: 1,
-        transform:'scale(1)',
+        transform: 'scale(1)',
         top: $(this).css('top')
       },
       easing: 'easeOutBack'

@@ -61,8 +61,9 @@ export const scrollPositionStringToNumber = (scrollPosition, status = Status) =>
 
   if(~['string', 'object'].indexOf(typeof scrollPosition)) {
 		const i = typeof scrollPosition === 'string' ? scrollPosition.split(',') : scrollPosition
-		const tagPosition = $(i[0]).offset()[directionPositionName.toLocaleLowerCase()]
-		return tagPosition + (parseInt(i[1]) || 0)
+		const positionName = i[0]
+		const position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? contentSize - stageSize : $(positionName).offset()[directionPositionName.toLocaleLowerCase()]
+		return position + (parseInt(i[1]) || 0)
 	}
 	
 	return scrollPosition
