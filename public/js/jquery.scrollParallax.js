@@ -129,8 +129,8 @@ function () {
     key: "update",
     value: function update() {
       this.scrollPosition = this.$stage[this.scrollName]();
-      var innerWidth = global['inner' + this.stageSizeName];
-      this.stageSize = innerWidth ? innerWidth : document.documentElement['client' + this.stageSizeName];
+      var innerWidth = global["inner".concat(this.stageSizeName)];
+      this.stageSize = innerWidth ? innerWidth : document.documentElement["client".concat(this.stageSizeName)];
       this.contentSize = $(document)[this.stageSizeName.toLowerCase()]();
     }
   }, {
@@ -160,6 +160,7 @@ var Status = new ScrollStatus();
 /* unused harmony export generateRGB */
 /* unused harmony export hexadecimalToRgb */
 /* unused harmony export getStringColor */
+/* unused harmony export _offset */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return scrollPositionStringToNumber; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return easing; });
 /* harmony import */ var _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
@@ -232,11 +233,16 @@ var getStringColor = function getStringColor(styleValue) {
     return '#' + colors[color];
   });
 };
+var _offset = function _offset(el, _ref) {
+  var direction = _ref.direction;
+  var directionPositionName = direction === 'y' ? 'Top' : 'Left';
+  var scrollPosition = window["page".concat(direction.toUpperCase(), "Offset")] || document.documentElement["scroll".concat(directionPositionName)];
+  return el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + scrollPosition;
+};
 var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollPosition) {
   var status = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"];
   var stageSize = status.stageSize,
-      contentSize = status.contentSize,
-      directionPositionName = status.directionPositionName;
+      contentSize = status.contentSize;
   var lastScrollPosition = contentSize - stageSize;
 
   if (scrollPosition > lastScrollPosition || ~['lastScrollPosition', 'last'].indexOf(scrollPosition)) {
@@ -246,7 +252,7 @@ var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollP
   if (~['string', 'object'].indexOf(_typeof(scrollPosition))) {
     var i = typeof scrollPosition === 'string' ? scrollPosition.split(',') : scrollPosition;
     var positionName = i[0];
-    var position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : $(positionName).offset()[directionPositionName.toLocaleLowerCase()];
+    var position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(document.querySelector(positionName), status);
     return Math.min(position + (parseInt(i[1]) || 0), lastScrollPosition);
   }
 

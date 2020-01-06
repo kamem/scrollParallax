@@ -95,7 +95,7 @@ describe('getStringColor', () => {
 })
 
 describe('scrollPositionStringToNumber', () => {
-  const status = { stageSize: 600, contentSize: 1000, directionPositionName: 'Top' }
+  const status = { stageSize: 600, contentSize: 1000, directionPositionName: 'Top', direction: 'y' }
   it('lastと渡すとcontentSize - stageSizeの値を返す', () => {
     expect(scrollPositionStringToNumber('last', status)).toBe(400)
   })

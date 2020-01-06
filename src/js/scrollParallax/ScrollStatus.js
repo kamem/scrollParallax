@@ -14,8 +14,8 @@ class ScrollStatus {
 	}
 	update() {
 		this.scrollPosition = this.$stage[this.scrollName]()
-		const innerWidth = global['inner' + this.stageSizeName]
-		this.stageSize = innerWidth ? innerWidth : document.documentElement['client' + this.stageSizeName]
+		const innerWidth = global[`inner${this.stageSizeName}`]
+		this.stageSize = innerWidth ? innerWidth : document.documentElement[`client${this.stageSizeName}`]
 		this.contentSize = $(document)[this.stageSizeName.toLowerCase()]()
 	}
 	setDirectionInfo() {
