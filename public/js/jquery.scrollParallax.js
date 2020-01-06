@@ -244,8 +244,9 @@ var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollP
 
   if (~['string', 'object'].indexOf(_typeof(scrollPosition))) {
     var i = typeof scrollPosition === 'string' ? scrollPosition.split(',') : scrollPosition;
-    var tagPosition = $(i[0]).offset()[directionPositionName.toLocaleLowerCase()];
-    return tagPosition + (parseInt(i[1]) || 0);
+    var positionName = i[0];
+    var position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? contentSize - stageSize : $(positionName).offset()[directionPositionName.toLocaleLowerCase()];
+    return position + (parseInt(i[1]) || 0);
   }
 
   return scrollPosition;
@@ -726,9 +727,11 @@ function () {
     key: "setDefaultStyles",
     value: function setDefaultStyles() {
       var defaultStyles = {};
-      this.motions.forEach(function (motion) {
-        for (var style in motion.fromStyle) {
-          if (defaultStyles[style] === undefined) defaultStyles[style] = motion.fromStyle[style];
+      this.motions.forEach(function (_ref2) {
+        var fromStyle = _ref2.fromStyle;
+
+        for (var style in fromStyle) {
+          if (defaultStyles[style] === undefined) defaultStyles[style] = fromStyle[style];
         }
       });
       this.styleValues = defaultStyles;
@@ -738,12 +741,15 @@ function () {
     value: function setFromStyle() {
       var _this2 = this;
 
-      this.motions.forEach(function (motion, i) {
-        for (var style in motion.toStyle) {
-          if (motion.fromStyle === undefined) motion.fromStyle = {};
+      this.motions.forEach(function (_ref3, i) {
+        var fromStyle = _ref3.fromStyle,
+            toStyle = _ref3.toStyle;
 
-          if (motion.fromStyle[style] === undefined) {
-            motion.fromStyle[style] = _this2.getLastToStyle(style, i);
+        for (var style in toStyle) {
+          if (fromStyle === undefined) fromStyle = {};
+
+          if (fromStyle[style] === undefined) {
+            fromStyle[style] = _this2.getLastToStyle(style, i);
           }
         }
       });
@@ -809,10 +815,10 @@ function () {
     }
   }, {
     key: "getStyleValues",
-    value: function getStyleValues(_ref2) {
+    value: function getStyleValues(_ref4) {
       var _this4 = this;
 
-      var scrollPosition = _ref2.scrollPosition;
+      var scrollPosition = _ref4.scrollPosition;
       this.rangeMotions.forEach(function (motion, j) {
         var start = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "e"])(motion.start);
         var end = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "e"])(motion.end);
