@@ -54,7 +54,7 @@ $('.bird').parallaxFit([
     easing: 'easeInQuart'
   },
   {
-    end: '#fit',
+    end: 'last',
     toStyle: {
       left: '65%',
       top: '80px' 
@@ -115,8 +115,8 @@ $('.triangle').each(function(i) {
 $('.circle').each(function(i){
   $(this).parallaxFit([
     {
-      start:  ['#fit', -300 + i * 50],
-      end: ['#fit', i * 100],
+      start:  ['last', -300 + i * 50],
+      end: ['last', i * 100],
       fromStyle: {
         opacity: 0,
         transform:'scale(0.3)',
