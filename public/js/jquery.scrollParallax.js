@@ -6,7 +6,17 @@
  * @license Released under MIT license
  * @author kamem
  */
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["scrollParallax"] = factory();
+	else
+		root["scrollParallax"] = factory();
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -97,7 +107,8 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Status; });
+/* WEBPACK VAR INJECTION */(function(global) {/* unused harmony export default */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Status; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -126,12 +137,22 @@ function () {
       this.setDirectionInfo();
     }
   }, {
+    key: "scrollEventUpdate",
+    value: function scrollEventUpdate() {
+      var _this = this;
+
+      this.update();
+      this.functions.forEach(function (func) {
+        return func(_this);
+      });
+    }
+  }, {
     key: "update",
     value: function update() {
       this.scrollPosition = this.$stage["page".concat(this.direction.toUpperCase(), "Offset")];
       var innerWidth = this.$stage["inner".concat(this.stageSizeName)];
       this.stageSize = innerWidth ? innerWidth : document.documentElement["client".concat(this.stageSizeName)];
-      this.contentSize = $(document)[this.stageSizeName.toLowerCase()]();
+      this.contentSize = document.documentElement["scroll".concat(this.stageSizeName)];
     }
   }, {
     key: "setDirectionInfo",
@@ -144,6 +165,7 @@ function () {
   return ScrollStatus;
 }();
 
+
 var Status = new ScrollStatus();
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
 
@@ -152,16 +174,16 @@ var Status = new ScrollStatus();
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getStyleValues; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return generateStyleValue; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return generateStyleValueString; });
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getStyleValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return generateStyleValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return generateStyleValueString; });
 /* unused harmony export generateColorString */
 /* unused harmony export generateRGB */
 /* unused harmony export hexadecimalToRgb */
 /* unused harmony export getStringColor */
-/* unused harmony export _offset */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return scrollPositionStringToNumber; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return easing; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _offset; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return scrollPositionStringToNumber; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return easing; });
 /* harmony import */ var _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -251,7 +273,7 @@ var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollP
   if (~['string', 'object'].indexOf(_typeof(scrollPosition))) {
     var i = typeof scrollPosition === 'string' ? scrollPosition.split(',') : scrollPosition;
     var positionName = i[0];
-    var position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(document.querySelector(positionName), status);
+    var position = typeof positionName !== 'string' ? _offset(positionName, status) : ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(document.querySelector(positionName), status);
     return Math.min(position + (parseInt(i[1]) || 0), lastScrollPosition);
   }
 
@@ -544,22 +566,24 @@ function () {
 
   _createClass(Timing, [{
     key: "getEventScrollElementPosition",
-    value: function getEventScrollElementPosition(directionPositionName) {
-      return this.eventScrollElementPosition ? Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "e"])(this.eventScrollElementPosition) : this.$el.offset()[directionPositionName.toLocaleLowerCase()];
+    value: function getEventScrollElementPosition(direction) {
+      return this.eventScrollElementPosition ? Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(this.eventScrollElementPosition) : Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* _offset */ "a"])(this.$el, {
+        direction: direction
+      });
     }
   }, {
     key: "timingEvent",
     value: function timingEvent(_ref) {
       var stageSize = _ref.stageSize,
           scrollPosition = _ref.scrollPosition,
-          directionPositionName = _ref.directionPositionName;
+          direction = _ref.direction;
       this.eventScrollPlussWindowPerCentPosition = scrollPosition + stageSize * (this.timingLinePercent / 100);
-      var isOver = this.eventScrollPlussWindowPerCentPosition >= this.getEventScrollElementPosition(directionPositionName);
+      var isOver = this.eventScrollPlussWindowPerCentPosition >= this.getEventScrollElementPosition(direction);
 
       if (isOver !== this.isOver) {
         this.isOver = isOver;
-        var eventSeletct = this.events[isOver ? 0 : 1];
-        return eventSeletct({
+        var eventSelect = this.events[isOver ? 0 : 1];
+        return eventSelect({
           target: this.$el,
           isOver: isOver
         });
@@ -579,6 +603,8 @@ function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Speed; });
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -592,42 +618,48 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Speed =
 /*#__PURE__*/
 function () {
-  function Speed($el, speed, min, max, contentScrollPosition, contentStyleValue) {
+  function Speed($el, style, speed, min, max, contentScrollPosition, contentStyleValue) {
     _classCallCheck(this, Speed);
 
     this.$el = $el;
-    this.speed = speed;
-    this.min = min;
-    this.max = max;
+    this.speeds = _typeof(speed) === 'object' ? speed : [speed];
+    this.mins = _typeof(min) === 'object' ? min : [min];
+    this.maxs = _typeof(max) === 'object' ? max : [max];
+    this.contentScrollPositionStyleValues = _typeof(contentStyleValue) === 'object' ? contentStyleValue : [contentStyleValue];
     this.contentScrollPosition = contentScrollPosition;
-    var styleValue = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* generateStyleValue */ "b"])(contentStyleValue);
-    this.contentStyleValue = styleValue;
-    this.styleValues = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* getStyleValues */ "d"])(styleValue);
+    this.styles = this.generateStyles(_typeof(style) === 'object' ? style : [style]);
   }
 
   _createClass(Speed, [{
-    key: "getValue",
-    value: function getValue(str, j) {
-      return _typeof(this[str]) === 'object' ? this[str][j] : this[str];
+    key: "generateStyles",
+    value: function generateStyles(styles) {
+      var _this = this;
+
+      return styles.map(function (name, i) {
+        var contentScrollPositionStyleValues = _this.contentScrollPositionStyleValues[i] || document.defaultView.getComputedStyle(_this.$el, null)[name];
+        var styleValue = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* generateStyleValue */ "c"])(contentScrollPositionStyleValues);
+        return {
+          name: name,
+          speed: _this.speeds[i] || _this.speeds[0],
+          min: _this.mins[i] || _this.mins[0],
+          max: _this.maxs[i] || _this.maxs[0],
+          contentStyleValue: styleValue,
+          styleValues: Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* getStyleValues */ "e"])(styleValue)
+        };
+      });
     }
   }, {
     key: "generateValues",
-    value: function generateValues(scrollPosition) {
-      var _this = this;
+    value: function generateValues(scrollPosition, min, max, speed, styleValues, contentStyleValue) {
+      var _this2 = this;
 
-      return this.styleValues.map(function (value, j) {
-        var min = _this.getValue('min', j);
+      return styleValues.map(function (value, j) {
+        var sp = speed === 'object' ? speed[j] : speed;
+        var newValue = -parseFloat(-scrollPosition * sp + Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(_this2.contentScrollPosition) * sp) + value;
+        newValue = Math.min(newValue, max === 'object' ? max[j] : max);
+        newValue = Math.max(newValue, min === 'object' ? min[j] : min);
 
-        var max = _this.getValue('max', j);
-
-        var speed = _this.getValue('speed', j);
-
-        var contentScrollPosition = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "e"])(_this.contentScrollPosition);
-        var newValue = -parseFloat(-scrollPosition * speed + contentScrollPosition * speed) + value;
-        newValue = Math.min(newValue, max);
-        newValue = Math.max(newValue, min);
-
-        if (_this.contentStyleValue.indexOf('rgb') >= 0) {
+        if (contentStyleValue.indexOf('rgb') >= 0) {
           newValue = Math.max(parseInt(newValue), 0);
         }
 
@@ -635,10 +667,14 @@ function () {
       });
     }
   }, {
-    key: "generateStyleValue",
-    value: function generateStyleValue(_ref) {
+    key: "getStyleValues",
+    value: function getStyleValues(_ref) {
+      var _this3 = this;
+
       var scrollPosition = _ref.scrollPosition;
-      return Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* generateStyleValueString */ "c"])(this.contentStyleValue, this.generateValues(scrollPosition));
+      return this.styles.reduce(function (result, style) {
+        return Object.assign({}, result, _defineProperty({}, style.name, Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* generateStyleValueString */ "d"])(style.contentStyleValue, _this3.generateValues(scrollPosition, style.min, style.max, style.speed, style.styleValues, style.contentStyleValue))));
+      }, {});
     }
   }]);
 
@@ -703,7 +739,7 @@ function () {
       var styles = {};
 
       for (var style in fromStyle) {
-        styles[style] = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* getStyleValues */ "d"])(fromStyle[style]);
+        styles[style] = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* getStyleValues */ "e"])(fromStyle[style]);
       }
 
       return styles;
@@ -714,7 +750,7 @@ function () {
       var styles = {};
 
       for (var style in fromStyle) {
-        styles[style] = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* generateStyleValue */ "b"])(fromStyle[style]);
+        styles[style] = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* generateStyleValue */ "c"])(fromStyle[style]);
       }
 
       return styles;
@@ -725,7 +761,7 @@ function () {
       var scrollPosition = _ref.scrollPosition;
       var range = [];
       this.motions.forEach(function (motion) {
-        var start = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "e"])(motion.start);
+        var start = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(motion.start);
         if (start <= scrollPosition) range.push(motion);
       });
       this.rangeMotions = range;
@@ -776,7 +812,7 @@ function () {
         }
       }
 
-      if (fromStyle === '') fromStyle = this.$el.css(style);
+      if (fromStyle === '') fromStyle = document.defaultView.getComputedStyle(this.$el, null)[style];
       return fromStyle;
     }
   }, {
@@ -786,7 +822,7 @@ function () {
 
       this.motions.forEach(function (motion, i) {
         if (motion.start === undefined) {
-          motion.start = _this3.getLastStart(i);
+          motion.start = _this3.getLastStart(i) || 0;
         }
       });
     }
@@ -812,7 +848,7 @@ function () {
     value: function generateScrollStyleValues(style, fromtStyle, toStyle, easingName, scrollPercent) {
       var abs = Math.abs(fromtStyle - toStyle);
       var fixAbs = fromtStyle < toStyle ? abs : -abs;
-      var styleValue = _util__WEBPACK_IMPORTED_MODULE_0__[/* easing */ "a"][easingName](scrollPercent, fromtStyle, fixAbs, 1);
+      var styleValue = _util__WEBPACK_IMPORTED_MODULE_0__[/* easing */ "b"][easingName](scrollPercent, fromtStyle, fixAbs, 1);
 
       if (style.indexOf('rgb') >= 0) {
         styleValue = styleValue >= 1 ? parseInt(styleValue) : styleValue < 0 ? 0 : styleValue;
@@ -827,8 +863,8 @@ function () {
 
       var scrollPosition = _ref4.scrollPosition;
       this.rangeMotions.forEach(function (motion, j) {
-        var start = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "e"])(motion.start);
-        var end = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "e"])(motion.end);
+        var start = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(motion.start);
+        var end = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(motion.end);
         var isInRange = start < scrollPosition && scrollPosition < end;
         var range = end - start;
         var scrollPercent = isInRange ? (scrollPosition - start) / range : scrollPosition > start ? 1 : scrollPosition < end ? 0 : '';
@@ -843,7 +879,7 @@ function () {
             values[i] = _this4.generateScrollStyleValues(fromStyleValue, fromStyleValues[i], toStyleValues[i], motion.easing, scrollPercent);
           }
 
-          _this4.styleValues[style] = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* generateStyleValueString */ "c"])(fromStyleValue, values);
+          _this4.styleValues[style] = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* generateStyleValueString */ "d"])(fromStyleValue, values);
         }
       });
       return this.styleValues;
@@ -865,8 +901,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 /* harmony import */ var _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 /* harmony import */ var _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 
 
 
@@ -886,7 +920,7 @@ $.parallaxTiming = function (ops) {
 
 $.fn.parallaxTiming = function (ops) {
   var positionName = _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].directionPositionName.toLocaleLowerCase();
-  var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](this, ops.eventScrollPosition, ops.timingLinePercent || $.timingLinePercent, Object.prototype.toString.call(ops) === '[object Array]' ? ops : ops.start ? [ops.start, ops.end] : ops.toggle);
+  var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](this[0], ops.eventScrollPosition, ops.timingLinePercent || $.timingLinePercent, Object.prototype.toString.call(ops) === '[object Array]' ? ops : ops.start ? [ops.start, ops.end] : ops.toggle);
   _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.push(function (status) {
     timing.timingEvent(status);
 
@@ -899,36 +933,11 @@ $.fn.parallaxTiming = function (ops) {
 /* speed */
 
 
-$.fn.parallaxSpeed = function (_ref) {
-  var _ref$speed = _ref.speed,
-      speed = _ref$speed === void 0 ? 2 : _ref$speed,
-      _ref$min = _ref.min,
-      min = _ref$min === void 0 ? -99999 : _ref$min,
-      _ref$max = _ref.max,
-      max = _ref$max === void 0 ? 99999 : _ref$max,
-      contentScrollPositionStyleValue = _ref.contentScrollPositionStyleValue,
-      _ref$contentScrollPos = _ref.contentScrollPosition,
-      contentScrollPosition = _ref$contentScrollPos === void 0 ? 0 : _ref$contentScrollPos,
-      _ref$style = _ref.style,
-      style = _ref$style === void 0 ? 'top' : _ref$style;
+$.fn.parallaxSpeed = function (ops) {
   var $el = this;
-  var styles = _typeof(style) === 'object' ? style : [style];
-  var speeds = _typeof(speed) === 'object' ? speed : [speed];
-  var mins = _typeof(min) === 'object' ? min : [min];
-  var maxs = _typeof(max) === 'object' ? max : [max];
-  var contentScrollPositionStyleValues = _typeof(contentScrollPositionStyleValue) === 'object' ? contentScrollPositionStyleValue : [contentScrollPositionStyleValue];
-  var scrollStyles = styles.map(function (name, i) {
-    return {
-      name: name,
-      scrollSpeed: new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]($el, speeds[i] || speed, mins[i] || min, maxs[i] || max, contentScrollPosition, contentScrollPositionStyleValues[i] || String($el.css(name)) || String($el.css(style)))
-    };
-  });
+  var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]($el[0], ops.style, ops.speed || 2, ops.min || -99999, ops.max || 99999, ops.contentScrollPosition || 0, ops.contentScrollPositionStyleValue);
   _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.push(function (status) {
-    scrollStyles.forEach(function (_ref2) {
-      var name = _ref2.name,
-          scrollSpeed = _ref2.scrollSpeed;
-      $el.css(name, scrollSpeed.generateStyleValue(status));
-    });
+    $el.css(s.getStyleValues(status));
   });
   return this;
 };
@@ -936,7 +945,8 @@ $.fn.parallaxSpeed = function (_ref) {
 
 
 $.fn.parallaxFit = function (ops) {
-  var fit = new _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"](this);
+  var $el = this;
+  var fit = new _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]($el[0]);
 
   if (ops.length) {
     ops.forEach(function (motion) {
@@ -969,7 +979,7 @@ $.fn.parallaxFit = function (ops) {
   _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.push(function (status) {
     fit.setRangeMotions(status);
     fit.setDefaultStyles();
-    fit.$el.css(fit.getStyleValues(status));
+    $el.css(fit.getStyleValues(status));
   });
   return this;
 };
@@ -993,3 +1003,4 @@ global.onmousewheel = document.onmousewheel = scrollStop;
 
 /***/ })
 /******/ ]);
+});

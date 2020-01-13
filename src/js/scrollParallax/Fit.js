@@ -87,7 +87,7 @@ export default class Fit {
 				break
 			}
 		}
-		if(fromStyle === '') fromStyle = this.$el.css(style)
+		if(fromStyle === '') fromStyle = document.defaultView.getComputedStyle(this.$el, null)[style]
 
 		return fromStyle
 	}
@@ -96,7 +96,7 @@ export default class Fit {
 	setStart() {
 		this.motions.forEach((motion, i) => {
 			if(motion.start === undefined) {
-				motion.start = this.getLastStart(i)
+				motion.start = this.getLastStart(i) || 0
 			}
 		})
 	}

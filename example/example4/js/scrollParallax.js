@@ -99,7 +99,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -892,114 +892,177 @@ function () {
 
 
 /***/ }),
-/* 6 */
+/* 6 */,
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 /* harmony import */ var _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 /* harmony import */ var _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
-/* all parallax default options */
 
-$.parallax = function (ops) {
-  _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].setVal(ops);
-  if (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].debugMode) $('body').append('<p class="parallax-debug" style="border: 1px solid red;position: absolute;' + (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].direction === 'y' ? 'width' : 'height') + ': 100%;' + (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].direction === 'y' ? 'left' : 'top') + ': 0;' + '"></p>');
-};
-/* timing default options */
-
-
-$.parallaxTiming = function (ops) {
-  this.timingLinePercent = ops.timingLinePercent;
-};
-
-$.fn.parallaxTiming = function (ops) {
-  var positionName = _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].directionPositionName.toLocaleLowerCase();
-  var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](this[0], ops.eventScrollPosition, ops.timingLinePercent || $.timingLinePercent, Object.prototype.toString.call(ops) === '[object Array]' ? ops : ops.start ? [ops.start, ops.end] : ops.toggle);
-  _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.push(function (status) {
-    timing.timingEvent(status);
-
-    if (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].debugMode) {
-      $('body > .parallax-debug').css(positionName, timing.eventScrollPlussWindowPerCentPosition);
-    }
-  });
-  return this;
-};
-/* speed */
-
-
-$.fn.parallaxSpeed = function (ops) {
-  var $el = this;
-  var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]($el[0], ops.style, ops.speed || 2, ops.min || -99999, ops.max || 99999, ops.contentScrollPosition || 0, ops.contentScrollPositionStyleValue);
-  _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.push(function (status) {
-    $el.css(s.getStyleValues(status));
-  });
-  return this;
-};
-/* fit */
-
-
-$.fn.parallaxFit = function (ops) {
-  var $el = this;
-  var fit = new _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]($el[0]);
-
-  if (ops.length) {
-    ops.forEach(function (motion) {
-      return fit.setMotion(motion);
+var Parallax = {
+  install: function install(Vue) {
+    var $scrollStatus = Vue.observable({
+      scrollPosition: _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].scrollPosition,
+      values: {}
     });
-  } else if (ops['end'] !== undefined) {
-    fit.setMotion({
-      start: ops['start'],
-      end: ops['end'],
-      fromStyle: ops['fromStyle'],
-      toStyle: ops['toStyle'],
-      easing: ops['easing']
+
+    var pEvent = function pEvent() {
+      $scrollStatus.scrollPosition = _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].scrollPosition;
+      _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].update();
+      $scrollStatus.values = Object.assign({}, $scrollStatus.values, _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.reduce(function (result, current) {
+        return Object.assign({}, result, current(_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"]));
+      }, {}));
+    };
+
+    _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].$stage.addEventListener('scroll', pEvent, false);
+    _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].$stage.addEventListener('resize', pEvent, false);
+    _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].$stage.addEventListener('load', pEvent, false);
+    Vue.prototype.$scrollStatus = $scrollStatus;
+    Vue.directive('parallax-timing', {
+      bind: function bind(el, binding, _ref) {
+        var _ref$data$attrs = _ref.data.attrs,
+            ops = _ref$data$attrs === void 0 ? {} : _ref$data$attrs;
+        var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](ops.el || el, ops.eventScrollPosition, ops.timingLinePercent || 50, [function () {
+          return el.classList.add('on');
+        }, function () {
+          return el.classList.remove('on');
+        }]);
+        _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.push(function (status) {
+          return timing.timingEvent(status);
+        });
+      }
+    });
+    Vue.directive('parallax-speed', {
+      bind: function bind(el, binding, _ref2) {
+        var _ref2$data$attrs = _ref2.data.attrs,
+            ops = _ref2$data$attrs === void 0 ? {} : _ref2$data$attrs;
+        setTimeout(function () {
+          var element = ops.el || el;
+          var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"](element, ops.styles, ops.speed || 2, ops.min || -99999, ops.max || 99999, ops.contentScrollPosition || 0, ops.contentScrollPositionStyleValue);
+          _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.push(function (status) {
+            var styleValues = s.getStyleValues(status);
+
+            for (var key in styleValues) {
+              element.style[key] = styleValues[key];
+            }
+          });
+        }, 0);
+      }
+    });
+    Vue.directive('parallax-fit', {
+      bind: function bind(el, _ref3, _ref4) {
+        var value = _ref3.value;
+        var _ref4$data$attrs = _ref4.data.attrs,
+            o = _ref4$data$attrs === void 0 ? {} : _ref4$data$attrs;
+        setTimeout(function () {
+          var fit = new _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"](el);
+          var ops = value || o;
+
+          if (ops.length) {
+            ops.forEach(function (motion) {
+              return fit.setMotion(motion);
+            });
+          } else if (ops['end'] !== undefined) {
+            fit.setMotion({
+              start: ops['start'],
+              end: ops['end'],
+              fromStyle: ops['fromStyle'],
+              toStyle: ops['toStyle'],
+              easing: ops['easing']
+            });
+          }
+
+          for (var i = 1; ops['motion' + i + 'End'] !== undefined; i++) {
+            var motion = 'motion' + i;
+            fit.setMotion({
+              start: ops[motion + 'Start'],
+              end: ops[motion + 'End'],
+              fromStyle: ops[motion + 'FromStyle'],
+              toStyle: ops[motion + 'ToStyle'],
+              easing: ops[motion + 'Easing']
+            });
+          }
+
+          fit.setFromStyle();
+          fit.setStyleValues();
+          fit.setStart();
+          _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.push(function (status) {
+            fit.setRangeMotions(status);
+            fit.setDefaultStyles();
+            var styleValues = fit.getStyleValues(status);
+
+            for (var key in styleValues) {
+              el.style[key] = styleValues[key];
+            }
+          });
+        }, 0);
+      }
+    });
+    Vue.mixin({
+      methods: {
+        parallaxTiming: function parallaxTiming(ops) {
+          var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"]('', ops.eventScrollPosition, ops.timingLinePercent || 50, Object.prototype.toString.call(ops) === '[object Array]' ? ops : ops.start ? [ops.start, ops.end] : ops.toggle);
+          _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.push(function (status) {
+            return _defineProperty({}, ops.name, timing.timingEvent(status));
+          });
+        },
+        parallaxSpeed: function parallaxSpeed(ops) {
+          var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]('', ops.style, ops.speed || 2, ops.min || -99999, ops.max || 99999, ops.contentScrollPosition || 0, ops.contentScrollPositionStyleValue);
+          _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.push(function (status) {
+            return _defineProperty({}, ops.name, s.getStyleValues(status));
+          });
+        },
+        parallaxFit: function parallaxFit(name, ops) {
+          var fit = new _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"](this);
+
+          if (ops.length) {
+            ops.forEach(function (motion) {
+              return fit.setMotion(motion);
+            });
+          } else if (ops['end'] !== undefined) {
+            fit.setMotion({
+              start: ops['start'],
+              end: ops['end'],
+              fromStyle: ops['fromStyle'],
+              toStyle: ops['toStyle'],
+              easing: ops['easing']
+            });
+          }
+
+          for (var i = 1; ops['motion' + i + 'End'] !== undefined; i++) {
+            var motion = 'motion' + i;
+            fit.setMotion({
+              start: ops[motion + 'Start'],
+              end: ops[motion + 'End'],
+              fromStyle: ops[motion + 'FromStyle'],
+              toStyle: ops[motion + 'ToStyle'],
+              easing: ops[motion + 'Easing']
+            });
+          }
+
+          fit.setFromStyle();
+          fit.setStyleValues();
+          fit.setStart();
+          _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.push(function (status) {
+            fit.setRangeMotions(status);
+            fit.setDefaultStyles();
+            return _defineProperty({}, name, fit.getStyleValues(status));
+          });
+        }
+      }
     });
   }
-
-  for (var i = 1; ops['motion' + i + 'End'] !== undefined; i++) {
-    var motion = 'motion' + i;
-    fit.setMotion({
-      start: ops[motion + 'Start'],
-      end: ops[motion + 'End'],
-      fromStyle: ops[motion + 'FromStyle'],
-      toStyle: ops[motion + 'ToStyle'],
-      easing: ops[motion + 'Easing']
-    });
-  }
-
-  fit.setFromStyle();
-  fit.setStyleValues();
-  fit.setStart();
-  _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.push(function (status) {
-    fit.setRangeMotions(status);
-    fit.setDefaultStyles();
-    $el.css(fit.getStyleValues(status));
-  });
-  return this;
 };
-/* event */
-
-
-$(_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].$stage).on('scroll resize load', function () {
-  _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].update();
-  _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.forEach(function (func) {
-    return func(_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"]);
-  });
-});
-
-var scrollStop = function scrollStop() {
-  return $(_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].$stage).queue([]).stop();
-};
-
-global.addEventListener('DOMMouseScroll', scrollStop, false);
-global.onmousewheel = document.onmousewheel = scrollStop;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
+/* harmony default export */ __webpack_exports__["default"] = (Parallax);
 
 /***/ })
 /******/ ]);
