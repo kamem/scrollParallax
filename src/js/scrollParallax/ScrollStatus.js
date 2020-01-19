@@ -6,7 +6,7 @@ export default class ScrollStatus {
 		this.debugMode = false
 		this.setDirectionInfo()
 	}
-	setVal(ops) {
+	setVal(ops = {}) {
 		this.$stage = ops.stage ? ops.stage : global
 		this.direction = ops.direction || this.direction
 		this.debugMode = ops.debugMode || this.debugMode

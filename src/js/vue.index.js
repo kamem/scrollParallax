@@ -4,7 +4,8 @@ import Speed from './scrollParallax/Speed'
 import Fit from './scrollParallax/Fit'
 
 const Parallax = {
-	install(Vue) {
+	install(Vue, ops) {
+		Status.setVal(ops)
     const $scrollStatus = Vue.observable({
 			scrollPosition: Status.scrollPosition,
 			values: {}
@@ -32,7 +33,8 @@ const Parallax = {
 		Vue.prototype.$scrollStatus = $scrollStatus
 
 		Vue.directive('parallax-timing', {
-			bind: (el, binding, { data: { attrs: ops = {} }}) => {
+			bind: (el, { value }, { data: { attrs: o = {} }}) => {
+				const ops = value || o
 				const timing = new Timing(
 					ops.el || el,
 					ops.eventScrollPosition,
@@ -48,7 +50,10 @@ const Parallax = {
 		})
 
 		Vue.directive('parallax-speed', {
-			bind: (el, binding, { data: { attrs: ops = {} }}) => {
+			bind: (el, { value }, { data: { attrs: o = {} }}) => {
+				const ops = value || o
+
+				console.log(ops)
 				setTimeout(() => {
 					const element = ops.el || el
 					const s = new Speed(

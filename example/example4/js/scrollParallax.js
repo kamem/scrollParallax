@@ -130,7 +130,8 @@ function () {
 
   _createClass(ScrollStatus, [{
     key: "setVal",
-    value: function setVal(ops) {
+    value: function setVal() {
+      var ops = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       this.$stage = ops.stage ? ops.stage : global;
       this.direction = ops.direction || this.direction;
       this.debugMode = ops.debugMode || this.debugMode;
@@ -258,7 +259,7 @@ var _offset = function _offset(el, _ref) {
   var direction = _ref.direction;
   var directionPositionName = direction === 'y' ? 'Top' : 'Left';
   var scrollPosition = global["page".concat(direction.toUpperCase(), "Offset")] || document.documentElement["scroll".concat(directionPositionName)];
-  return el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + scrollPosition;
+  return el && el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + scrollPosition;
 };
 var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollPosition) {
   var status = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"];
@@ -909,7 +910,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var Parallax = {
-  install: function install(Vue) {
+  install: function install(Vue, ops) {
+    _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].setVal(ops);
     var $scrollStatus = Vue.observable({
       scrollPosition: _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].scrollPosition,
       values: {}
@@ -928,9 +930,11 @@ var Parallax = {
     _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].$stage.addEventListener('load', pEvent, false);
     Vue.prototype.$scrollStatus = $scrollStatus;
     Vue.directive('parallax-timing', {
-      bind: function bind(el, binding, _ref) {
-        var _ref$data$attrs = _ref.data.attrs,
-            ops = _ref$data$attrs === void 0 ? {} : _ref$data$attrs;
+      bind: function bind(el, _ref, _ref2) {
+        var value = _ref.value;
+        var _ref2$data$attrs = _ref2.data.attrs,
+            o = _ref2$data$attrs === void 0 ? {} : _ref2$data$attrs;
+        var ops = value || o;
         var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](ops.el || el, ops.eventScrollPosition, ops.timingLinePercent || 50, [function () {
           return el.classList.add('on');
         }, function () {
@@ -942,9 +946,12 @@ var Parallax = {
       }
     });
     Vue.directive('parallax-speed', {
-      bind: function bind(el, binding, _ref2) {
-        var _ref2$data$attrs = _ref2.data.attrs,
-            ops = _ref2$data$attrs === void 0 ? {} : _ref2$data$attrs;
+      bind: function bind(el, _ref3, _ref4) {
+        var value = _ref3.value;
+        var _ref4$data$attrs = _ref4.data.attrs,
+            o = _ref4$data$attrs === void 0 ? {} : _ref4$data$attrs;
+        var ops = value || o;
+        console.log(ops);
         setTimeout(function () {
           var element = ops.el || el;
           var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"](element, ops.styles, ops.speed || 2, ops.min || -99999, ops.max || 99999, ops.contentScrollPosition || 0, ops.contentScrollPositionStyleValue);
@@ -959,10 +966,10 @@ var Parallax = {
       }
     });
     Vue.directive('parallax-fit', {
-      bind: function bind(el, _ref3, _ref4) {
-        var value = _ref3.value;
-        var _ref4$data$attrs = _ref4.data.attrs,
-            o = _ref4$data$attrs === void 0 ? {} : _ref4$data$attrs;
+      bind: function bind(el, _ref5, _ref6) {
+        var value = _ref5.value;
+        var _ref6$data$attrs = _ref6.data.attrs,
+            o = _ref6$data$attrs === void 0 ? {} : _ref6$data$attrs;
         setTimeout(function () {
           var fit = new _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"](el);
           var ops = value || o;

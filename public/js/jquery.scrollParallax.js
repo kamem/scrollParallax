@@ -130,7 +130,8 @@ function () {
 
   _createClass(ScrollStatus, [{
     key: "setVal",
-    value: function setVal(ops) {
+    value: function setVal() {
+      var ops = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       this.$stage = ops.stage ? ops.stage : global;
       this.direction = ops.direction || this.direction;
       this.debugMode = ops.debugMode || this.debugMode;
@@ -258,7 +259,7 @@ var _offset = function _offset(el, _ref) {
   var direction = _ref.direction;
   var directionPositionName = direction === 'y' ? 'Top' : 'Left';
   var scrollPosition = global["page".concat(direction.toUpperCase(), "Offset")] || document.documentElement["scroll".concat(directionPositionName)];
-  return el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + scrollPosition;
+  return el && el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + scrollPosition;
 };
 var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollPosition) {
   var status = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"];
