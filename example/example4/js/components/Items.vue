@@ -2,9 +2,10 @@
   <section :class="['parallax-item', name]" :id="name">
     <h2 class="parallax-item-title"><slot name="title" /></h2>
     <div class="parallax-body">
-      <p class="parallax-item-text"><slot name="text" /></p>
-      <p class="parallax-item-code"><slot name="code" /></p>
+      <p class="parallax-item-text" v-if="$slots.text"><slot name="text" /></p>
+      <p class="parallax-item-code" v-if="$slots.code"><slot name="code" /></p>
     </div>
+    <slot />
     <div class="materials"><slot name="materials" /></div>
   </section>
 </template>

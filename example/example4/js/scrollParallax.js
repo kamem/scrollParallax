@@ -255,10 +255,11 @@ var getStringColor = function getStringColor(styleValue) {
     return '#' + colors[color];
   });
 };
-var _offset = function _offset(el, _ref) {
+var _offset = function _offset(element, _ref) {
   var direction = _ref.direction;
   var directionPositionName = direction === 'y' ? 'Top' : 'Left';
   var scrollPosition = global["page".concat(direction.toUpperCase(), "Offset")] || document.documentElement["scroll".concat(directionPositionName)];
+  var el = typeof element !== 'string' ? element : document.querySelector(element);
   return el && el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + scrollPosition;
 };
 var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollPosition) {
@@ -274,7 +275,7 @@ var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollP
   if (~['string', 'object'].indexOf(_typeof(scrollPosition))) {
     var i = typeof scrollPosition === 'string' ? scrollPosition.split(',') : scrollPosition;
     var positionName = i[0];
-    var position = typeof positionName !== 'string' ? _offset(positionName, status) : ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(document.querySelector(positionName), status);
+    var position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(positionName, status);
     return Math.min(position + (parseInt(i[1]) || 0), lastScrollPosition);
   }
 
@@ -935,7 +936,8 @@ var Parallax = {
         var _ref2$data$attrs = _ref2.data.attrs,
             o = _ref2$data$attrs === void 0 ? {} : _ref2$data$attrs;
         var ops = value || o;
-        var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](ops.el || el, ops.eventScrollPosition, ops.timingLinePercent || 50, [function () {
+        console.log(ops);
+        var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](ops.el || el, ops.eventScrollPosition, ops.timingLinePercent || 50, ops.toggle || [function () {
           return el.classList.add('on');
         }, function () {
           return el.classList.remove('on');
@@ -951,7 +953,6 @@ var Parallax = {
         var _ref4$data$attrs = _ref4.data.attrs,
             o = _ref4$data$attrs === void 0 ? {} : _ref4$data$attrs;
         var ops = value || o;
-        console.log(ops);
         setTimeout(function () {
           var element = ops.el || el;
           var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"](element, ops.styles, ops.speed || 2, ops.min || -99999, ops.max || 99999, ops.contentScrollPosition || 0, ops.contentScrollPositionStyleValue);

@@ -6,12 +6,18 @@
       <article>
         <MainHeader />
 
+        <Items name="install">
+          <template v-slot:title>Install</template>
+          <p class="install-code">npm install jquery.scroll-parallax</p>
+          <p class="install-code">yarn add jquery.scroll-parallax</p>
+        </Items>
+
         <Items name="timing">
-          <template slot="title">Timing</template>
-          <template slot="text">任意の位置を通過したときに関数を実します。<br>
+          <template v-slot:title>Timing</template>
+          <template v-slot:text>任意の位置を通過したときに関数を実します。<br>
     スクロールしたときに上から下、下から上に向かって<br>
     通過したときにそれぞれ関数を実行します。</template>
-          <template slot="code">$(el).parallaxTiming([
+          <template v-slot:code>$(el).parallaxTiming([
       function(e) {
         console.log(’上から下’)
       },
@@ -27,14 +33,12 @@
           </div>
         </Items>
 
-
-
         <Items name="speed">
-          <template slot="title">Speed</template>
-          <template slot="text">任意の位置を通過したときに関数を実行します。<br>
+          <template v-slot:title>Speed</template>
+          <template v-slot:text>任意の位置を通過したときに関数を実行します。<br>
     スクロールしたときに上から下、下から上に向かって<br>
     通過したときにそれぞれ関数を実行します。</template>
-          <template slot="code">$(el).parallaxSpeed({
+          <template v-slot:code>$(el).parallaxSpeed({
       style: 'top',
       speed: 2,
       fixScrollPosition: 500
@@ -42,12 +46,12 @@
         </Items>
 
         <Items name="fit">
-          <template slot="title">Fit</template>
-          <template slot="text">移動距離に応じてcssを変化させます。<br>
+          <template v-slot:title>Fit</template>
+          <template v-slot:text>移動距離に応じてcssを変化させます。<br>
     スクロールがstartからendまで移動したときに<br>
     fromStyleからtoStyleにcssが変化していきます。<br>
     easingを指定することも可能です。</template>
-          <template slot="code">$(el).parallaxFit([{
+          <template v-slot:code>$(el).parallaxFit([{
       start: 0,
       end: 200,
       fromStyle: {
@@ -76,20 +80,20 @@ export default {
     Items,
   },
   mounted() {
-    this.parallaxTiming({
-      eventScrollPosition: 600,
-      toggle: [
-        function(e) {console.log(e)},
-        function(e) {console.log(e)},
-      ]
-    })
-    this.parallaxTiming({
-      eventScrollPosition: 800,
-      toggle: [
-        function(e) {console.log(e)},
-        function(e) {console.log(e)},
-      ]
-    })
+    // this.parallaxTiming({
+    //   eventScrollPosition: 600,
+    //   toggle: [
+    //     function(e) {console.log(e)},
+    //     function(e) {console.log(e)},
+    //   ]
+    // })
+    // this.parallaxTiming({
+    //   eventScrollPosition: 800,
+    //   toggle: [
+    //     function(e) {console.log(e)},
+    //     function(e) {console.log(e)},
+    //   ]
+    // })
     this.parallaxFit(
       'fit',
       [
@@ -124,6 +128,13 @@ export default {
 #contents {
   width: 100%;
   overflow: hidden;
+}
+
+.install-code {
+  margin: 32px auto 0;
+  padding: 8px 16px;
+  background-color: var(--color-black);
+  letter-spacing: 0.1em;
 }
 
 * {

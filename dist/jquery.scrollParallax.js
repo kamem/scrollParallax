@@ -255,10 +255,11 @@ var getStringColor = function getStringColor(styleValue) {
     return '#' + colors[color];
   });
 };
-var _offset = function _offset(el, _ref) {
+var _offset = function _offset(element, _ref) {
   var direction = _ref.direction;
   var directionPositionName = direction === 'y' ? 'Top' : 'Left';
   var scrollPosition = global["page".concat(direction.toUpperCase(), "Offset")] || document.documentElement["scroll".concat(directionPositionName)];
+  var el = typeof element !== 'string' ? element : document.querySelector(element);
   return el && el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + scrollPosition;
 };
 var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollPosition) {
@@ -274,7 +275,7 @@ var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollP
   if (~['string', 'object'].indexOf(_typeof(scrollPosition))) {
     var i = typeof scrollPosition === 'string' ? scrollPosition.split(',') : scrollPosition;
     var positionName = i[0];
-    var position = typeof positionName !== 'string' ? _offset(positionName, status) : ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(document.querySelector(positionName), status);
+    var position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(positionName, status);
     return Math.min(position + (parseInt(i[1]) || 0), lastScrollPosition);
   }
 

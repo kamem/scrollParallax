@@ -35,11 +35,12 @@ const Parallax = {
 		Vue.directive('parallax-timing', {
 			bind: (el, { value }, { data: { attrs: o = {} }}) => {
 				const ops = value || o
+				console.log(ops)
 				const timing = new Timing(
 					ops.el || el,
 					ops.eventScrollPosition,
 					ops.timingLinePercent || 50,
-					[
+					ops.toggle || [
 						() => el.classList.add('on'),
 						() => el.classList.remove('on'),
 					]
@@ -52,8 +53,6 @@ const Parallax = {
 		Vue.directive('parallax-speed', {
 			bind: (el, { value }, { data: { attrs: o = {} }}) => {
 				const ops = value || o
-
-				console.log(ops)
 				setTimeout(() => {
 					const element = ops.el || el
 					const s = new Speed(

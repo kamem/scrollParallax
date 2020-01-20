@@ -3,11 +3,11 @@
 	<p class="site-name">jquery.scroll.parallax</p>
 	<nav class="gnav">
 		<ul>
-			<li class="gnav-item header"><a href="#header">top</a></li>
-			<li class="gnav-item install"><a href="#install">install</a></li>
-			<li class="gnav-item timing"><a href="#timing">Timing</a></li>
-			<li class="gnav-item speed"><a href="#speed">speed</a></li>
-			<li class="gnav-item fit"><a href="#fit">fit</a></li>
+      <GnavItem name="header">top</GnavItem>
+      <GnavItem name="install">install</GnavItem>
+      <GnavItem name="timing">timing</GnavItem>
+      <GnavItem name="speed">speed</GnavItem>
+      <GnavItem name="fit">fit</GnavItem>
 		</ul>
 	</nav>
 	<div class="material">
@@ -31,30 +31,7 @@
 		<g>
 			<path class="dropPath" style="fill-rule:evenodd;clip-rule:evenodd;fill:#1176ff;" d="M21.001,0C21.001,0,0,44.625,0,63.751
 				c0,11.728,9.41,21.25,21.001,21.25c11.59,0,21-9.522,21-21.25C42.001,44.625,21.001,0,21.001,0z"
-        v-parallax-fit="[
-          {
-            start: 0,
-            end: '#timing',
-            fromStyle: {
-              fill: '#1176ff'
-            },
-            toStyle: {
-              fill: '#67ad0c'
-            },
-          },
-          {
-            end: ['#speed', -300],
-            toStyle: {
-              fill: '#ff15d0'
-            },
-          },
-          {
-            end: 'last',
-            toStyle: {
-              fill: '#1176ff'
-            },
-          },
-        ]"
+        v-parallax-fit="dropPath"
       />
 		</g>
 		</svg>
@@ -69,8 +46,41 @@
 </template>
 
 <script>
+import GnavItem from './GnavItem'
+
 export default {
   name: 'Header',
+  components: {
+    GnavItem
+  },
+  data() {
+    return {
+      dropPath:[
+        {
+          start: 0,
+          end: '#timing',
+          fromStyle: {
+            fill: '#1176ff'
+          },
+          toStyle: {
+            fill: '#67ad0c'
+          },
+        },
+        {
+          end: ['#speed', -300],
+          toStyle: {
+            fill: '#ff15d0'
+          },
+        },
+        {
+          end: 'last',
+          toStyle: {
+            fill: '#1176ff'
+          },
+        },
+      ]
+    }
+  },
   mounted() {
   },
   methods: {

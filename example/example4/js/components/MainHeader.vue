@@ -3,32 +3,29 @@
     <h1 class="main-title">jquery.scroll.parallax</h1>
     <p class="main-text">このプラグインには3つの機能があります。</p>
 
-    <a href="#timing" class="main-parallax-item">
-    <dl>
-      <dt class="main-parallax-item-label">Timing</dt>
-      <dd class="main-parallax-item-value">任意の位置を通過したときに関数を実行する</dd>
-    </dl>
-    </a>
-
-    <a href="#speed" class="main-parallax-item">
-    <dl>
-      <dt class="main-parallax-item-label">Speed</dt>
-      <dd class="main-parallax-item-value">スクロール量に応じてcssを変化させる</dd>
-    </dl>
-    </a>
-
-    <a href="#fit" class="main-parallax-item">
-    <dl>
-      <dt class="main-parallax-item-label">Fit</dt>
-      <dd class="main-parallax-item-value">移動距離に応じてcssを変化させる</dd>
-    </dl>
-    </a>
+    <MainParallaxItem href="#timing">
+      <template v-slot:label>Timing</template>
+      <template v-slot:value>任意の位置を通過したときに関数を実行する</template>
+    </MainParallaxItem>
+    <MainParallaxItem href="#speed">
+      <template v-slot:label>Speed</template>
+      <template v-slot:value>スクロール量に応じてcssを変化させる</template>
+    </MainParallaxItem>
+    <MainParallaxItem href="#fit">
+      <template v-slot:label>Fit</template>
+      <template v-slot:value>移動距離に応じてcssを変化させる</template>
+    </MainParallaxItem>
   </header>
 </template>
 
 <script>
+import MainParallaxItem from './MainParallaxItem'
+
 export default {
   name: 'MainHeader',
+  components: {
+    MainParallaxItem
+  },
   mounted() {
   },
   methods: {
