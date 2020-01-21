@@ -6,7 +6,6 @@
       <p class="parallax-item-code" v-if="$slots.code"><slot name="code" /></p>
     </div>
     <slot />
-    <div class="materials"><slot name="materials" /></div>
   </section>
 </template>
 

@@ -25,12 +25,6 @@
         console.log(’下から上’)
       }
     ])</template>
-
-          <div class="circles">
-            <div class="circle"></div>
-            <div class="circle"></div>
-            <div class="circle"></div>
-          </div>
         </Items>
 
         <Items name="speed">
@@ -62,6 +56,8 @@
       },
       easing: 'easeOutCubic'
     }]</template>
+
+          <Circles />
         </Items>
       </article>
     </main>
@@ -72,12 +68,14 @@
 import Header from './components/Header'
 import MainHeader from './components/MainHeader'
 import Items from './components/Items'
+import Circles from './components/Circles'
 export default {
   name: 'App',
   components: {
     Header,
     MainHeader,
     Items,
+    Circles
   },
   mounted() {
     // this.parallaxTiming({
