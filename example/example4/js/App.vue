@@ -12,7 +12,7 @@
           <p class="install-code">yarn add jquery.scroll-parallax</p>
         </Items>
 
-        <Items name="timing">
+        <Items name="timing" v-parallax-timing>
           <template v-slot:title>Timing</template>
           <template v-slot:text>任意の位置を通過したときに関数を実します。<br>
     スクロールしたときに上から下、下から上に向かって<br>
@@ -25,6 +25,7 @@
         console.log(’下から上’)
       }
     ])</template>
+          <Squares />
         </Items>
 
         <Items name="speed">
@@ -37,6 +38,7 @@
       speed: 2,
       fixScrollPosition: 500
     })</template>
+          <Triangles />
         </Items>
 
         <Items name="fit">
@@ -68,6 +70,8 @@
 import Header from './components/Header'
 import MainHeader from './components/MainHeader'
 import Items from './components/Items'
+import Squares from './components/Squares'
+import Triangles from './components/Triangles'
 import Circles from './components/Circles'
 export default {
   name: 'App',
@@ -75,7 +79,8 @@ export default {
     Header,
     MainHeader,
     Items,
-    Circles
+    Circles,
+    Squares
   },
   mounted() {
     // this.parallaxTiming({

@@ -35,7 +35,6 @@ const Parallax = {
 		Vue.directive('parallax-timing', {
 			bind: (el, { value }, { data: { attrs: o = {} }}) => {
 				const ops = value || o
-				console.log(ops)
 				const timing = new Timing(
 					ops.el || el,
 					ops.eventScrollPosition,

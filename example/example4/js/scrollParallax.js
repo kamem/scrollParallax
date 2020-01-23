@@ -936,7 +936,6 @@ var Parallax = {
         var _ref2$data$attrs = _ref2.data.attrs,
             o = _ref2$data$attrs === void 0 ? {} : _ref2$data$attrs;
         var ops = value || o;
-        console.log(ops);
         var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](ops.el || el, ops.eventScrollPosition, ops.timingLinePercent || 50, ops.toggle || [function () {
           return el.classList.add('on');
         }, function () {
