@@ -1,20 +1,12 @@
 import '../css/app.css'
 
-const $contents = $('#header, #install, #timing, #speed, #fit')
 const $nav = $('.gnav > ul > *')
 
-$contents.each(function () {
-  $(this).parallaxTiming([
-    selectNav,
-    selectNav
-  ])
+$nav.each(function () {
+  $(this).parallaxTiming({el: $(this).find('a').attr('href')})
 })
 
-function selectNav(e) {
-  const index = $contents.index(e.target) + (e.isOver ? 0 : -1)
-  $nav.removeClass('on').eq(index).addClass('on')
-  $contents.removeClass('on').eq(index).addClass('on')
-}
+$('#timing').parallaxTiming()
 
 
 $('.material').append('<div class="borders"></div>')

@@ -556,13 +556,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Timing =
 /*#__PURE__*/
 function () {
-  function Timing($el, eventScrollPosition, timingLinePercent, events) {
+  function Timing($el, eventScrollPosition, center, events) {
     _classCallCheck(this, Timing);
 
     this.isOver = false;
     this.$el = $el;
     this.eventScrollElementPosition = eventScrollPosition;
-    this.timingLinePercent = timingLinePercent || 50;
+    this.center = center || 50;
     this.events = events;
   }
 
@@ -579,7 +579,7 @@ function () {
       var stageSize = _ref.stageSize,
           scrollPosition = _ref.scrollPosition,
           direction = _ref.direction;
-      this.eventScrollPlussWindowPerCentPosition = scrollPosition + stageSize * (this.timingLinePercent / 100);
+      this.eventScrollPlussWindowPerCentPosition = scrollPosition + stageSize * (this.center / 100);
       var isOver = this.eventScrollPlussWindowPerCentPosition >= this.getEventScrollElementPosition(direction);
 
       if (isOver !== this.isOver) {
@@ -936,7 +936,7 @@ var Parallax = {
         var _ref2$data$attrs = _ref2.data.attrs,
             o = _ref2$data$attrs === void 0 ? {} : _ref2$data$attrs;
         var ops = value || o;
-        var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](ops.el || el, ops.eventScrollPosition, ops.timingLinePercent || 50, ops.toggle || [function () {
+        var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](ops.el || el, ops.eventScrollPosition, ops.center || 50, ops.toggle || [function () {
           return el.classList.add('on');
         }, function () {
           return el.classList.remove('on');
@@ -1017,7 +1017,7 @@ var Parallax = {
     Vue.mixin({
       methods: {
         parallaxTiming: function parallaxTiming(ops) {
-          var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"]('', ops.eventScrollPosition, ops.timingLinePercent || 50, Object.prototype.toString.call(ops) === '[object Array]' ? ops : ops.start ? [ops.start, ops.end] : ops.toggle);
+          var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"]('', ops.eventScrollPosition, ops.center || 50, Object.prototype.toString.call(ops) === '[object Array]' ? ops : ops.start ? [ops.start, ops.end] : ops.toggle);
           _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.push(function (status) {
             return _defineProperty({}, ops.name, timing.timingEvent(status));
           });

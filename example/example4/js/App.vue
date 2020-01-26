@@ -8,23 +8,14 @@
 
         <Items name="install">
           <template v-slot:title>Install</template>
-          <p class="install-code">npm install jquery.scroll-parallax</p>
-          <p class="install-code">yarn add jquery.scroll-parallax</p>
+          <p class="install-code">npm install scroll-parallax</p>
+          <p class="install-code">yarn add scroll-parallax</p>
         </Items>
 
         <Items name="timing" v-parallax-timing>
           <template v-slot:title>Timing</template>
-          <template v-slot:text>任意の位置を通過したときに関数を実します。<br>
-    スクロールしたときに上から下、下から上に向かって<br>
-    通過したときにそれぞれ関数を実行します。</template>
-          <template v-slot:code>$(el).parallaxTiming([
-      function(e) {
-        console.log(’上から下’)
-      },
-      function(e) {
-        console.log(’下から上’)
-      }
-    ])</template>
+          <template v-slot:text>任意の位置を通過したときに関数を実します。スクロールしたときに上から下、下から上に向かって通過したときにそれぞれ関数を実行します。関数指定がない場合指定したタグを通過したときにonのクラスを追加します。</template>
+          <template v-slot:code>&lt;div v-parallax-timing /&gt;</template>
           <Squares />
         </Items>
 
@@ -33,11 +24,12 @@
           <template v-slot:text>任意の位置を通過したときに関数を実行します。<br>
     スクロールしたときに上から下、下から上に向かって<br>
     通過したときにそれぞれ関数を実行します。</template>
-          <template v-slot:code>$(el).parallaxSpeed({
-      style: 'top',
-      speed: 2,
-      fixScrollPosition: 500
-    })</template>
+          <template v-slot:code>&lt;div
+  v-parallax-speed
+  styles=&quot;top&quot;
+  :speed=&quot;3&quot;
+  contentScrollPosition=&quot;#speed&quot;
+/&gt;</template>
           <Triangles />
         </Items>
 
@@ -47,17 +39,19 @@
     スクロールがstartからendまで移動したときに<br>
     fromStyleからtoStyleにcssが変化していきます。<br>
     easingを指定することも可能です。</template>
-          <template v-slot:code>$(el).parallaxFit([{
-      start: 0,
-      end: 200,
-      fromStyle: {
-        opacity: 0
-      },
-      toStyle: {
-        opacity: 1
-      },
-      easing: 'easeOutCubic'
-    }]</template>
+          <template v-slot:code>&lt;div
+  v-parallax-fit
+  :start=&quot;1000&quot;
+  :end=&quot;2000&quot;
+  :fromStyle=&quot;{
+    opacity: 0,
+  }&quot;
+  :toStyle=&quot;{
+    opacity: 1,
+  }&quot;
+  easing=&quot;easeOutBack&quot;
+/&gt;
+</template>
 
           <Circles />
         </Items>
@@ -80,7 +74,8 @@ export default {
     MainHeader,
     Items,
     Circles,
-    Squares
+    Squares,
+    Triangles
   },
   mounted() {
     // this.parallaxTiming({
@@ -127,6 +122,7 @@ export default {
 :root {
   --color-black: rgba(0, 0, 0, 0.8);
 }
+
 
 #contents {
   width: 100%;

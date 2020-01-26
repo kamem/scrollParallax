@@ -556,13 +556,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Timing =
 /*#__PURE__*/
 function () {
-  function Timing($el, eventScrollPosition, timingLinePercent, events) {
+  function Timing($el, eventScrollPosition, center, events) {
     _classCallCheck(this, Timing);
 
     this.isOver = false;
     this.$el = $el;
     this.eventScrollElementPosition = eventScrollPosition;
-    this.timingLinePercent = timingLinePercent || 50;
+    this.center = center || 50;
     this.events = events;
   }
 
@@ -579,7 +579,7 @@ function () {
       var stageSize = _ref.stageSize,
           scrollPosition = _ref.scrollPosition,
           direction = _ref.direction;
-      this.eventScrollPlussWindowPerCentPosition = scrollPosition + stageSize * (this.timingLinePercent / 100);
+      this.eventScrollPlussWindowPerCentPosition = scrollPosition + stageSize * (this.center / 100);
       var isOver = this.eventScrollPlussWindowPerCentPosition >= this.getEventScrollElementPosition(direction);
 
       if (isOver !== this.isOver) {
@@ -917,12 +917,20 @@ $.parallax = function (ops) {
 
 
 $.parallaxTiming = function (ops) {
-  this.timingLinePercent = ops.timingLinePercent;
+  this.center = ops.center;
 };
 
-$.fn.parallaxTiming = function (ops) {
+$.fn.parallaxTiming = function () {
+  var _this = this;
+
+  var ops = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var positionName = _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].directionPositionName.toLocaleLowerCase();
-  var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](this[0], ops.eventScrollPosition, ops.timingLinePercent || $.timingLinePercent, Object.prototype.toString.call(ops) === '[object Array]' ? ops : ops.start ? [ops.start, ops.end] : ops.toggle);
+  var timingEvent = Object.prototype.toString.call(ops) === '[object Array]' ? ops : ops.start ? [ops.start, ops.end] : ops.toggle;
+  var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](ops.el || this[0], ops.eventScrollPosition, ops.center || $.center, timingEvent || [function () {
+    return $(_this).addClass('on');
+  }, function () {
+    return $(_this).removeClass('on');
+  }]);
   _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.push(function (status) {
     timing.timingEvent(status);
 

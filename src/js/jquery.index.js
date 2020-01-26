@@ -11,16 +11,20 @@ $.parallax = (ops) => {
 
 /* timing default options */
 $.parallaxTiming = function(ops) {
-	this.timingLinePercent = ops.timingLinePercent
+	this.center = ops.center
 }
 
-$.fn.parallaxTiming = function(ops) {
+$.fn.parallaxTiming = function(ops = {}) {
 	const positionName = Status.directionPositionName.toLocaleLowerCase()
+	const timingEvent = Object.prototype.toString.call(ops) === '[object Array]' ? ops : (ops.start ? [ops.start, ops.end] : ops.toggle)
 	const timing = new Timing(
-		this[0],
+		ops.el || this[0],
 		ops.eventScrollPosition,
-		ops.timingLinePercent || $.timingLinePercent,
-		Object.prototype.toString.call(ops) === '[object Array]' ? ops : (ops.start ? [ops.start, ops.end] : ops.toggle)
+		ops.center || $.center,
+		timingEvent ||[
+			() => $(this).addClass('on'),
+			() => $(this).removeClass('on'),
+		]
 	)
 
 	Status.functions.push((status) => {

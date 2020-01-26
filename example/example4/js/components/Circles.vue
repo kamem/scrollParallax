@@ -1,18 +1,19 @@
 <template>
   <div class="circles">
-    <div class="circle" v-for="i of 3" 
-    :start="['last', -300 + i * 50]"
-    :end="['last', i * 100]"
-    :fromStyle="{
-      opacity: 0,
-      transform: 'scale(0.3)',
-    }"
-    :toStyle="{
-      opacity: 1,
-      transform: 'scale(1)',
-    }"
-    easing="easeOutBack"
-    v-parallax-fit />
+    <div class="circle" v-for="i of 3"
+      v-parallax-fit
+      :start="['last', -300 + i * 50]"
+      :end="['last', i * 100]"
+      :fromStyle="{
+        opacity: 0,
+        transform: 'scale(0.3)',
+      }"
+      :toStyle="{
+        opacity: 1,
+        transform: 'scale(1)',
+      }"
+      easing="easeOutBack"
+    />
   </div>
 </template>
 

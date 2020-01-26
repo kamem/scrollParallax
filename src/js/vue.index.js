@@ -38,7 +38,7 @@ const Parallax = {
 				const timing = new Timing(
 					ops.el || el,
 					ops.eventScrollPosition,
-					ops.timingLinePercent || 50,
+					ops.center || 50,
 					ops.toggle || [
 						() => el.classList.add('on'),
 						() => el.classList.remove('on'),
@@ -123,7 +123,7 @@ const Parallax = {
 					const timing = new Timing(
 						'',
 						ops.eventScrollPosition,
-						ops.timingLinePercent || 50,
+						ops.center || 50,
 						Object.prototype.toString.call(ops) === '[object Array]' ? ops : (ops.start ? [ops.start, ops.end] : ops.toggle)
 					)
 					Status.functions.push((status) => ({

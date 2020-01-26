@@ -1,6 +1,6 @@
 <template>
 <header id="header">
-	<p class="site-name">jquery.scroll.parallax</p>
+	<p class="site-name">vue.scroll.parallax</p>
 	<nav class="gnav">
 		<ul>
       <GnavItem name="header">top</GnavItem>
@@ -41,17 +41,20 @@
       contentScrollPositionStyleValue="rotate(0deg)"
       :speed="-0.2"
     />
+    <Borders />
 	</div>
 </header>
 </template>
 
 <script>
 import GnavItem from './GnavItem'
+import Borders from './Borders'
 
 export default {
   name: 'Header',
   components: {
-    GnavItem
+    GnavItem,
+    Borders
   },
   data() {
     return {
@@ -97,12 +100,13 @@ export default {
   z-index: -1;
 }
 
-.borders {
-  transform: rotate(45deg);
+.material {
   position: absolute;
-  top: -150px;
-  left: -150px;
   z-index: -1;
+  top: 0;
+  width: 100%;
+  height: 3400px;
+  overflow: hidden;
 }
 
 .drop {
@@ -111,14 +115,6 @@ export default {
   left: 0;
   right: 0;
   margin: 0 auto;
-}
-
-.material .border {
-  margin-bottom: 8px;
-  background-color: #1176ff;
-  width: 300px;
-  height: 54px;
-  position: relative;
 }
 
 .site-name {

@@ -1,6 +1,19 @@
 <template>
-  <div class="squares">
-    <div class="square" v-for="i of 3"></div>
+  <div class="triangles">
+    <img 
+      class="triangle"
+      v-for="i of 3"
+      src="/img/triangle.svg"
+      v-parallax-speed
+      :styles="['transform', 'top', 'opacity']"
+      :contentScrollPositionStyleValue="`rotate(${Math.floor(Math.random() * 60 * i)}deg)`"
+      :speed="[
+        Math.random() * 0.05 * ([-1, 1][Math.floor(Math.random() * 2)]),
+        Math.random() * 0.15,
+        0.005
+      ]"
+      contentScrollPosition="#speed"
+    />
   </div>
 </template>
 

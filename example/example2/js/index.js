@@ -2,15 +2,13 @@ import '../css/app.css'
 
 $.parallax({direction: 'x'})
 
-const $contents = $('#header, #install, #timing, #speed, #fit')
 const $nav = $('.gnav > ul > *')
 
-$contents.each(function(){
-  $(this).parallaxTiming([
-    selectNav,
-    selectNav
-  ])
+$nav.each(function () {
+  $(this).parallaxTiming({el: $(this).find('a').attr('href')})
 })
+
+$('#timing').parallaxTiming()
 
 function selectNav(e) {
   const index = $contents.index(e.target) + (e.isOver ? 0 : -1)
