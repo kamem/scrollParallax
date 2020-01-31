@@ -24,7 +24,6 @@ export default class ScrollStatus {
 		this.setDirectionInfo()
 	}
 	scrollEventUpdate() {
-		this.updateFunction && this.updateFunction(this)
 		this.update()
 
 		if(this.updateFunction) {

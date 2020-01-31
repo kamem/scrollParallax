@@ -161,7 +161,6 @@ function () {
     value: function scrollEventUpdate() {
       var _this = this;
 
-      this.updateFunction && this.updateFunction(this);
       this.update();
 
       if (this.updateFunction) {
