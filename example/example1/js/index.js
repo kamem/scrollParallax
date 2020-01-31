@@ -63,6 +63,7 @@ $('.dropPath').parallaxFit([
 $('.gear').parallaxSpeed({
   style: 'transform',
   contentScrollPositionStyleValue: 'rotate(0deg)',
+  targetPercentage: 0.05,
   speed: -0.2,
 })
 
@@ -80,7 +81,7 @@ $('.triangle').each(function (i) {
       Math.random() * 0.15,
       0.005
     ],
-    contentScrollPosition: '#speed'
+    contentScrollPosition: '#speed',
   })
 })
 

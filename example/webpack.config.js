@@ -13,6 +13,7 @@ module.exports = {
     example2: './example/example2/js/index.js',
     example3: './example/example3/js/index.js',
     example4: './example/example4/js/index.js',
+    example5: './example/example5/js/index.js',
   },
   output: {
     path: path.resolve(__dirname, '../public/'),

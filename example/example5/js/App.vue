@@ -75,6 +75,44 @@ export default {
     Squares,
     Triangles
   },
+  mounted() {
+    this.parallaxTiming({
+      eventScrollPosition: 600,
+      toggle: [
+        function(e) {console.log(e)},
+        function(e) {console.log(e)},
+      ]
+    })
+    this.parallaxTiming({
+      eventScrollPosition: 800,
+      toggle: [
+        function(e) {console.log(e)},
+        function(e) {console.log(e)},
+      ]
+    })
+    this.parallaxFit(
+      'fit',
+      [
+        {
+          end: 1000,
+          fromStyle: {
+            opacity: '0'
+          },
+          toStyle: {
+            opacity: '1'
+          },
+        },
+      ]
+    )
+    this.parallaxSpeed({
+      name: 'rotate',
+      style: ['transform', 'top'],
+      contentScrollPositionStyleValue: ['rotate(0deg)', '0px'],
+      speed: 3,
+    })
+  },
+  methods: {
+  },
 }
 </script>
 
@@ -85,7 +123,12 @@ export default {
 
 
 #contents {
-  width: 100%;
+  height: 100%;
+}
+
+#contents > article {
+  display: flex;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -101,12 +144,21 @@ export default {
   padding: 0;
 }
 
+.app {
+  height: 100%;
+}
+
 html{
   scroll-behavior: smooth;
+  height: 100%;
 }
 
 body {
   background-color: #2b2b2b;
   color: #fff;
+  display: flex;
+  width: calc(100% * 5);
+  flex-direction: column;
+  height: 100%;
 }
 </style>

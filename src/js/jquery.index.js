@@ -1,33 +1,37 @@
-import {Status} from './scrollParallax/ScrollStatus'
+import {Status, ScrollPosition} from './scrollParallax/ScrollStatus'
 import Timing from './scrollParallax/Timing'
 import Speed from './scrollParallax/Speed'
 import Fit from './scrollParallax/Fit'
 
 /* all parallax default options */
-$.parallax = (ops) => {
-	Status.setVal(ops)
+$.parallax = (opt) => {
+	Status.setVal(opt)
 	if(Status.debugMode) $('body').append('<p class="parallax-debug" style="border: 1px solid red;position: absolute;' + (Status.direction === 'y' ? 'width' : 'height') + ': 100%;' + (Status.direction === 'y' ? 'left' : 'top') + ': 0;' + '"></p>')
 }
 
 /* timing default options */
-$.parallaxTiming = function(ops) {
-	this.center = ops.center
+$.parallaxTiming = function(opt) {
+	this.center = opt.center
 }
 
-$.fn.parallaxTiming = function(ops = {}) {
+const setScrollEvents = (func, opt, status = Status)=> {
+	status.functions.push([func, opt.targetPercentage && new ScrollPosition({...status, targetPercentage: opt.targetPercentage})])
+}
+
+$.fn.parallaxTiming = function(opt = {}) {
 	const positionName = Status.directionPositionName.toLocaleLowerCase()
-	const timingEvent = Object.prototype.toString.call(ops) === '[object Array]' ? ops : (ops.start ? [ops.start, ops.end] : ops.toggle)
+	const timingEvent = Object.prototype.toString.call(opt) === '[object Array]' ? opt : (opt.start ? [opt.start, opt.end] : opt.toggle)
 	const timing = new Timing(
-		ops.el || this[0],
-		ops.eventScrollPosition,
-		ops.center || $.center,
+		opt.el || this[0],
+		opt.eventScrollPosition,
+		opt.center || $.center,
 		timingEvent ||[
 			() => $(this).addClass('on'),
 			() => $(this).removeClass('on'),
 		]
 	)
 
-	Status.functions.push((status) => {
+	setScrollEvents((status) => {
 		timing.timingEvent(status)
 		if(Status.debugMode){
 			$('body > .parallax-debug').css(
@@ -35,77 +39,67 @@ $.fn.parallaxTiming = function(ops = {}) {
 				timing.eventScrollPlussWindowPerCentPosition
 			)
 		}
-  })
-  
+	}, opt)
+	
   return this
 }
 
 /* speed */
-$.fn.parallaxSpeed = function(ops) {
+$.fn.parallaxSpeed = function(opt) {
 	const $el = this
 	const s = new Speed(
 		$el[0],
-		ops.style,
-		ops.speed || 2,
-		ops.min || -99999,
-		ops.max || 99999,
-		ops.contentScrollPosition || 0,
-		ops.contentScrollPositionStyleValue
-	)
+		opt.style,
+		opt.speed || 2,
+		opt.min || -99999,
+		opt.max || 99999,
+		opt.contentScrollPosition || 0,
+		opt.contentScrollPositionStyleValue,
+  )
 
-	Status.functions.push((status) => {
+	setScrollEvents((status) => {
 		$el.css(s.getStyleValues(status))
-	})
+	}, opt)
   
   return this
 }
 
 /* fit */
-$.fn.parallaxFit = function(ops) {
+$.fn.parallaxFit = function(opt) {
 	const $el = this
 	const fit = new Fit($el[0])
 
-	if(ops.length) {
-		ops.forEach((motion) => fit.setMotion(motion))
-	} else if(ops['end'] !== undefined) {
+	if(opt.length) {
+		opt.forEach((motion) => fit.setMotion(motion))
+	} else if(opt['end'] !== undefined) {
 		fit.setMotion({
-			start: ops['start'],
-			end: ops['end'],
-			fromStyle: ops['fromStyle'],
-			toStyle:  ops['toStyle'],
-			easing: ops['easing']
+			start: opt['start'],
+			end: opt['end'],
+			fromStyle: opt['fromStyle'],
+			toStyle:  opt['toStyle'],
+			easing: opt['easing']
 		})
 	}
-	for(let i = 1; ops['motion' + i + 'End'] !== undefined; i++) {
+	for(let i = 1; opt['motion' + i + 'End'] !== undefined; i++) {
 		const motion = 'motion' + i;
 		fit.setMotion({
-			start: ops[motion + 'Start'],
-			end: ops[motion + 'End'],
-			fromStyle: ops[motion + 'FromStyle'],
-			toStyle:  ops[motion + 'ToStyle'],
-			easing: ops[motion + 'Easing']
+			start: opt[motion + 'Start'],
+			end: opt[motion + 'End'],
+			fromStyle: opt[motion + 'FromStyle'],
+			toStyle:  opt[motion + 'ToStyle'],
+			easing: opt[motion + 'Easing']
 		})
 	}
 	fit.setFromStyle()
 	fit.setStyleValues()
 	fit.setStart()
 
-	Status.functions.push((status) => {
+	setScrollEvents((status) => {
 		fit.setRangeMotions(status)
 		fit.setDefaultStyles()
 
 		$el.css(fit.getStyleValues(status))
-	})
-  
+	}, opt)
+
   return this
 }
-
-/* event */
-$(Status.$stage).on('scroll resize load', () => {
-	Status.update()
-	Status.functions.forEach(func => func(Status))
-})
-
-const scrollStop = () => $(Status.$stage).queue([]).stop()
-global.addEventListener('DOMMouseScroll', scrollStop, false)
-global.onmousewheel = document.onmousewheel = scrollStop

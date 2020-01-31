@@ -40,6 +40,7 @@
       styles="transform"
       contentScrollPositionStyleValue="rotate(0deg)"
       :speed="-0.2"
+      :targetPercentage="0.05"
     />
     <Borders />
 	</div>

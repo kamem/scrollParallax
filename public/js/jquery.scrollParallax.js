@@ -108,12 +108,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/* unused harmony export default */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Status; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ScrollPosition; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Status; });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
 var ScrollStatus =
 /*#__PURE__*/
@@ -125,16 +136,24 @@ function () {
     this.direction = 'y';
     this.functions = [];
     this.debugMode = false;
+    this.targetPercentage = 0.2;
     this.setDirectionInfo();
+    this.ScrollPosition = new ScrollPosition(this);
+    this.scrollPosition = this.ScrollPosition.generateScrollPosition();
+    this.scrollEventUpdate();
   }
 
   _createClass(ScrollStatus, [{
     key: "setVal",
     value: function setVal() {
-      var ops = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      this.$stage = ops.stage ? ops.stage : global;
-      this.direction = ops.direction || this.direction;
-      this.debugMode = ops.debugMode || this.debugMode;
+      var opt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      this.$stage = opt.stage ? opt.stage : global;
+      this.direction = opt.direction || this.direction;
+      this.debugMode = opt.debugMode || this.debugMode;
+      this.targetPercentage = opt.targetPercentage || 0.2;
+      this.updateFunction = opt.updateFunction;
+      this.ScrollPosition = new ScrollPosition(this);
+      this.scrollPosition = this.ScrollPosition.generateScrollPosition();
       this.setDirectionInfo();
     }
   }, {
@@ -142,15 +161,29 @@ function () {
     value: function scrollEventUpdate() {
       var _this = this;
 
+      this.updateFunction && this.updateFunction(this);
       this.update();
-      this.functions.forEach(function (func) {
-        return func(_this);
-      });
+
+      if (this.updateFunction) {
+        this.updateFunction(this);
+      } else {
+        this.functions.forEach(function (_ref) {
+          var _ref2 = _slicedToArray(_ref, 2),
+              func = _ref2[0],
+              scrollPosition = _ref2[1];
+
+          return func(scrollPosition ? Object.assign({}, _this, {
+            scrollPosition: scrollPosition.generateScrollPosition()
+          }) : _this);
+        });
+      }
+
+      requestAnimationFrame(this.scrollEventUpdate.bind(this));
     }
   }, {
     key: "update",
     value: function update() {
-      this.scrollPosition = this.$stage["page".concat(this.direction.toUpperCase(), "Offset")];
+      this.scrollPosition = this.ScrollPosition.generateScrollPosition();
       var innerWidth = this.$stage["inner".concat(this.stageSizeName)];
       this.stageSize = innerWidth ? innerWidth : document.documentElement["client".concat(this.stageSizeName)];
       this.contentSize = document.documentElement["scroll".concat(this.stageSizeName)];
@@ -167,8 +200,40 @@ function () {
 }();
 
 
+var ScrollPosition =
+/*#__PURE__*/
+function () {
+  function ScrollPosition() {
+    var opt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, ScrollPosition);
+
+    this.$stage = opt.$stage;
+    this.direction = opt.direction;
+    this.scrollPosition = this.getScrollPosition();
+    this.targetPercentage = opt.targetPercentage || 0.2;
+  }
+
+  _createClass(ScrollPosition, [{
+    key: "getScrollPosition",
+    value: function getScrollPosition() {
+      var direction = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.direction;
+      return this.$stage["page".concat(direction.toUpperCase(), "Offset")];
+    }
+  }, {
+    key: "generateScrollPosition",
+    value: function generateScrollPosition() {
+      var scrollPosition = this.getScrollPosition();
+      var offset = (scrollPosition - this.scrollPosition) * this.targetPercentage;
+      this.scrollPosition += Math.round(offset * 100) / 100;
+      return this.scrollPosition;
+    }
+  }]);
+
+  return ScrollPosition;
+}();
 var Status = new ScrollStatus();
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5)))
 
 /***/ }),
 /* 1 */
@@ -263,7 +328,7 @@ var _offset = function _offset(element, _ref) {
   return el && el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + scrollPosition;
 };
 var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollPosition) {
-  var status = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"];
+  var status = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"];
   var stageSize = status.stageSize,
       contentSize = status.contentSize;
   var lastScrollPosition = contentSize - stageSize;
@@ -513,33 +578,10 @@ var easing = {
     return easing.easeOutBounce(i * 2 - d, 0, c, d) * 0.5 + c * 0.5 + b;
   }
 };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5)))
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
-
-var g; // This works in non-strict mode
-
-g = function () {
-  return this;
-}();
-
-try {
-  // This works if eval is allowed (see CSP)
-  g = g || new Function("return this")();
-} catch (e) {
-  // This works if the window reference is available
-  if (typeof window === "object") g = window;
-} // g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-
-module.exports = g;
-
-/***/ }),
-/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -599,7 +641,7 @@ function () {
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -686,7 +728,7 @@ function () {
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -894,122 +936,141 @@ function () {
 
 
 /***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+var g; // This works in non-strict mode
+
+g = function () {
+  return this;
+}();
+
+try {
+  // This works if eval is allowed (see CSP)
+  g = g || new Function("return this")();
+} catch (e) {
+  // This works if the window reference is available
+  if (typeof window === "object") g = window;
+} // g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+
+module.exports = g;
+
+/***/ }),
 /* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
-/* harmony import */ var _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
-/* harmony import */ var _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
+/* harmony import */ var _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
+/* harmony import */ var _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
 
 /* all parallax default options */
 
-$.parallax = function (ops) {
-  _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].setVal(ops);
-  if (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].debugMode) $('body').append('<p class="parallax-debug" style="border: 1px solid red;position: absolute;' + (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].direction === 'y' ? 'width' : 'height') + ': 100%;' + (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].direction === 'y' ? 'left' : 'top') + ': 0;' + '"></p>');
+$.parallax = function (opt) {
+  _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].setVal(opt);
+  if (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].debugMode) $('body').append('<p class="parallax-debug" style="border: 1px solid red;position: absolute;' + (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].direction === 'y' ? 'width' : 'height') + ': 100%;' + (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].direction === 'y' ? 'left' : 'top') + ': 0;' + '"></p>');
 };
 /* timing default options */
 
 
-$.parallaxTiming = function (ops) {
-  this.center = ops.center;
+$.parallaxTiming = function (opt) {
+  this.center = opt.center;
+};
+
+var setScrollEvents = function setScrollEvents(func, opt) {
+  var status = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"];
+  status.functions.push([func, opt.targetPercentage && new _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* ScrollPosition */ "a"](_objectSpread({}, status, {
+    targetPercentage: opt.targetPercentage
+  }))]);
 };
 
 $.fn.parallaxTiming = function () {
   var _this = this;
 
-  var ops = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var positionName = _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].directionPositionName.toLocaleLowerCase();
-  var timingEvent = Object.prototype.toString.call(ops) === '[object Array]' ? ops : ops.start ? [ops.start, ops.end] : ops.toggle;
-  var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](ops.el || this[0], ops.eventScrollPosition, ops.center || $.center, timingEvent || [function () {
+  var opt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var positionName = _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].directionPositionName.toLocaleLowerCase();
+  var timingEvent = Object.prototype.toString.call(opt) === '[object Array]' ? opt : opt.start ? [opt.start, opt.end] : opt.toggle;
+  var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](opt.el || this[0], opt.eventScrollPosition, opt.center || $.center, timingEvent || [function () {
     return $(_this).addClass('on');
   }, function () {
     return $(_this).removeClass('on');
   }]);
-  _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.push(function (status) {
+  setScrollEvents(function (status) {
     timing.timingEvent(status);
 
-    if (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].debugMode) {
+    if (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].debugMode) {
       $('body > .parallax-debug').css(positionName, timing.eventScrollPlussWindowPerCentPosition);
     }
-  });
+  }, opt);
   return this;
 };
 /* speed */
 
 
-$.fn.parallaxSpeed = function (ops) {
+$.fn.parallaxSpeed = function (opt) {
   var $el = this;
-  var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]($el[0], ops.style, ops.speed || 2, ops.min || -99999, ops.max || 99999, ops.contentScrollPosition || 0, ops.contentScrollPositionStyleValue);
-  _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.push(function (status) {
+  var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]($el[0], opt.style, opt.speed || 2, opt.min || -99999, opt.max || 99999, opt.contentScrollPosition || 0, opt.contentScrollPositionStyleValue);
+  setScrollEvents(function (status) {
     $el.css(s.getStyleValues(status));
-  });
+  }, opt);
   return this;
 };
 /* fit */
 
 
-$.fn.parallaxFit = function (ops) {
+$.fn.parallaxFit = function (opt) {
   var $el = this;
   var fit = new _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]($el[0]);
 
-  if (ops.length) {
-    ops.forEach(function (motion) {
+  if (opt.length) {
+    opt.forEach(function (motion) {
       return fit.setMotion(motion);
     });
-  } else if (ops['end'] !== undefined) {
+  } else if (opt['end'] !== undefined) {
     fit.setMotion({
-      start: ops['start'],
-      end: ops['end'],
-      fromStyle: ops['fromStyle'],
-      toStyle: ops['toStyle'],
-      easing: ops['easing']
+      start: opt['start'],
+      end: opt['end'],
+      fromStyle: opt['fromStyle'],
+      toStyle: opt['toStyle'],
+      easing: opt['easing']
     });
   }
 
-  for (var i = 1; ops['motion' + i + 'End'] !== undefined; i++) {
+  for (var i = 1; opt['motion' + i + 'End'] !== undefined; i++) {
     var motion = 'motion' + i;
     fit.setMotion({
-      start: ops[motion + 'Start'],
-      end: ops[motion + 'End'],
-      fromStyle: ops[motion + 'FromStyle'],
-      toStyle: ops[motion + 'ToStyle'],
-      easing: ops[motion + 'Easing']
+      start: opt[motion + 'Start'],
+      end: opt[motion + 'End'],
+      fromStyle: opt[motion + 'FromStyle'],
+      toStyle: opt[motion + 'ToStyle'],
+      easing: opt[motion + 'Easing']
     });
   }
 
   fit.setFromStyle();
   fit.setStyleValues();
   fit.setStart();
-  _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.push(function (status) {
+  setScrollEvents(function (status) {
     fit.setRangeMotions(status);
     fit.setDefaultStyles();
     $el.css(fit.getStyleValues(status));
-  });
+  }, opt);
   return this;
 };
-/* event */
-
-
-$(_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].$stage).on('scroll resize load', function () {
-  _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].update();
-  _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].functions.forEach(function (func) {
-    return func(_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"]);
-  });
-});
-
-var scrollStop = function scrollStop() {
-  return $(_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "a"].$stage).queue([]).stop();
-};
-
-global.addEventListener('DOMMouseScroll', scrollStop, false);
-global.onmousewheel = document.onmousewheel = scrollStop;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
 
 /***/ })
 /******/ ]);
