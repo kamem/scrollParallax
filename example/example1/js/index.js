@@ -3,7 +3,7 @@ import '../css/app.css'
 const $nav = $('.gnav > ul > *')
 
 $nav.each(function () {
-  $(this).parallaxTiming({el: $(this).find('a').attr('href')})
+  $(this).parallaxTiming({ el: $(this).find('a').attr('href') })
 })
 
 $('#timing').parallaxTiming()
