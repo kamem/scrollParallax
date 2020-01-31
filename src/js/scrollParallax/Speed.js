@@ -1,4 +1,4 @@
-import { 
+import {
   getStyleValues,
   generateStyleValue,
   generateStyleValueString,
@@ -43,7 +43,7 @@ export default class Speed {
       return newValue
     })
   }
-  getStyleValues({scrollPosition}) {
+  getStyleValues({ scrollPosition }) {
     return this.styles.reduce((result, style) => {
       return Object.assign(
         {},

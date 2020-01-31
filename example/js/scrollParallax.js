@@ -107,138 +107,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {/* unused harmony export default */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ScrollPosition; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Status; });
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-
-var ScrollStatus =
-/*#__PURE__*/
-function () {
-  function ScrollStatus() {
-    _classCallCheck(this, ScrollStatus);
-
-    this.$stage = global;
-    this.direction = 'y';
-    this.functions = [];
-    this.debugMode = false;
-    this.targetPercentage = 0.2;
-    this.setDirectionInfo();
-    this.ScrollPosition = new ScrollPosition(this);
-    this.scrollPosition = this.ScrollPosition.generateScrollPosition();
-    this.scrollEventUpdate();
-  }
-
-  _createClass(ScrollStatus, [{
-    key: "setVal",
-    value: function setVal() {
-      var opt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      this.$stage = opt.stage ? opt.stage : global;
-      this.direction = opt.direction || this.direction;
-      this.debugMode = opt.debugMode || this.debugMode;
-      this.targetPercentage = opt.targetPercentage || 0.2;
-      this.updateFunction = opt.updateFunction;
-      this.ScrollPosition = new ScrollPosition(this);
-      this.scrollPosition = this.ScrollPosition.generateScrollPosition();
-      this.setDirectionInfo();
-    }
-  }, {
-    key: "scrollEventUpdate",
-    value: function scrollEventUpdate() {
-      var _this = this;
-
-      this.update();
-
-      if (this.updateFunction) {
-        this.updateFunction(this);
-      } else {
-        this.functions.forEach(function (_ref) {
-          var _ref2 = _slicedToArray(_ref, 2),
-              func = _ref2[0],
-              scrollPosition = _ref2[1];
-
-          return func(scrollPosition ? Object.assign({}, _this, {
-            scrollPosition: scrollPosition.generateScrollPosition()
-          }) : _this);
-        });
-      }
-
-      requestAnimationFrame(this.scrollEventUpdate.bind(this));
-    }
-  }, {
-    key: "update",
-    value: function update() {
-      this.scrollPosition = this.ScrollPosition.generateScrollPosition();
-      var innerWidth = this.$stage["inner".concat(this.stageSizeName)];
-      this.stageSize = innerWidth ? innerWidth : document.documentElement["client".concat(this.stageSizeName)];
-      this.contentSize = document.documentElement["scroll".concat(this.stageSizeName)];
-    }
-  }, {
-    key: "setDirectionInfo",
-    value: function setDirectionInfo() {
-      this.directionPositionName = this.direction === 'y' ? 'Top' : 'Left';
-      this.stageSizeName = this.direction === 'y' ? 'Height' : 'Width';
-    }
-  }]);
-
-  return ScrollStatus;
-}();
-
-
-var ScrollPosition =
-/*#__PURE__*/
-function () {
-  function ScrollPosition() {
-    var opt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-    _classCallCheck(this, ScrollPosition);
-
-    this.$stage = opt.$stage;
-    this.direction = opt.direction;
-    this.scrollPosition = this.getScrollPosition();
-    this.targetPercentage = opt.targetPercentage || 0.2;
-  }
-
-  _createClass(ScrollPosition, [{
-    key: "getScrollPosition",
-    value: function getScrollPosition() {
-      var direction = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.direction;
-      return this.$stage["page".concat(direction.toUpperCase(), "Offset")];
-    }
-  }, {
-    key: "generateScrollPosition",
-    value: function generateScrollPosition() {
-      var scrollPosition = this.getScrollPosition();
-      var offset = (scrollPosition - this.scrollPosition) * this.targetPercentage;
-      this.scrollPosition += Math.round(offset * 100) / 100;
-      return this.scrollPosition;
-    }
-  }]);
-
-  return ScrollPosition;
-}();
-var Status = new ScrollStatus();
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5)))
-
-/***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getStyleValues; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return generateStyleValue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return generateStyleValueString; });
@@ -249,7 +117,7 @@ var Status = new ScrollStatus();
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _offset; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return scrollPositionStringToNumber; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return easing; });
-/* harmony import */ var _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
@@ -580,12 +448,144 @@ var easing = {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5)))
 
 /***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/* unused harmony export default */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ScrollPosition; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Status; });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+var ScrollStatus =
+/*#__PURE__*/
+function () {
+  function ScrollStatus() {
+    _classCallCheck(this, ScrollStatus);
+
+    this.$stage = global;
+    this.direction = 'y';
+    this.functions = [];
+    this.debugMode = false;
+    this.targetPercentage = 0.2;
+    this.setDirectionInfo();
+    this.ScrollPosition = new ScrollPosition(this);
+    this.scrollPosition = this.ScrollPosition.generateScrollPosition();
+    this.scrollEventUpdate();
+  }
+
+  _createClass(ScrollStatus, [{
+    key: "setVal",
+    value: function setVal() {
+      var opt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      this.$stage = opt.stage ? opt.stage : global;
+      this.direction = opt.direction || this.direction;
+      this.debugMode = opt.debugMode || this.debugMode;
+      this.targetPercentage = opt.targetPercentage || 0.2;
+      this.updateFunction = opt.updateFunction;
+      this.ScrollPosition = new ScrollPosition(this);
+      this.scrollPosition = this.ScrollPosition.generateScrollPosition();
+      this.setDirectionInfo();
+    }
+  }, {
+    key: "scrollEventUpdate",
+    value: function scrollEventUpdate() {
+      var _this = this;
+
+      this.update();
+
+      if (this.updateFunction) {
+        this.updateFunction(this);
+      } else {
+        this.functions.forEach(function (_ref) {
+          var _ref2 = _slicedToArray(_ref, 2),
+              func = _ref2[0],
+              scrollPosition = _ref2[1];
+
+          return func(scrollPosition ? Object.assign({}, _this, {
+            scrollPosition: scrollPosition.generateScrollPosition()
+          }) : _this);
+        });
+      }
+
+      requestAnimationFrame(this.scrollEventUpdate.bind(this));
+    }
+  }, {
+    key: "update",
+    value: function update() {
+      this.scrollPosition = this.ScrollPosition.generateScrollPosition();
+      var innerWidth = this.$stage["inner".concat(this.stageSizeName)];
+      this.stageSize = innerWidth ? innerWidth : document.documentElement["client".concat(this.stageSizeName)];
+      this.contentSize = document.documentElement["scroll".concat(this.stageSizeName)];
+    }
+  }, {
+    key: "setDirectionInfo",
+    value: function setDirectionInfo() {
+      this.directionPositionName = this.direction === 'y' ? 'Top' : 'Left';
+      this.stageSizeName = this.direction === 'y' ? 'Height' : 'Width';
+    }
+  }]);
+
+  return ScrollStatus;
+}();
+
+
+var ScrollPosition =
+/*#__PURE__*/
+function () {
+  function ScrollPosition() {
+    var opt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, ScrollPosition);
+
+    this.$stage = opt.$stage;
+    this.direction = opt.direction;
+    this.scrollPosition = this.getScrollPosition();
+    this.targetPercentage = opt.targetPercentage || 0.2;
+  }
+
+  _createClass(ScrollPosition, [{
+    key: "getScrollPosition",
+    value: function getScrollPosition() {
+      var direction = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.direction;
+      return this.$stage["page".concat(direction.toUpperCase(), "Offset")];
+    }
+  }, {
+    key: "generateScrollPosition",
+    value: function generateScrollPosition() {
+      var scrollPosition = this.getScrollPosition();
+      var offset = (scrollPosition - this.scrollPosition) * this.targetPercentage;
+      this.scrollPosition += Math.round(offset * 100) / 100;
+      return this.scrollPosition;
+    }
+  }]);
+
+  return ScrollPosition;
+}();
+var Status = new ScrollStatus();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5)))
+
+/***/ }),
 /* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Timing; });
-/* harmony import */ var _js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -645,7 +645,7 @@ function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Speed; });
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -732,7 +732,7 @@ function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Fit; });
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -964,7 +964,7 @@ module.exports = g;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
 /* harmony import */ var _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);

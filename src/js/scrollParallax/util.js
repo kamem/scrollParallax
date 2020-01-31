@@ -1,42 +1,42 @@
-import {Status} from '../scrollParallax/ScrollStatus'
+import { Status } from '../scrollParallax/ScrollStatus'
 
 const numRegExp = /([-]?([1-9]\d*|0)(\.\d+)?)(deg|\)|px|em|rem|%|$|\,)/g
 
 export const getStyleValues = (value) => {
-	let valueRegAry
-	let valueAry = []
-	while ((valueRegAry = numRegExp.exec(value)) !== null) {
-		valueAry.push(parseFloat(valueRegAry[1]))
-	}
-	return valueAry
+  let valueRegAry
+  let valueAry = []
+  while ((valueRegAry = numRegExp.exec(value)) !== null) {
+    valueAry.push(parseFloat(valueRegAry[1]))
+  }
+  return valueAry
 }
 
 export const generateStyleValue = (styleValue) => {
-	let value = String(styleValue)
-	value = getStringColor(value)
-	value = hexadecimalToRgb(value)
-	
+  let value = String(styleValue)
+  value = getStringColor(value)
+  value = hexadecimalToRgb(value)
+
   return value
 }
 
 export const generateStyleValueString = (style, values) => {
-	let i = 0
-	return style.replace(numRegExp, (styleValue) => {
-		return styleValue.replace(/[-]?([1-9]\d*|0)(\.\d+)?/, values[i++])
-	})
+  let i = 0
+  return style.replace(numRegExp, (styleValue) => {
+    return styleValue.replace(/[-]?([1-9]\d*|0)(\.\d+)?/, values[i++])
+  })
 }
 
 const plusColor = s => s + s
 export const generateColorString = (colorString) => {
-  if(colorString.length > 4) return colorString
+  if (colorString.length > 4) return colorString
   return `#${plusColor(colorString[1])}${plusColor(colorString[2])}${plusColor(colorString[3])}`
 }
 export const generateRGB = (colorString) => {
   const c = colorString.substring(1)
   return [
-    parseInt(c.substring(0,2),16),
-    parseInt(c.substring(2,4),16),
-    parseInt(c.substring(4,6),16)
+    parseInt(c.substring(0, 2), 16),
+    parseInt(c.substring(2, 4), 16),
+    parseInt(c.substring(4, 6), 16)
   ]
 }
 
@@ -48,34 +48,34 @@ export const hexadecimalToRgb = (value) => {
 }
 
 export const getStringColor = (styleValue) => {
-  const colors = {red: 'f00', blue: '00f', yellow: 'ff0', green: '008000'}
+  const colors = { red: 'f00', blue: '00f', yellow: 'ff0', green: '008000' }
   return styleValue.replace(/red|blue|green|yellow/g, (color) => '#' + colors[color])
 }
 
 export const _offset = (element, { direction }) => {
-	const directionPositionName = direction === 'y' ? 'Top' : 'Left'
-	const scrollPosition = global[`page${direction.toUpperCase()}Offset`] || document.documentElement[`scroll${directionPositionName}`]
-	const el = typeof element !== 'string' ? element : document.querySelector(element)
-	return el && el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + scrollPosition
+  const directionPositionName = direction === 'y' ? 'Top' : 'Left'
+  const scrollPosition = global[`page${direction.toUpperCase()}Offset`] || document.documentElement[`scroll${directionPositionName}`]
+  const el = typeof element !== 'string' ? element : document.querySelector(element)
+  return el && el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + scrollPosition
 }
 
 export const scrollPositionStringToNumber = (scrollPosition, status = Status) => {
-	const { stageSize, contentSize } = status
-	const lastScrollPosition = contentSize - stageSize
-	
-	if(scrollPosition > lastScrollPosition || ~['lastScrollPosition', 'last'].indexOf(scrollPosition)) {
-		return lastScrollPosition
-	}
+  const { stageSize, contentSize } = status
+  const lastScrollPosition = contentSize - stageSize
 
-  if(~['string', 'object'].indexOf(typeof scrollPosition)) {
-		const i = typeof scrollPosition === 'string' ? scrollPosition.split(',') : scrollPosition
-		const positionName = i[0]
-		const position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(positionName, status)
+  if (scrollPosition > lastScrollPosition || ~['lastScrollPosition', 'last'].indexOf(scrollPosition)) {
+    return lastScrollPosition
+  }
 
-		return Math.min(position + (parseInt(i[1]) || 0), lastScrollPosition)
-	}
-	
-	return scrollPosition
+  if (~['string', 'object'].indexOf(typeof scrollPosition)) {
+    const i = typeof scrollPosition === 'string' ? scrollPosition.split(',') : scrollPosition
+    const positionName = i[0]
+    const position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(positionName, status)
+
+    return Math.min(position + (parseInt(i[1]) || 0), lastScrollPosition)
+  }
+
+  return scrollPosition
 }
 
 export const easing = {

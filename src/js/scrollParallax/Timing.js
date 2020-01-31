@@ -17,7 +17,7 @@ export default class Timing {
     this.events = events
   }
   getEventScrollElementPosition(direction) {
-    return this.eventScrollElementPosition ? scrollPositionStringToNumber(this.eventScrollElementPosition) : _offset(this.$el, {direction})
+    return this.eventScrollElementPosition ? scrollPositionStringToNumber(this.eventScrollElementPosition) : _offset(this.$el, { direction })
   }
   timingEvent({ stageSize, scrollPosition, direction }) {
     this.eventScrollPlussWindowPerCentPosition = scrollPosition + (stageSize * (this.center / 100))
