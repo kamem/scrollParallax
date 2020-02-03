@@ -1,4 +1,5 @@
 import '../css/app.css'
+import '../../../jquery'
 
 const $nav = $('.gnav > ul > *')
 

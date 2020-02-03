@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Parallax from '../../js/scrollParallax'
+import Parallax from '../../../vue'
 import App from './App'
 
 Vue.use(Parallax)

@@ -12,9 +12,8 @@ module.exports = {
   entry: {
     'dist/jquery.scrollParallax': './src/js/jquery.index.js',
     'dist/jquery.scrollParallax.min': './src/js/jquery.index.js',
-    'public/js/jquery.scrollParallax': './src/js/jquery.index.js',
-    'public/js/jquery.scrollParallax.min': './src/js/jquery.index.js',
-    'example/js/scrollParallax': './src/js/vue.index.js',
+    'jquery': './src/js/jquery.index.js',
+    'vue': './src/js/vue.index.js',
   },
   output: {
     path: path.join(__dirname, '/'),
