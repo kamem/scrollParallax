@@ -1022,7 +1022,7 @@ $.fn.parallaxTiming = function () {
 
 $.fn.parallaxSpeed = function (opt) {
   var $el = this;
-  var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]($el[0], opt.style, opt.speed || 2, opt.min || -99999, opt.max || 99999, opt.contentScrollPosition || 0, opt.contentScrollPositionStyleValue);
+  var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]($el[0], opt.style || opt.styles, opt.speed || 2, opt.min || -99999, opt.max || 99999, opt.contentScrollPosition || 0, opt.contentScrollPositionStyleValue);
   setScrollEvents(function (status) {
     $el.css(s.getStyleValues(status));
   }, opt);

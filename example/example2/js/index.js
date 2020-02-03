@@ -10,12 +10,6 @@ $nav.each(function () {
 
 $('#timing').parallaxTiming()
 
-function selectNav(e) {
-  const index = $contents.index(e.target) + (e.isOver ? 0 : -1)
-  $nav.removeClass('on').eq(index).addClass('on')
-  $contents.removeClass('on').eq(index).addClass('on')
-}
-
 
 $('.material').append('<div class="borders"></div>')
 const borderContent = 8

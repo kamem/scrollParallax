@@ -49,7 +49,7 @@ $.fn.parallaxSpeed = function (opt) {
   const $el = this
   const s = new Speed(
     $el[0],
-    opt.style,
+    opt.style || opt.styles,
     opt.speed || 2,
     opt.min || -99999,
     opt.max || 99999,
