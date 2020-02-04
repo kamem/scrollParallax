@@ -9,6 +9,7 @@ module.exports = {
   mode: process.env.NODE_ENV || 'development',
 
   entry: {
+    '.': './example/js/index.js',
     example1: './example/example1/js/index.js',
     example2: './example/example2/js/index.js',
     example3: './example/example3/js/index.js',
@@ -34,6 +35,19 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
+      },
+      {
+        test: /\.md$/,
+        exclude: /(node_modules|bower_components)/,
+        use: [
+          'vue-loader',
+          {
+            loader: 'markdown-to-vue-loader',
+            options: {
+              exportSource: true
+            },
+          },
+        ],
       },
       {
         test: /\.css$/,

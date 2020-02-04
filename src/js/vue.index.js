@@ -15,19 +15,19 @@ const Parallax = {
     })
     Status.setVal({
       ...opt, updateFunction: (status) => {
-        $scrollStatus.scrollPosition = Status.scrollPosition
+        $scrollStatus.scrollPosition = status.scrollPosition
         $scrollStatus.values = Object.assign(
           {},
           $scrollStatus.values,
-          Status.functions.reduce((result, [current, scrollPosition]) => {
+          status.functions.reduce((result, [current, scrollPosition]) => {
 
             return Object.assign(
               {},
               result,
               current(
                 scrollPosition ?
-                  Object.assign({}, Status, { scrollPosition: scrollPosition.generateScrollPosition() }) :
-                  Status)
+                  Object.assign({}, status, { scrollPosition: scrollPosition.generateScrollPosition() }) :
+                  status)
             )
           }, {})
         )

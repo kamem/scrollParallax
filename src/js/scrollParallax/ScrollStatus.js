@@ -41,8 +41,8 @@ export default class ScrollStatus {
   update() {
     this.scrollPosition = this.ScrollPosition.generateScrollPosition()
 
-    const innerWidth = this.$stage[`inner${this.stageSizeName}`]
-    this.stageSize = innerWidth ? innerWidth : document.documentElement[`client${this.stageSizeName}`]
+    const innerSize = this.$stage[`inner${this.stageSizeName}`]
+    this.stageSize = innerSize ? innerSize : this.$stage[`client${this.stageSizeName}`]
     this.contentSize = document.documentElement[`scroll${this.stageSizeName}`]
   }
 
@@ -56,11 +56,12 @@ export class ScrollPosition {
   constructor(opt = {}) {
     this.$stage = opt.$stage
     this.direction = opt.direction
-    this.scrollPosition = this.getScrollPosition()
     this.targetPercentage = opt.targetPercentage || 0.2
+    this.scrollName = this.$stage === window ? `page${opt.direction.toUpperCase()}Offset` : `scroll${opt.directionPositionName}`
+    this.scrollPosition = this.getScrollPosition()
   }
-  getScrollPosition(direction = this.direction) {
-    return this.$stage[`page${direction.toUpperCase()}Offset`]
+  getScrollPosition() {
+    return this.$stage[this.scrollName]
   }
   generateScrollPosition() {
     const scrollPosition = this.getScrollPosition()

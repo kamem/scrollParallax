@@ -1,8 +1,13 @@
 # vue.scrollParallax
 
+## Example
+
+* [vue y scroll](http://github.develo.org/scrollParallax/public/example4/)
+* [vue x scroll](http://github.develo.org/scrollParallax/public/example5/)
+
 ## Usage
 
-```
+```javascript
 import Vue from 'vue'
 import Parallax from 'scrollParallax/vue'
 import App from './App'
@@ -17,7 +22,7 @@ const app = new Vue({
 
 横方向にしたい場合は下記
 
-```
+```javascript
 Vue.use(Parallaxm, { direction: 'x' })
 ```
 
@@ -30,7 +35,7 @@ Vue.use(Parallaxm, { direction: 'x' })
 
 ### timing
 
-```
+```javascript
 <template>
 <div v-parallax-timing />
 </template>
@@ -38,7 +43,7 @@ Vue.use(Parallaxm, { direction: 'x' })
 
 
 ### speed
-```
+```javascript
 <template>
 <div
   v-parallax-speed
@@ -50,7 +55,7 @@ Vue.use(Parallaxm, { direction: 'x' })
 ```
 
 
-```
+```javascript
 <template>
 <div
   v-parallax-speed="parallaxSpeed"
@@ -74,7 +79,7 @@ export default {
 
 
 ### fit
-```
+```javascript
 <template>
 <div
   v-parallax-fit
@@ -92,7 +97,7 @@ export default {
 ```
 
 
-```
+```javascript
 <template>
 <div
   v-parallax-fit="parallaxFit"
@@ -121,7 +126,7 @@ export default {
 ```
 
 #### 複数指定したい場合
-```
+```javascript
 <template>
 <div
   v-parallax-fit="parallaxFit"

@@ -528,8 +528,8 @@ function () {
     key: "update",
     value: function update() {
       this.scrollPosition = this.ScrollPosition.generateScrollPosition();
-      var innerWidth = this.$stage["inner".concat(this.stageSizeName)];
-      this.stageSize = innerWidth ? innerWidth : document.documentElement["client".concat(this.stageSizeName)];
+      var innerSize = this.$stage["inner".concat(this.stageSizeName)];
+      this.stageSize = innerSize ? innerSize : this.$stage["client".concat(this.stageSizeName)];
       this.contentSize = document.documentElement["scroll".concat(this.stageSizeName)];
     }
   }, {
@@ -554,15 +554,15 @@ function () {
 
     this.$stage = opt.$stage;
     this.direction = opt.direction;
-    this.scrollPosition = this.getScrollPosition();
     this.targetPercentage = opt.targetPercentage || 0.2;
+    this.scrollName = this.$stage === window ? "page".concat(opt.direction.toUpperCase(), "Offset") : "scroll".concat(opt.directionPositionName);
+    this.scrollPosition = this.getScrollPosition();
   }
 
   _createClass(ScrollPosition, [{
     key: "getScrollPosition",
     value: function getScrollPosition() {
-      var direction = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.direction;
-      return this.$stage["page".concat(direction.toUpperCase(), "Offset")];
+      return this.$stage[this.scrollName];
     }
   }, {
     key: "generateScrollPosition",

@@ -528,8 +528,8 @@ function () {
     key: "update",
     value: function update() {
       this.scrollPosition = this.ScrollPosition.generateScrollPosition();
-      var innerWidth = this.$stage["inner".concat(this.stageSizeName)];
-      this.stageSize = innerWidth ? innerWidth : document.documentElement["client".concat(this.stageSizeName)];
+      var innerSize = this.$stage["inner".concat(this.stageSizeName)];
+      this.stageSize = innerSize ? innerSize : this.$stage["client".concat(this.stageSizeName)];
       this.contentSize = document.documentElement["scroll".concat(this.stageSizeName)];
     }
   }, {
@@ -554,15 +554,15 @@ function () {
 
     this.$stage = opt.$stage;
     this.direction = opt.direction;
-    this.scrollPosition = this.getScrollPosition();
     this.targetPercentage = opt.targetPercentage || 0.2;
+    this.scrollName = this.$stage === window ? "page".concat(opt.direction.toUpperCase(), "Offset") : "scroll".concat(opt.directionPositionName);
+    this.scrollPosition = this.getScrollPosition();
   }
 
   _createClass(ScrollPosition, [{
     key: "getScrollPosition",
     value: function getScrollPosition() {
-      var direction = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.direction;
-      return this.$stage["page".concat(direction.toUpperCase(), "Offset")];
+      return this.$stage[this.scrollName];
     }
   }, {
     key: "generateScrollPosition",
@@ -1002,15 +1002,15 @@ var Parallax = {
     });
     _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].setVal(_objectSpread({}, opt, {
       updateFunction: function updateFunction(status) {
-        $scrollStatus.scrollPosition = _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].scrollPosition;
-        $scrollStatus.values = Object.assign({}, $scrollStatus.values, _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].functions.reduce(function (result, _ref) {
+        $scrollStatus.scrollPosition = status.scrollPosition;
+        $scrollStatus.values = Object.assign({}, $scrollStatus.values, status.functions.reduce(function (result, _ref) {
           var _ref2 = _slicedToArray(_ref, 2),
               current = _ref2[0],
               scrollPosition = _ref2[1];
 
-          return Object.assign({}, result, current(scrollPosition ? Object.assign({}, _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"], {
+          return Object.assign({}, result, current(scrollPosition ? Object.assign({}, status, {
             scrollPosition: scrollPosition.generateScrollPosition()
-          }) : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]));
+          }) : status));
         }, {}));
       }
     }));

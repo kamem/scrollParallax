@@ -11,9 +11,16 @@
 
 [jqueryプラグインイン](docs/JQUERY.ja.md)と、[vueプラグイン](docs/VUE.ja.md)があります。
 
+## Example
+
+* [jquery y scroll](http://github.develo.org/scrollParallax/public/example1/)
+* [jquery x scroll](http://github.develo.org/scrollParallax/public/example2/)
+* [jquery y scroll](http://github.develo.org/scrollParallax/public/example3/)
+* [vue y scroll](http://github.develo.org/scrollParallax/public/example4/)
+* [vue x scroll](http://github.develo.org/scrollParallax/public/example5/)
+
 
 ## Usage
-
 
 | option name| Description |default
 |:-----------|:------------|:------------|
@@ -74,22 +81,22 @@ easingを指定することも可能です。
 スクロール位置はいくつかの指定方法があります。
 
 #### 数値で指定
-```
+```javascript
 {start: 0, end: 1000}
 ```
 
 #### タグの名前で指定
-```
+```javascript
 {start: 0, end: '.header'}
 ```
 
 #### elementで指定
-```
+```javascript
 {start: 0, end: document.querySelector('.header')}
 ```
 
 #### 配列で細かく指定
-```
+```javascript
 {start: 0, end: ['.header', -100]}
 ```
 
@@ -97,8 +104,7 @@ easingを指定することも可能です。
 配列で上記の様に書くことで.headerから-100の位置というような調整ができます。
 
 #### スクロールの最後の位置を指定したい場合
-
-```
+```javascript
 {start: 0, end: 'last'}
 {start: 0, end: ['last', -100]}
 ```
