@@ -4,7 +4,7 @@ import Speed from './scrollParallax/Speed'
 import Fit from './scrollParallax/Fit'
 
 const setScrollEvents = (func, opt, status = Status) => {
-  status.functions.push([func, opt.targetPercentage && new ScrollPosition({ ...status, targetPercentage: opt.targetPercentage })])
+  status.functions.push([func, opt.targetPercentage || opt.eventTriggerPercentage && new ScrollPosition({ ...status, targetPercentage: opt.targetPercentage, eventTriggerPercentage: opt.eventTriggerPercentage })])
 }
 
 const Parallax = {
@@ -26,7 +26,7 @@ const Parallax = {
               result,
               current(
                 scrollPosition ?
-                  Object.assign({}, status, { scrollPosition: scrollPosition.generateScrollPosition() }) :
+                  Object.assign({}, status, { scrollPosition: scrollPosition.generateScrollPosition(status.stageSize) }) :
                   status)
             )
           }, {})
@@ -43,7 +43,6 @@ const Parallax = {
         const timing = new Timing(
           opt.el || el,
           opt.eventScrollPosition,
-          opt.center || 50,
           opt.toggle || [
             () => el.classList.add('on'),
             () => el.classList.remove('on'),

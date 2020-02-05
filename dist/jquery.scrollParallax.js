@@ -483,6 +483,7 @@ function () {
     this.functions = [];
     this.debugMode = false;
     this.targetPercentage = 0.2;
+    this.eventTriggerPercentage = 0;
     this.setDirectionInfo();
     this.ScrollPosition = new ScrollPosition(this);
     this.scrollPosition = this.ScrollPosition.generateScrollPosition();
@@ -497,6 +498,7 @@ function () {
       this.direction = opt.direction || this.direction;
       this.debugMode = opt.debugMode || this.debugMode;
       this.targetPercentage = opt.targetPercentage || 0.2;
+      this.eventTriggerPercentage = opt.eventTriggerPercentage || 0;
       this.updateFunction = opt.updateFunction;
       this.ScrollPosition = new ScrollPosition(this);
       this.scrollPosition = this.ScrollPosition.generateScrollPosition();
@@ -518,7 +520,7 @@ function () {
               scrollPosition = _ref2[1];
 
           return func(scrollPosition ? Object.assign({}, _this, {
-            scrollPosition: scrollPosition.generateScrollPosition()
+            scrollPosition: scrollPosition.generateScrollPosition(_this.stageSize)
           }) : _this);
         });
       }
@@ -528,10 +530,10 @@ function () {
   }, {
     key: "update",
     value: function update() {
-      this.scrollPosition = this.ScrollPosition.generateScrollPosition();
       var innerSize = this.$stage["inner".concat(this.stageSizeName)];
       this.stageSize = innerSize ? innerSize : this.$stage["client".concat(this.stageSizeName)];
       this.contentSize = document.documentElement["scroll".concat(this.stageSizeName)];
+      this.scrollPosition = this.ScrollPosition.generateScrollPosition(this.stageSize);
     }
   }, {
     key: "setDirectionInfo",
@@ -556,6 +558,7 @@ function () {
     this.$stage = opt.$stage;
     this.direction = opt.direction;
     this.targetPercentage = opt.targetPercentage || 0.2;
+    this.eventTriggerPercentage = opt.eventTriggerPercentage || 0;
     this.scrollName = this.$stage === window ? "page".concat(opt.direction.toUpperCase(), "Offset") : "scroll".concat(opt.directionPositionName);
     this.scrollPosition = this.getScrollPosition();
   }
@@ -568,7 +571,9 @@ function () {
   }, {
     key: "generateScrollPosition",
     value: function generateScrollPosition() {
-      var scrollPosition = this.getScrollPosition();
+      var stageSize = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      console.log(this.getScrollPosition(), stageSize * this.eventTriggerPercentage);
+      var scrollPosition = this.getScrollPosition() + stageSize * this.eventTriggerPercentage;
       var offset = (scrollPosition - this.scrollPosition) * this.targetPercentage;
       this.scrollPosition += Math.round(offset * 100) / 100;
       return this.scrollPosition;
@@ -598,13 +603,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Timing =
 /*#__PURE__*/
 function () {
-  function Timing($el, eventScrollPosition, center, events) {
+  function Timing($el, eventScrollPosition, events) {
     _classCallCheck(this, Timing);
 
     this.isOver = false;
     this.$el = $el;
     this.eventScrollElementPosition = eventScrollPosition;
-    this.center = center || 50;
     this.events = events;
   }
 
@@ -621,8 +625,7 @@ function () {
       var stageSize = _ref.stageSize,
           scrollPosition = _ref.scrollPosition,
           direction = _ref.direction;
-      this.eventScrollPlussWindowPerCentPosition = scrollPosition + stageSize * (this.center / 100);
-      var isOver = this.eventScrollPlussWindowPerCentPosition >= this.getEventScrollElementPosition(direction);
+      var isOver = scrollPosition >= this.getEventScrollElementPosition(direction);
 
       if (isOver !== this.isOver) {
         this.isOver = isOver;
@@ -988,13 +991,16 @@ $.parallax = function (opt) {
 
 
 $.parallaxTiming = function (opt) {
-  this.center = opt.center;
+  _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].setVal(_objectSpread({}, _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"], {
+    eventTriggerPercentage: opt.eventTriggerPercentage
+  }));
 };
 
 var setScrollEvents = function setScrollEvents(func, opt) {
   var status = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"];
   status.functions.push([func, opt.targetPercentage && new _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* ScrollPosition */ "a"](_objectSpread({}, status, {
-    targetPercentage: opt.targetPercentage
+    targetPercentage: opt.targetPercentage,
+    eventTriggerPercentage: opt.eventTriggerPercentage
   }))]);
 };
 
@@ -1004,7 +1010,7 @@ $.fn.parallaxTiming = function () {
   var opt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var positionName = _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].directionPositionName.toLocaleLowerCase();
   var timingEvent = Object.prototype.toString.call(opt) === '[object Array]' ? opt : opt.start ? [opt.start, opt.end] : opt.toggle;
-  var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](opt.el || this[0], opt.eventScrollPosition, opt.center || $.center, timingEvent || [function () {
+  var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](opt.el || this[0], opt.eventScrollPosition, timingEvent || [function () {
     return $(_this).addClass('on');
   }, function () {
     return $(_this).removeClass('on');

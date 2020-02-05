@@ -8,6 +8,7 @@ export default class ScrollStatus {
     this.functions = []
     this.debugMode = false
     this.targetPercentage = 0.2
+    this.eventTriggerPercentage = 0
     this.setDirectionInfo()
     this.ScrollPosition = new ScrollPosition(this)
     this.scrollPosition = this.ScrollPosition.generateScrollPosition()
@@ -18,6 +19,7 @@ export default class ScrollStatus {
     this.direction = opt.direction || this.direction
     this.debugMode = opt.debugMode || this.debugMode
     this.targetPercentage = opt.targetPercentage || 0.2
+    this.eventTriggerPercentage = opt.eventTriggerPercentage || 0
     this.updateFunction = opt.updateFunction
     this.ScrollPosition = new ScrollPosition(this)
     this.scrollPosition = this.ScrollPosition.generateScrollPosition()
@@ -31,7 +33,7 @@ export default class ScrollStatus {
     } else {
       this.functions.forEach(([func, scrollPosition]) => func(
         scrollPosition ?
-          Object.assign({}, this, { scrollPosition: scrollPosition.generateScrollPosition() }) :
+          Object.assign({}, this, { scrollPosition: scrollPosition.generateScrollPosition(this.stageSize) }) :
           this
       ))
     }
@@ -39,11 +41,10 @@ export default class ScrollStatus {
     requestAnimationFrame(this.scrollEventUpdate.bind(this))
   }
   update() {
-    this.scrollPosition = this.ScrollPosition.generateScrollPosition()
-
     const innerSize = this.$stage[`inner${this.stageSizeName}`]
     this.stageSize = innerSize ? innerSize : this.$stage[`client${this.stageSizeName}`]
     this.contentSize = document.documentElement[`scroll${this.stageSizeName}`]
+    this.scrollPosition = this.ScrollPosition.generateScrollPosition(this.stageSize)
   }
 
   setDirectionInfo() {
@@ -57,14 +58,16 @@ export class ScrollPosition {
     this.$stage = opt.$stage
     this.direction = opt.direction
     this.targetPercentage = opt.targetPercentage || 0.2
+    this.eventTriggerPercentage = opt.eventTriggerPercentage || 0
     this.scrollName = this.$stage === window ? `page${opt.direction.toUpperCase()}Offset` : `scroll${opt.directionPositionName}`
     this.scrollPosition = this.getScrollPosition()
   }
   getScrollPosition() {
     return this.$stage[this.scrollName]
   }
-  generateScrollPosition() {
-    const scrollPosition = this.getScrollPosition()
+  generateScrollPosition(stageSize = 0) {
+    console.log(this.getScrollPosition(), (stageSize * this.eventTriggerPercentage))
+    const scrollPosition = this.getScrollPosition() + (stageSize * this.eventTriggerPercentage)
     const offset = (scrollPosition - this.scrollPosition) * this.targetPercentage
     this.scrollPosition += Math.round(offset * 100) / 100
 
