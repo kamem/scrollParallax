@@ -35,7 +35,7 @@ export default class Speed {
   generateValues(scrollPosition, min, max, speed, styleValues, contentStyleValue) {
     return styleValues.map((value, j) => {
       const sp = speed === 'object' ? speed[j] : speed
-      let newValue = -parseFloat(-scrollPosition * sp + scrollPositionStringToNumber(this.contentScrollPosition) * sp) + value
+      let newValue = -parseFloat(-scrollPosition * sp + scrollPositionStringToNumber(this.contentScrollPosition, this.eventTriggerPercentage) * sp) + value
       newValue = Math.min(newValue, max === 'object' ? max[j] : max)
       newValue = Math.max(newValue, min === 'object' ? min[j] : min)
 

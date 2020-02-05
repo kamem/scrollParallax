@@ -51,7 +51,7 @@ export default class Fit {
   setRangeMotions({ scrollPosition, stageSize }) {
     const range = []
     this.motions.forEach((motion) => {
-      const start = scrollPositionStringToNumber(motion.start)
+      const start = scrollPositionStringToNumber(motion.start, this.eventTriggerPercentage)
       if (start <= getEventTriggerPosition(scrollPosition, stageSize, this.eventTriggerPercentage)) range.push(motion)
     })
 
@@ -128,8 +128,8 @@ export default class Fit {
   getStyleValues({ scrollPosition, stageSize }) {
     const eventTriggerPosition = getEventTriggerPosition(scrollPosition, stageSize, this.eventTriggerPercentage)
     this.rangeMotions.forEach((motion, j) => {
-      const start = scrollPositionStringToNumber(motion.start)
-      const end = scrollPositionStringToNumber(motion.end)
+      const start = scrollPositionStringToNumber(motion.start, this.eventTriggerPercentage)
+      const end = scrollPositionStringToNumber(motion.end, this.eventTriggerPercentage)
       const isInRange = start < eventTriggerPosition && eventTriggerPosition < end
       const range = end - start
 

@@ -196,10 +196,11 @@ var _offset = function _offset(element, _ref) {
   return el && el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + scrollPosition;
 };
 var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollPosition) {
-  var status = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"];
+  var eventTriggerPercentage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  var status = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"];
   var stageSize = status.stageSize,
       contentSize = status.contentSize;
-  var lastScrollPosition = contentSize - stageSize;
+  var lastScrollPosition = contentSize - stageSize + stageSize * eventTriggerPercentage;
 
   if (scrollPosition > lastScrollPosition || ~['lastScrollPosition', 'last'].indexOf(scrollPosition)) {
     return lastScrollPosition;
@@ -615,7 +616,7 @@ function () {
   _createClass(Timing, [{
     key: "getEventScrollElementPosition",
     value: function getEventScrollElementPosition(direction) {
-      return this.eventScrollElementPosition ? Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "g"])(this.eventScrollElementPosition) : Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* _offset */ "a"])(this.$el, {
+      return this.eventScrollElementPosition ? Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "g"])(this.eventScrollElementPosition, this.eventTriggerPercentage) : Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* _offset */ "a"])(this.$el, {
         direction: direction
       });
     }
@@ -625,7 +626,7 @@ function () {
       var stageSize = _ref.stageSize,
           scrollPosition = _ref.scrollPosition,
           direction = _ref.direction;
-      var isOver = Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* getEventTriggerPosition */ "e"])(scrollPosition, stageSize, this.eventTriggerPercentage) >= this.getEventScrollElementPosition(direction);
+      var isOver = Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* getEventTriggerPosition */ "e"])(scrollPosition, stageSize, this.eventTriggerPercentage) >= this.getEventScrollElementPosition(direction, stageSize);
 
       if (isOver !== this.isOver) {
         this.isOver = isOver;
@@ -703,7 +704,7 @@ function () {
 
       return styleValues.map(function (value, j) {
         var sp = speed === 'object' ? speed[j] : speed;
-        var newValue = -parseFloat(-scrollPosition * sp + Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "g"])(_this2.contentScrollPosition) * sp) + value;
+        var newValue = -parseFloat(-scrollPosition * sp + Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "g"])(_this2.contentScrollPosition, _this2.eventTriggerPercentage) * sp) + value;
         newValue = Math.min(newValue, max === 'object' ? max[j] : max);
         newValue = Math.max(newValue, min === 'object' ? min[j] : min);
 
@@ -814,7 +815,7 @@ function () {
           stageSize = _ref.stageSize;
       var range = [];
       this.motions.forEach(function (motion) {
-        var start = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "g"])(motion.start);
+        var start = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "g"])(motion.start, _this2.eventTriggerPercentage);
         if (start <= Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* getEventTriggerPosition */ "e"])(scrollPosition, stageSize, _this2.eventTriggerPercentage)) range.push(motion);
       });
       this.rangeMotions = range;
@@ -918,8 +919,8 @@ function () {
           stageSize = _ref4.stageSize;
       var eventTriggerPosition = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* getEventTriggerPosition */ "e"])(scrollPosition, stageSize, this.eventTriggerPercentage);
       this.rangeMotions.forEach(function (motion, j) {
-        var start = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "g"])(motion.start);
-        var end = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "g"])(motion.end);
+        var start = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "g"])(motion.start, _this5.eventTriggerPercentage);
+        var end = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "g"])(motion.end, _this5.eventTriggerPercentage);
         var isInRange = start < eventTriggerPosition && eventTriggerPosition < end;
         var range = end - start;
         var scrollPercent = isInRange ? (eventTriggerPosition - start) / range : eventTriggerPosition > start ? 1 : eventTriggerPosition < end ? 0 : '';

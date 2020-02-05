@@ -83,14 +83,15 @@ $('.triangle').each(function (i) {
       0.005
     ],
     contentScrollPosition: '#speed',
+    eventTriggerPercentage: 0.6
   })
 })
 
 $('.circle').each(function (i) {
   $(this).parallaxFit([
     {
-      start: ['last', -300 + i * 50],
-      end: ['last', i * 100],
+      start: ['#fit', -300 + i * 50],
+      end: '#fit',
       fromStyle: {
         opacity: 0,
         transform: 'scale(0.3)',
@@ -103,5 +104,5 @@ $('.circle').each(function (i) {
       },
       easing: 'easeOutBack'
     },
-  ], 0.3)
+  ], 0.4)
 })

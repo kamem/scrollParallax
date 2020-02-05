@@ -59,9 +59,9 @@ export const _offset = (element, { direction }) => {
   return el && el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + scrollPosition
 }
 
-export const scrollPositionStringToNumber = (scrollPosition, status = Status) => {
+export const scrollPositionStringToNumber = (scrollPosition, eventTriggerPercentage = 0, status = Status) => {
   const { stageSize, contentSize } = status
-  const lastScrollPosition = contentSize - stageSize
+  const lastScrollPosition = contentSize - stageSize + stageSize * eventTriggerPercentage
 
   if (scrollPosition > lastScrollPosition || ~['lastScrollPosition', 'last'].indexOf(scrollPosition)) {
     return lastScrollPosition
@@ -80,7 +80,7 @@ export const scrollPositionStringToNumber = (scrollPosition, status = Status) =>
 }
 
 export const getEventTriggerPosition = (scrollPosition, stageSize, eventTriggerPercentage) => {
-  return scrollPosition + (stageSize * eventTriggerPercentage)
+  return scrollPosition + stageSize * eventTriggerPercentage
 }
 
 export const easing = {

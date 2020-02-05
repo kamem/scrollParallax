@@ -18,10 +18,10 @@ export default class Timing {
     this.events = events
   }
   getEventScrollElementPosition(direction) {
-    return this.eventScrollElementPosition ? scrollPositionStringToNumber(this.eventScrollElementPosition) : _offset(this.$el, { direction })
+    return this.eventScrollElementPosition ? scrollPositionStringToNumber(this.eventScrollElementPosition, this.eventTriggerPercentage) : _offset(this.$el, { direction })
   }
   timingEvent({ stageSize, scrollPosition, direction }) {
-    const isOver = getEventTriggerPosition(scrollPosition, stageSize, this.eventTriggerPercentage) >= this.getEventScrollElementPosition(direction)
+    const isOver = getEventTriggerPosition(scrollPosition, stageSize, this.eventTriggerPercentage) >= this.getEventScrollElementPosition(direction, stageSize)
     if(isOver !== this.isOver) {
       this.isOver = isOver
       const eventSelect = this.events[isOver ? 0 : 1]
