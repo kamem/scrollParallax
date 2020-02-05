@@ -9,15 +9,17 @@
 2. Speed スクロール量に応じてcssを変化させる
 3. Fit 移動距離に応じてcssを変化させる
 
-[jqueryプラグインイン](docs/JQUERY.ja.md)と、[vueプラグイン](docs/VUE.ja.md)があります。
+[jQueryプラグイン](docs/JQUERY.ja.md)と、[vueプラグイン](docs/VUE.ja.md)があります。
 
 ## Example
+### jQuery
+* [y scroll](http://github.develo.org/scrollParallax/public/example1/)
+* [x scroll](http://github.develo.org/scrollParallax/public/example2/)
+* [y scroll](http://github.develo.org/scrollParallax/public/example3/)
 
-* [jquery y scroll](http://github.develo.org/scrollParallax/public/example1/)
-* [jquery x scroll](http://github.develo.org/scrollParallax/public/example2/)
-* [jquery y scroll](http://github.develo.org/scrollParallax/public/example3/)
-* [vue y scroll](http://github.develo.org/scrollParallax/public/example4/)
-* [vue x scroll](http://github.develo.org/scrollParallax/public/example5/)
+### Vue
+* [y scroll](http://github.develo.org/scrollParallax/public/example4/)
+* [x scroll](http://github.develo.org/scrollParallax/public/example5/)
 
 
 ## Usage
@@ -51,7 +53,7 @@
 | option name| Descriptions |default
 |:-----------|:------------|:------------|
 | style or styles | 変化させたいcssの値 |`'top'`
-| speed | スクロール量 / speed ので値を変化させる |`2`
+| speed | スクロール量 * speed ので値を変化させる |`2`
 | min | 最小値 |`-999999`
 | max | 最大値 |`999999`
 | contentScrollPositionStyleValue | スクロールが`contentScrollPosition`の位置にきたときに、ここで指定したstyleに落ち着きます。指定がない場合はcssで予め指定していたstyleになります。 | 自身のタグのstyle

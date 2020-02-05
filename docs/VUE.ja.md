@@ -2,8 +2,8 @@
 
 ## Example
 
-* [vue y scroll](http://github.develo.org/scrollParallax/public/example4/)
-* [vue x scroll](http://github.develo.org/scrollParallax/public/example5/)
+* [y scroll](http://github.develo.org/scrollParallax/public/example4/)
+* [x scroll](http://github.develo.org/scrollParallax/public/example5/)
 
 ## Usage
 

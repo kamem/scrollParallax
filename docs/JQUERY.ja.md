@@ -2,9 +2,9 @@
 
 ## Example
 
-* [jquery y scroll](http://github.develo.org/scrollParallax/public/example1/)
-* [jquery x scroll](http://github.develo.org/scrollParallax/public/example2/)
-* [jquery y scroll](http://github.develo.org/scrollParallax/public/example3/)
+* [y scroll](http://github.develo.org/scrollParallax/public/example1/)
+* [x scroll](http://github.develo.org/scrollParallax/public/example2/)
+* [y scroll](http://github.develo.org/scrollParallax/public/example3/)
 
 ## Usage
 
