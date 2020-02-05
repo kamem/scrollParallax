@@ -1,6 +1,6 @@
 # scrollParallax
 
-スクロールによってcssを変更し、パララックス効果を実現することができます。
+[View the demo](http://github.develo.org/scrollParallax/public/)
 
 ## Description
 このプラグインには3つの機能があります。
@@ -12,6 +12,8 @@
 [jQueryプラグイン](docs/JQUERY.ja.md)と、[vueプラグイン](docs/VUE.ja.md)があります。
 
 ## Example
+[![example4](http://github.develo.org/scrollParallax/public/img/thumbs/example1.jpg)](http://github.develo.org/scrollParallax/public/example4/)
+
 ### jQuery
 * [y scroll](http://github.develo.org/scrollParallax/public/example1/)
 * [x scroll](http://github.develo.org/scrollParallax/public/example2/)
