@@ -41,9 +41,8 @@ export default class ScrollStatus {
   update() {
     this.scrollPosition = this.ScrollPosition.generateScrollPosition()
 
-    const innerSize = this.$stage[`inner${this.stageSizeName}`]
-    this.stageSize = innerSize ? innerSize : this.$stage[`client${this.stageSizeName}`]
-    this.contentSize = document.documentElement[`scroll${this.stageSizeName}`]
+    this.stageSize = this.$stage[`inner${this.stageSizeName}`] || this.$stage[`client${this.stageSizeName}`]
+    this.contentSize = this.$stage[`scroll${this.stageSizeName}`] || document.documentElement[`scroll${this.stageSizeName}`]
   }
 
   setDirectionInfo() {

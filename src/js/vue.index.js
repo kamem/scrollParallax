@@ -1,4 +1,4 @@
-import { Status, ScrollPosition } from './scrollParallax/ScrollStatus'
+import ScrollStatus, { Status, ScrollPosition } from './scrollParallax/ScrollStatus'
 import Timing from './scrollParallax/Timing'
 import Speed from './scrollParallax/Speed'
 import Fit from './scrollParallax/Fit'
@@ -40,17 +40,18 @@ const Parallax = {
     Vue.directive('parallax-timing', {
       bind: (el, { value }, { data: { attrs: o = {} } }) => {
         const opt = value || o
+        const c = opt.class || 'on'
         const timing = new Timing(
           opt.target || el,
           opt.eventScrollPosition,
           opt.eventTriggerPercentage,
           opt.toggle || [
-            () => el.classList.add('on'),
-            () => el.classList.remove('on'),
+            () => el.classList.add(c),
+            () => el.classList.remove(c),
           ]
         )
 
-        setScrollEvents((status) => timing.timingEvent(status), opt)
+        setScrollEvents((status) => timing.timingEvent(status), opt, opt.status || Status)
       }
     })
 
@@ -74,7 +75,7 @@ const Parallax = {
             for (const key in styleValues) {
               element.style[key] = styleValues[key]
             }
-          }, opt)
+          }, opt, opt.status || Status)
         }, 0)
       }
     })
@@ -118,13 +119,18 @@ const Parallax = {
             for (const key in styleValues) {
               el.style[key] = styleValues[key]
             }
-          }, opt)
+          }, opt, opt.status || Status)
         }, 0)
       }
     })
 
     Vue.mixin({
       methods: {
+        createStatus(opt) {
+          const status = new ScrollStatus()
+          status.setVal(opt)
+          return status
+        },
         parallaxTiming(opt) {
           const timing = new Timing(
             '',
@@ -133,9 +139,9 @@ const Parallax = {
             Object.prototype.toString.call(opt) === '[object Array]' ? opt : (opt.start ? [opt.start, opt.end] : opt.toggle)
           )
 
-          setScrollEvents((status) => (status) => ({
+          setScrollEvents((status) => ({
             [opt.name]: timing.timingEvent(status)
-          }), opt)
+          }), opt, opt.status || Status)
         },
         parallaxSpeed(opt) {
           const s = new Speed(
@@ -150,7 +156,7 @@ const Parallax = {
 
           setScrollEvents((status) => ({
             [opt.name]: s.getStyleValues(status)
-          }), opt)
+          }), opt, opt.status || Status)
         },
         parallaxFit(name, opt) {
           const fit = new Fit(this)
@@ -188,7 +194,7 @@ const Parallax = {
             return {
               [name]: fit.getStyleValues(status)
             }
-          }, opt)
+          }, opt, opt.status || Status)
         }
       }
     })

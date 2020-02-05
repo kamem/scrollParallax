@@ -453,7 +453,7 @@ var easing = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {/* unused harmony export default */
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ScrollStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ScrollPosition; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Status; });
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
@@ -529,9 +529,8 @@ function () {
     key: "update",
     value: function update() {
       this.scrollPosition = this.ScrollPosition.generateScrollPosition();
-      var innerSize = this.$stage["inner".concat(this.stageSizeName)];
-      this.stageSize = innerSize ? innerSize : this.$stage["client".concat(this.stageSizeName)];
-      this.contentSize = document.documentElement["scroll".concat(this.stageSizeName)];
+      this.stageSize = this.$stage["inner".concat(this.stageSizeName)] || this.$stage["client".concat(this.stageSizeName)];
+      this.contentSize = this.$stage["scroll".concat(this.stageSizeName)] || document.documentElement["scroll".concat(this.stageSizeName)];
     }
   }, {
     key: "setDirectionInfo",
@@ -694,12 +693,12 @@ function () {
     }
   }, {
     key: "generateValues",
-    value: function generateValues(scrollPosition, min, max, speed, styleValues, contentStyleValue) {
+    value: function generateValues(status, min, max, speed, styleValues, contentStyleValue) {
       var _this2 = this;
 
       return styleValues.map(function (value, j) {
         var sp = speed === 'object' ? speed[j] : speed;
-        var newValue = -parseFloat(-scrollPosition * sp + Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(_this2.contentScrollPosition) * sp) + value;
+        var newValue = -parseFloat(-status.scrollPosition * sp + Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(_this2.contentScrollPosition, status) * sp) + value;
         newValue = Math.min(newValue, max === 'object' ? max[j] : max);
         newValue = Math.max(newValue, min === 'object' ? min[j] : min);
 
@@ -712,12 +711,11 @@ function () {
     }
   }, {
     key: "getStyleValues",
-    value: function getStyleValues(_ref) {
+    value: function getStyleValues(status) {
       var _this3 = this;
 
-      var scrollPosition = _ref.scrollPosition;
       return this.styles.reduce(function (result, style) {
-        return Object.assign({}, result, _defineProperty({}, style.name, Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* generateStyleValueString */ "d"])(style.contentStyleValue, _this3.generateValues(scrollPosition, style.min, style.max, style.speed, style.styleValues, style.contentStyleValue))));
+        return Object.assign({}, result, _defineProperty({}, style.name, Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* generateStyleValueString */ "d"])(style.contentStyleValue, _this3.generateValues(status, style.min, style.max, style.speed, style.styleValues, style.contentStyleValue))));
       }, {});
     }
   }]);
@@ -1004,10 +1002,11 @@ $.fn.parallaxTiming = function () {
   var opt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var positionName = _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].directionPositionName.toLocaleLowerCase();
   var timingEvent = Object.prototype.toString.call(opt) === '[object Array]' ? opt : opt.start ? [opt.start, opt.end] : opt.toggle;
+  var c = opt.class || 'on';
   var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](opt.target || this[0], opt.eventScrollPosition, opt.eventTriggerPercentage || $.eventTriggerPercentage, timingEvent || [function () {
-    return $(_this).addClass('on');
+    return $(_this).addClass(c);
   }, function () {
-    return $(_this).removeClass('on');
+    return $(_this).removeClass(c);
   }]);
   setScrollEvents(function (status) {
     timing.timingEvent(status);

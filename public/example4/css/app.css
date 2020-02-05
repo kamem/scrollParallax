@@ -144,38 +144,38 @@
 }
 
 
-.main-title[data-v-689e63cd] {
+.main-title[data-v-763c3d51] {
   padding-top: 200px;
   text-align: center;
   font-size: 40px;
   font-weight: normal;
   letter-spacing: 0.05em;
 }
-.main-text[data-v-689e63cd] {
+.main-text[data-v-763c3d51] {
   margin: 16px 0 64px;
   text-align: center;
   font-size: 24px;
   letter-spacing: 0.1em;
 }
-.gear[data-v-689e63cd] {
+.gear[data-v-763c3d51] {
   position: absolute;
   top: -300px;
   right: -450px;
   z-index: -1;
 }
-.main-parallax-item[data-v-689e63cd] {
+.main-parallax-item[data-v-763c3d51] {
   color: #fff;
   text-align: center;
   text-decoration: none
 }
-.main-parallax-item > *[data-v-689e63cd] {
+.main-parallax-item > *[data-v-763c3d51] {
     -webkit-transition: opacity 0.15s;
     transition: opacity 0.15s;
 }
-.main-parallax-item:hover > *[data-v-689e63cd] {
+.main-parallax-item:hover > *[data-v-763c3d51] {
     opacity: 0.6;
 }
-.main-parallax-item-label[data-v-689e63cd] {
+.main-parallax-item-label[data-v-763c3d51] {
   padding: 10px 0;
   width: 160px;
   background-color: var(--color-black);
@@ -185,7 +185,7 @@
   margin-bottom: 24px;
   letter-spacing: 0.1em;
 }
-.main-parallax-item-value[data-v-689e63cd] {
+.main-parallax-item-value[data-v-763c3d51] {
   padding: 10px 20px;
   text-decoration: underline;
   display: inline-block;
