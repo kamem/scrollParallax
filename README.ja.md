@@ -5,9 +5,9 @@
 ## Description
 このプラグインには3つの機能があります。
 
-1. Timing 任意の位置を通過したときに関数を実行する
-2. Speed スクロール量に応じてcssを変化させる
-3. Fit 移動距離に応じてcssを変化させる
+1. [Timing 任意の位置を通過したときに関数を実行する](#timing)
+2. [Speed スクロール量に応じてcssを変化させる](#speed)
+3. [Fit 移動距離に応じてcssを変化させる](#fit)
 
 [jQueryプラグイン](docs/JQUERY.ja.md)と、[vueプラグイン](docs/VUE.ja.md)があります。
 
