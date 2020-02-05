@@ -1,15 +1,18 @@
 <template>
   <div class="app">
+    <Header />
     <main id="contents">
-      <article class="content-body">
-        <router-view />
-      </article>
+      <router-view />
     </main>
   </div>
 </template>
 
 <script>
+import Header from './components/Header'
 export default {
+  components: {
+    Header
+  }
 }
 </script>
 
@@ -17,7 +20,7 @@ export default {
 :root {
   --main-color: #3bbfce;
   --main-bg-color: #f5f5f5;
-  --content--max-width: 40.625rem;
+  --content--max-width: 50.625rem;
   --border-bottom: 1px solid rgba(0,0,0,0.05);
   --link-color: #666;
   --text-color: #555;
@@ -235,6 +238,7 @@ a {
       padding: 8px 8px;
       border: 1px solid #ddd;
       background-color: #fff;
+      word-break : break-all;
     }
 
     & tr:nth-child(odd) td {

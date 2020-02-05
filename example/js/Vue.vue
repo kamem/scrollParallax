@@ -1,5 +1,7 @@
 <template>
-  <div v-html="compiledMarkdownText" />
+  <article class="content-body">
+    <div v-html="compiledMarkdownText" />
+  </article>
 </template>
 
 <script>
