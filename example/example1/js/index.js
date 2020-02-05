@@ -4,7 +4,7 @@ import '../../../jquery'
 const $nav = $('.gnav > ul > *')
 
 $nav.each(function () {
-  $(this).parallaxTiming({ target: $(this).find('a').attr('href') })
+  $(this).parallaxTiming({ target: $(this).find('a').attr('href'), class: 'aaaa' })
 })
 
 $('#timing').parallaxTiming()

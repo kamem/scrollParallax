@@ -40,13 +40,14 @@ const Parallax = {
     Vue.directive('parallax-timing', {
       bind: (el, { value }, { data: { attrs: o = {} } }) => {
         const opt = value || o
+        const c = opt.class || 'on'
         const timing = new Timing(
           opt.target || el,
           opt.eventScrollPosition,
           opt.eventTriggerPercentage,
           opt.toggle || [
-            () => el.classList.add('on'),
-            () => el.classList.remove('on'),
+            () => el.classList.add(c),
+            () => el.classList.remove(c),
           ]
         )
 

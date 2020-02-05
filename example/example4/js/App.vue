@@ -14,7 +14,7 @@
 
         <Items name="timing" v-parallax-timing>
           <template v-slot:title>Timing</template>
-          <template v-slot:text>指定したタグを通過したときにonのクラスを追加します。また、上から下、下から上に向かって通過したときにそれぞれ関数を実行することもできます。</template>
+          <template v-slot:text>指定したタグを通過したときに指定のクラスを追加するまた、上から下、下から上に向かって通過したときにそれぞれ関数を実行することもできます。</template>
           <template v-slot:code>&lt;div v-parallax-timing /&gt;</template>
           <Squares />
         </Items>

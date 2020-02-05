@@ -1004,10 +1004,11 @@ $.fn.parallaxTiming = function () {
   var opt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var positionName = _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].directionPositionName.toLocaleLowerCase();
   var timingEvent = Object.prototype.toString.call(opt) === '[object Array]' ? opt : opt.start ? [opt.start, opt.end] : opt.toggle;
+  var c = opt.class || 'on';
   var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](opt.target || this[0], opt.eventScrollPosition, opt.eventTriggerPercentage || $.eventTriggerPercentage, timingEvent || [function () {
-    return $(_this).addClass('on');
+    return $(_this).addClass(c);
   }, function () {
-    return $(_this).removeClass('on');
+    return $(_this).removeClass(c);
   }]);
   setScrollEvents(function (status) {
     timing.timingEvent(status);

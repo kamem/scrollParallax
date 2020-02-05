@@ -1022,10 +1022,11 @@ var Parallax = {
         var _ref4$data$attrs = _ref4.data.attrs,
             o = _ref4$data$attrs === void 0 ? {} : _ref4$data$attrs;
         var opt = value || o;
+        var c = opt.class || 'on';
         var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](opt.target || el, opt.eventScrollPosition, opt.eventTriggerPercentage, opt.toggle || [function () {
-          return el.classList.add('on');
+          return el.classList.add(c);
         }, function () {
-          return el.classList.remove('on');
+          return el.classList.remove(c);
         }]);
         setScrollEvents(function (status) {
           return timing.timingEvent(status);
