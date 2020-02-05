@@ -72,7 +72,8 @@ export const scrollPositionStringToNumber = (scrollPosition, status = Status) =>
     const positionName = i[0]
     const position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(positionName, status)
 
-    return (parseInt(i[1]) || 0) + Math.min(position, lastScrollPosition)
+    const s = (parseInt(i[1]) || 0) + Math.min(position, lastScrollPosition)
+    return Math.min(s, lastScrollPosition)
   }
 
   return scrollPosition
