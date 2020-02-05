@@ -2,8 +2,8 @@
 
 ## Example
 
-* [y scroll](http://github.develo.org/scrollParallax/public/example4/)
-* [x scroll](http://github.develo.org/scrollParallax/public/example5/)
+* * [![example4](http://github.develo.org/scrollParallax/public/img/thumbs/example1.jpg)](http://github.develo.org/scrollParallax/public/example4/)
+* * [![example5](http://github.develo.org/scrollParallax/public/img/thumbs/example2.jpg)](http://github.develo.org/scrollParallax/public/example5/)
 
 ## Usage
 

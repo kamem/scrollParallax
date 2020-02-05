@@ -1,8 +1,32 @@
 
+.header[data-v-3e332886] {
+  height: 40px;
+  background-color: #333;
+}
+.gnav[data-v-3e332886] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.gnav-item[data-v-3e332886] {
+  padding: 0 16px;
+  line-height: 40px;
+  list-style-type: none
+}
+.gnav-item a[data-v-3e332886] {
+    color: #fff;
+    text-decoration: none;
+    display: block
+}
+.gnav-item a[data-v-3e332886]:hover {
+      opacity: 0.7;
+}
+
+
 :root {
   --main-color: #3bbfce;
   --main-bg-color: #f5f5f5;
-  --content--max-width: 40.625rem;
+  --content--max-width: 50.625rem;
   --border-bottom: 1px solid rgba(0,0,0,0.05);
   --link-color: #666;
   --text-color: #555;
@@ -26,7 +50,7 @@ a {
 }
 .content-body {
   margin: 0 auto;
-  max-width: calc(40.625rem + 7.5%);
+  max-width: calc(50.625rem + 7.5%);
   max-width: calc(var(--content--max-width) + 7.5%)
 }
 .content-body i {
@@ -251,6 +275,7 @@ a {
       padding: 8px 8px;
       border: 1px solid #ddd;
       background-color: #fff;
+      word-break : break-all;
 }
 .content-body table tr:nth-child(odd) td {
       background-color: #f9f9f9;
