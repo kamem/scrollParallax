@@ -11,7 +11,7 @@ $.parallax = (ops) => {
 
 /* timing default options */
 $.parallaxTiming = function(ops) {
-	this.timingLinePercent = ops.timingLinePercent
+	this.center = ops.center
 }
 
 $.fn.parallaxTiming = function(ops) {
@@ -19,7 +19,7 @@ $.fn.parallaxTiming = function(ops) {
 	const timing = new Timing(
 		this,
 		ops.eventScrollPosition,
-		ops.timingLinePercent || $.timingLinePercent,
+		ops.center || $.center,
 		Object.prototype.toString.call(ops) === '[object Array]' ? ops : (ops.start ? [ops.start, ops.end] : ops.toggle)
 	)
 

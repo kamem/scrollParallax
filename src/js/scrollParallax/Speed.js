@@ -1,4 +1,4 @@
-import { 
+import {
   getStyleValues,
   generateStyleValue,
   generateStyleValueString,
@@ -7,41 +7,61 @@ import {
 
 
 export default class Speed {
-  constructor($el, speed, min, max, contentScrollPosition, contentStyleValue) {
-      this.$el = $el
-			this.speed = speed
-			this.min = min
-			this.max = max
-      this.contentScrollPosition = contentScrollPosition
-      
-      const styleValue = generateStyleValue(contentStyleValue)
-      this.contentStyleValue = styleValue
-      this.styleValues = getStyleValues(styleValue)
+  constructor($el, style, speed, min, max, contentScrollPosition, contentStyleValue) {
+    this.$el = $el
+    this.speeds = typeof speed === 'object' ? speed : [speed]
+    this.mins = typeof min === 'object' ? min : [min]
+    this.maxs = typeof max === 'object' ? max : [max]
+    this.contentScrollPositionStyleValues = typeof contentStyleValue === 'object' ? contentStyleValue : [contentStyleValue]
+    this.contentScrollPosition = contentScrollPosition
+    this.styles = this.generateStyles(typeof style === 'object' ? style : [style])
   }
-  getValue(str, j) {
-    return typeof this[str] === 'object' ? this[str][j] : this[str]
+  generateStyles(styles) {
+    return styles.map((name, i) => {
+      const contentScrollPositionStyleValues = this.contentScrollPositionStyleValues[i] || document.defaultView.getComputedStyle(this.$el, null)[name]
+      const styleValue = generateStyleValue(contentScrollPositionStyleValues)
+      return {
+        name,
+        speed: this.speeds[i] || this.speeds[0],
+        min: this.mins[i] || this.mins[0],
+        max: this.maxs[i] || this.maxs[0],
+        contentStyleValue: styleValue,
+        styleValues: getStyleValues(styleValue)
+      }
+    })
   }
-  generateValues(scrollPosition) {
-    return this.styleValues.map((value, j) => {
-      const min = this.getValue('min', j)
-      const max = this.getValue('max', j)
-      const speed = this.getValue('speed', j)
-      const contentScrollPosition = scrollPositionStringToNumber(this.contentScrollPosition)
+  generateValues(scrollPosition, min, max, speed, styleValues, contentStyleValue) {
+    return styleValues.map((value, j) => {
+      const sp = speed === 'object' ? speed[j] : speed
+      let newValue = -parseFloat(-scrollPosition * sp + scrollPositionStringToNumber(this.contentScrollPosition) * sp) + value
+      newValue = Math.min(newValue, max === 'object' ? max[j] : max)
+      newValue = Math.max(newValue, min === 'object' ? min[j] : min)
 
-      let newValue = -parseFloat(-scrollPosition * speed + contentScrollPosition * speed) + value
-      newValue = Math.min(newValue, max)
-      newValue = Math.max(newValue, min)
-
-      if(this.contentStyleValue.indexOf('rgb') >= 0) {
+      if(contentStyleValue.indexOf('rgb') >= 0) {
         newValue = Math.max(parseInt(newValue), 0)
       }
       return newValue
     })
   }
-  generateStyleValue({scrollPosition}) {
-    return generateStyleValueString(
-      this.contentStyleValue,
-      this.generateValues(scrollPosition)
-    )
+  getStyleValues({ scrollPosition }) {
+    return this.styles.reduce((result, style) => {
+      return Object.assign(
+        {},
+        result,
+        {
+          [style.name]: generateStyleValueString(
+            style.contentStyleValue,
+            this.generateValues(
+              scrollPosition,
+              style.min,
+              style.max,
+              style.speed,
+              style.styleValues,
+              style.contentStyleValue
+            )
+          )
+        }
+      )
+    }, {})
   }
 }

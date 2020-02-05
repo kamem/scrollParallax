@@ -1,30 +1,31 @@
 import {
   scrollPositionStringToNumber,
+  _offset
 } from '../../js/scrollParallax/util'
 
 export default class Timing {
   constructor(
     $el,
     eventScrollPosition,
-    timingLinePercent,
+    center,
     events
   ) {
     this.isOver = false
     this.$el = $el
     this.eventScrollElementPosition = eventScrollPosition
-    this.timingLinePercent = timingLinePercent || 50
+    this.center = center || 50
     this.events = events
   }
-  getEventScrollElementPosition(directionPositionName) {
-    return this.eventScrollElementPosition ? scrollPositionStringToNumber(this.eventScrollElementPosition) : this.$el.offset()[directionPositionName.toLocaleLowerCase()]
+  getEventScrollElementPosition(direction) {
+    return this.eventScrollElementPosition ? scrollPositionStringToNumber(this.eventScrollElementPosition) : _offset(this.$el, { direction })
   }
-  timingEvent({ stageSize, scrollPosition, directionPositionName }) {
-    this.eventScrollPlussWindowPerCentPosition = scrollPosition + (stageSize * (this.timingLinePercent / 100))
-    const isOver = this.eventScrollPlussWindowPerCentPosition >= this.getEventScrollElementPosition(directionPositionName)
+  timingEvent({ stageSize, scrollPosition, direction }) {
+    this.eventScrollPlussWindowPerCentPosition = scrollPosition + (stageSize * (this.center / 100))
+    const isOver = this.eventScrollPlussWindowPerCentPosition >= this.getEventScrollElementPosition(direction)
     if(isOver !== this.isOver) {
       this.isOver = isOver
-      const eventSeletct = this.events[isOver ? 0 : 1]
-      return eventSeletct({ target: this.$el, isOver })
+      const eventSelect = this.events[isOver ? 0 : 1]
+      return eventSelect({ target: this.$el, isOver })
     }
   }
 }
