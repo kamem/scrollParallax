@@ -3,7 +3,7 @@
     <img 
       class="triangle"
       v-for="i of 3"
-      src="/img/triangle.svg"
+      :src="'../img/triangle.svg'"
       v-parallax-speed
       :styles="['transform', 'top', 'opacity']"
       :contentScrollPositionStyleValue="`rotate(${Math.floor(Math.random() * 60 * i)}deg)`"
