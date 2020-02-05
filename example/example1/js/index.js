@@ -103,5 +103,5 @@ $('.circle').each(function (i) {
       },
       easing: 'easeOutBack'
     },
-  ])
+  ], 0.3)
 })

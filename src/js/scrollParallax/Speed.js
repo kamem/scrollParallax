@@ -1,5 +1,6 @@
 import {
   getStyleValues,
+  getEventTriggerPosition,
   generateStyleValue,
   generateStyleValueString,
   scrollPositionStringToNumber
@@ -7,13 +8,14 @@ import {
 
 
 export default class Speed {
-  constructor($el, style, speed, min, max, contentScrollPosition, contentStyleValue) {
+  constructor($el, style, speed, min, max, contentScrollPosition, contentStyleValue, eventTriggerPercentage) {
     this.$el = $el
     this.speeds = typeof speed === 'object' ? speed : [speed]
     this.mins = typeof min === 'object' ? min : [min]
     this.maxs = typeof max === 'object' ? max : [max]
     this.contentScrollPositionStyleValues = typeof contentStyleValue === 'object' ? contentStyleValue : [contentStyleValue]
     this.contentScrollPosition = contentScrollPosition
+    this.eventTriggerPercentage = eventTriggerPercentage || 0
     this.styles = this.generateStyles(typeof style === 'object' ? style : [style])
   }
   generateStyles(styles) {
@@ -43,7 +45,7 @@ export default class Speed {
       return newValue
     })
   }
-  getStyleValues({ scrollPosition }) {
+  getStyleValues({ scrollPosition, stageSize }) {
     return this.styles.reduce((result, style) => {
       return Object.assign(
         {},
@@ -52,7 +54,7 @@ export default class Speed {
           [style.name]: generateStyleValueString(
             style.contentStyleValue,
             this.generateValues(
-              scrollPosition,
+              getEventTriggerPosition(scrollPosition, stageSize, this.eventTriggerPercentage),
               style.min,
               style.max,
               style.speed,

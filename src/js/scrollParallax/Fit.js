@@ -1,5 +1,6 @@
 import {
   getStyleValues,
+  getEventTriggerPosition,
   generateStyleValue,
   generateStyleValueString,
   scrollPositionStringToNumber,
@@ -7,11 +8,12 @@ import {
 } from './util'
 
 export default class Fit {
-  constructor($el) {
+  constructor($el, eventTriggerPercentage) {
     this.$el = $el
     this.styleValues = {}
     this.motions = []
     this.rangeMotions = []
+    this.eventTriggerPercentage = eventTriggerPercentage || 0
   }
   setMotion(motion) {
     const fromStyle = this.setStyleValue(motion.fromStyle)
@@ -46,12 +48,11 @@ export default class Fit {
     return styles
   }
 
-  setRangeMotions({ scrollPosition }) {
+  setRangeMotions({ scrollPosition, stageSize }) {
     const range = []
-
     this.motions.forEach((motion) => {
       const start = scrollPositionStringToNumber(motion.start)
-      if (start <= scrollPosition) range.push(motion)
+      if (start <= getEventTriggerPosition(scrollPosition, stageSize, this.eventTriggerPercentage)) range.push(motion)
     })
 
     this.rangeMotions = range
@@ -124,16 +125,17 @@ export default class Fit {
     return styleValue
   }
 
-  getStyleValues({ scrollPosition }) {
+  getStyleValues({ scrollPosition, stageSize }) {
+    const eventTriggerPosition = getEventTriggerPosition(scrollPosition, stageSize, this.eventTriggerPercentage)
     this.rangeMotions.forEach((motion, j) => {
       const start = scrollPositionStringToNumber(motion.start)
       const end = scrollPositionStringToNumber(motion.end)
-      const isInRange = start < scrollPosition && scrollPosition < end
+      const isInRange = start < eventTriggerPosition && eventTriggerPosition < end
       const range = end - start
 
-      const scrollPercent = isInRange ? (scrollPosition - start) / range :
-        (scrollPosition > start) ? 1 :
-          (scrollPosition < end) ? 0 : ''
+      const scrollPercent = isInRange ? (eventTriggerPosition - start) / range :
+        (eventTriggerPosition > start) ? 1 :
+          (eventTriggerPosition < end) ? 0 : ''
 
       for (let style in motion.fromStyle) {
         const fromStyleValue = motion.fromStyle[style]

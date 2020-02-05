@@ -24,7 +24,7 @@ $.fn.parallaxTiming = function (opt = {}) {
   const timing = new Timing(
     opt.el || this[0],
     opt.eventScrollPosition,
-    opt.center || $.center,
+    opt.eventTriggerPercentage || $.eventTriggerPercentage,
     timingEvent || [
       () => $(this).addClass('on'),
       () => $(this).removeClass('on'),
@@ -55,6 +55,7 @@ $.fn.parallaxSpeed = function (opt) {
     opt.max || 99999,
     opt.contentScrollPosition || 0,
     opt.contentScrollPositionStyleValue,
+    opt.eventTriggerPercentage || $.eventTriggerPercentage
   )
 
   setScrollEvents((status) => {
@@ -65,9 +66,9 @@ $.fn.parallaxSpeed = function (opt) {
 }
 
 /* fit */
-$.fn.parallaxFit = function (opt) {
+$.fn.parallaxFit = function (opt, eventTriggerPercentage) {
   const $el = this
-  const fit = new Fit($el[0])
+  const fit = new Fit($el[0], opt.eventTriggerPercentage || eventTriggerPercentage || $.eventTriggerPercentage)
 
   if(opt.length) {
     opt.forEach((motion) => fit.setMotion(motion))

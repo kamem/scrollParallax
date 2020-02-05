@@ -79,6 +79,10 @@ export const scrollPositionStringToNumber = (scrollPosition, status = Status) =>
   return scrollPosition
 }
 
+export const getEventTriggerPosition = (scrollPosition, stageSize, eventTriggerPercentage) => {
+  return scrollPosition + (stageSize * eventTriggerPercentage)
+}
+
 export const easing = {
 	linear : function(t,b,c,d){return b+c*t},
 	easeInQuad:function(i,b,c,d){return c*(i/=d)*i+b;},
