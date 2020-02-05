@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Readme from './Readme'
 import VueReadme from './Vue'
 import Jquery from './Jquery'
+import Samples from './Samples'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/docs/JQUERY.ja.md',
       name: 'vue',
       component: Jquery
+    },
+    {
+      path: '/samples',
+      name: 'samples',
+      component: Samples
     }
   ]
 })
