@@ -17,7 +17,9 @@ export default {
   },
   computed: {
     compiledMarkdownText() {
-      return marked(this.markdownText).replace(/\&amp;/g, '&')
+      return marked(this.markdownText)
+      .replace(/\&amp;/g, '&')
+      .replace(/..\/README.ja.md/g, '#/')
     }
   }
 }
