@@ -598,13 +598,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Timing =
 /*#__PURE__*/
 function () {
-  function Timing($el, eventScrollPosition, center, events) {
+  function Timing($el, eventScrollPosition, eventTriggerPercentage, events) {
     _classCallCheck(this, Timing);
 
     this.isOver = false;
     this.$el = $el;
     this.eventScrollElementPosition = eventScrollPosition;
-    this.center = center || 50;
+    this.eventTriggerPercentage = eventTriggerPercentage || 0.5;
     this.events = events;
   }
 
@@ -621,7 +621,7 @@ function () {
       var stageSize = _ref.stageSize,
           scrollPosition = _ref.scrollPosition,
           direction = _ref.direction;
-      this.eventScrollPlussWindowPerCentPosition = scrollPosition + stageSize * (this.center / 100);
+      this.eventScrollPlussWindowPerCentPosition = scrollPosition + stageSize * this.eventTriggerPercentage;
       var isOver = this.eventScrollPlussWindowPerCentPosition >= this.getEventScrollElementPosition(direction);
 
       if (isOver !== this.isOver) {
@@ -1022,7 +1022,7 @@ var Parallax = {
         var _ref4$data$attrs = _ref4.data.attrs,
             o = _ref4$data$attrs === void 0 ? {} : _ref4$data$attrs;
         var opt = value || o;
-        var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](opt.el || el, opt.eventScrollPosition, opt.center || 50, opt.toggle || [function () {
+        var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](opt.target || el, opt.eventScrollPosition, opt.eventTriggerPercentage, opt.toggle || [function () {
           return el.classList.add('on');
         }, function () {
           return el.classList.remove('on');
@@ -1103,7 +1103,7 @@ var Parallax = {
     Vue.mixin({
       methods: {
         parallaxTiming: function parallaxTiming(opt) {
-          var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"]('', opt.eventScrollPosition, opt.center || 50, Object.prototype.toString.call(opt) === '[object Array]' ? opt : opt.start ? [opt.start, opt.end] : opt.toggle);
+          var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"]('', opt.eventScrollPosition, opt.eventTriggerPercentage, Object.prototype.toString.call(opt) === '[object Array]' ? opt : opt.start ? [opt.start, opt.end] : opt.toggle);
           setScrollEvents(function (status) {
             return function (status) {
               return _defineProperty({}, opt.name, timing.timingEvent(status));

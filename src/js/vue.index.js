@@ -41,9 +41,9 @@ const Parallax = {
       bind: (el, { value }, { data: { attrs: o = {} } }) => {
         const opt = value || o
         const timing = new Timing(
-          opt.el || el,
+          opt.target || el,
           opt.eventScrollPosition,
-          opt.center || 50,
+          opt.eventTriggerPercentage,
           opt.toggle || [
             () => el.classList.add('on'),
             () => el.classList.remove('on'),
@@ -129,7 +129,7 @@ const Parallax = {
           const timing = new Timing(
             '',
             opt.eventScrollPosition,
-            opt.center || 50,
+            opt.eventTriggerPercentage,
             Object.prototype.toString.call(opt) === '[object Array]' ? opt : (opt.start ? [opt.start, opt.end] : opt.toggle)
           )
 

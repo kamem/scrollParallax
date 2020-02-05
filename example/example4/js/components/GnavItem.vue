@@ -1,5 +1,5 @@
 <template>
-  <li :class="['gnav-item', name]" v-parallax-timing :el="`#${name}`"><a :href="`#${name}`"><slot /></a></li>
+  <li :class="['gnav-item', name]" v-parallax-timing :target="`#${name}`"><a :href="`#${name}`"><slot /></a></li>
 </template>
 
 <script>

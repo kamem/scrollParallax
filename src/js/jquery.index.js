@@ -11,7 +11,7 @@ $.parallax = (opt) => {
 
 /* timing default options */
 $.parallaxTiming = function (opt) {
-  this.center = opt.center
+  this.eventTriggerPercentage = opt.eventTriggerPercentage
 }
 
 const setScrollEvents = (func, opt, status = Status) => {
@@ -22,9 +22,9 @@ $.fn.parallaxTiming = function (opt = {}) {
   const positionName = Status.directionPositionName.toLocaleLowerCase()
   const timingEvent = Object.prototype.toString.call(opt) === '[object Array]' ? opt : (opt.start ? [opt.start, opt.end] : opt.toggle)
   const timing = new Timing(
-    opt.el || this[0],
+    opt.target || this[0],
     opt.eventScrollPosition,
-    opt.center || $.center,
+    opt.eventTriggerPercentage || $.eventTriggerPercentage,
     timingEvent || [
       () => $(this).addClass('on'),
       () => $(this).removeClass('on'),

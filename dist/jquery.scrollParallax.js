@@ -598,13 +598,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Timing =
 /*#__PURE__*/
 function () {
-  function Timing($el, eventScrollPosition, center, events) {
+  function Timing($el, eventScrollPosition, eventTriggerPercentage, events) {
     _classCallCheck(this, Timing);
 
     this.isOver = false;
     this.$el = $el;
     this.eventScrollElementPosition = eventScrollPosition;
-    this.center = center || 50;
+    this.eventTriggerPercentage = eventTriggerPercentage || 0.5;
     this.events = events;
   }
 
@@ -621,7 +621,7 @@ function () {
       var stageSize = _ref.stageSize,
           scrollPosition = _ref.scrollPosition,
           direction = _ref.direction;
-      this.eventScrollPlussWindowPerCentPosition = scrollPosition + stageSize * (this.center / 100);
+      this.eventScrollPlussWindowPerCentPosition = scrollPosition + stageSize * this.eventTriggerPercentage;
       var isOver = this.eventScrollPlussWindowPerCentPosition >= this.getEventScrollElementPosition(direction);
 
       if (isOver !== this.isOver) {
@@ -988,7 +988,7 @@ $.parallax = function (opt) {
 
 
 $.parallaxTiming = function (opt) {
-  this.center = opt.center;
+  this.eventTriggerPercentage = opt.eventTriggerPercentage;
 };
 
 var setScrollEvents = function setScrollEvents(func, opt) {
@@ -1004,7 +1004,7 @@ $.fn.parallaxTiming = function () {
   var opt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var positionName = _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].directionPositionName.toLocaleLowerCase();
   var timingEvent = Object.prototype.toString.call(opt) === '[object Array]' ? opt : opt.start ? [opt.start, opt.end] : opt.toggle;
-  var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](opt.el || this[0], opt.eventScrollPosition, opt.center || $.center, timingEvent || [function () {
+  var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](opt.target || this[0], opt.eventScrollPosition, opt.eventTriggerPercentage || $.eventTriggerPercentage, timingEvent || [function () {
     return $(_this).addClass('on');
   }, function () {
     return $(_this).removeClass('on');
