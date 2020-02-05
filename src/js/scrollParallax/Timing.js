@@ -7,20 +7,20 @@ export default class Timing {
   constructor(
     $el,
     eventScrollPosition,
-    center,
+    eventTriggerPercentage,
     events
   ) {
     this.isOver = false
     this.$el = $el
     this.eventScrollElementPosition = eventScrollPosition
-    this.center = center || 50
+    this.eventTriggerPercentage = eventTriggerPercentage || 0.5
     this.events = events
   }
   getEventScrollElementPosition(direction) {
     return this.eventScrollElementPosition ? scrollPositionStringToNumber(this.eventScrollElementPosition) : _offset(this.$el, { direction })
   }
   timingEvent({ stageSize, scrollPosition, direction }) {
-    this.eventScrollPlussWindowPerCentPosition = scrollPosition + (stageSize * (this.center / 100))
+    this.eventScrollPlussWindowPerCentPosition = scrollPosition + stageSize * this.eventTriggerPercentage
     const isOver = this.eventScrollPlussWindowPerCentPosition >= this.getEventScrollElementPosition(direction)
     if(isOver !== this.isOver) {
       this.isOver = isOver

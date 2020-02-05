@@ -5,7 +5,7 @@
 
     <MainParallaxItem href="#timing">
       <template v-slot:label>Timing</template>
-      <template v-slot:value>任意の位置を通過したときに関数を実行する</template>
+      <template v-slot:value>指定したタグを通過したとき、classにonを追加する</template>
     </MainParallaxItem>
     <MainParallaxItem href="#speed">
       <template v-slot:label>Speed</template>

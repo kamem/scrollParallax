@@ -4,7 +4,7 @@ import '../../../jquery'
 const $nav = $('.gnav > ul > *')
 
 $nav.each(function () {
-  $(this).parallaxTiming({ el: $(this).find('a').attr('href') })
+  $(this).parallaxTiming({ target: $(this).find('a').attr('href') })
 })
 
 $('#timing').parallaxTiming()
@@ -89,8 +89,8 @@ $('.triangle').each(function (i) {
 $('.circle').each(function (i) {
   $(this).parallaxFit([
     {
-      start: ['last', -300 + i * 50],
-      end: ['last', i * 100],
+      start: ['#fit', -300 + i * 50],
+      end: ['#fit', i * 100],
       fromStyle: {
         opacity: 0,
         transform: 'scale(0.3)',

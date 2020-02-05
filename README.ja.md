@@ -5,7 +5,7 @@
 ## Description
 このプラグインには3つの機能があります。
 
-1. [Timing 任意の位置を通過したときに関数を実行する](#timing)
+1. [Timing 指定したタグを通過したとき、classにonを追加する](#timing)
 2. [Speed スクロール量に応じてcssを変化させる](#speed)
 3. [Fit 移動距離に応じてcssを変化させる](#fit)
 
@@ -39,10 +39,10 @@
 
 | option name| Descriptions |default
 |:-----------|:------------|:------------|
-| el | ここで指定したタグを通過したときにtoggleが実行されます。 |`50`
-| center | タイミングの位置をどこに設定するか（windowの幅での割合） |`50`
+| target | ここで指定したタグを通過したときにtoggleが実行されます。 |`50`
+| eventTriggerPercentage | `スクロール量 + window幅 * eventTriggerPercentage`にtoggle実行|`0.5`
 | eventScrollElementPosition | 指定した位置にきたときに`toggle`を実行します [スクロール位置の指定について](#スクロール位置の指定について) | 自分自身の位置
-| toggle | 上から下に通過した場合に[1]を実行し、下から上に通過した場合[2]を実行します。 | [() => this.addClass('on'), () => this.removeClass('on')]
+| toggle | 上から下に通過した場合に[1]を実行し、下から上に通過した場合[2]を実行します。 | `[() => this.addClass('on'), () => this.removeClass('on')]`
 | targetPercentage| 慣性の割合を指定します（個別に指定したい場合） |`undefined`
 
 
