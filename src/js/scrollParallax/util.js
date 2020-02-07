@@ -76,7 +76,7 @@ export const scrollPositionStringToNumber = (scrollPosition, status = Status) =>
     return Math.min(s, lastScrollPosition)
   }
 
-  return scrollPosition
+  return Math.min(scrollPosition, lastScrollPosition)
 }
 
 export const easing = {
