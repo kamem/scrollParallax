@@ -3,33 +3,30 @@
   <header class="header">
     <nav>
       <ul class="gnav">
-        <li class="gnav-item"><a href="#/">Readme</a></li>
+        <li class="gnav-item"><a href="#/samples/bg">背景を動かす</a></li>
       </ul>
     </nav>
     
   </header>
     <SampleContents ref="sample-contents">
-      <div class="scroll-contents">
-        <div class="test"
-        v-if="status"
-        v-parallax-speed
-        styles="top"
-        :status="status"
-        :speed="2"
-        :contentScrollPosition="200"
-        :targetPercentage="1" />
-      </div>
+      <component :is="$route.params.name" :status="status" />
+      <template v-slot:code v-if="$route.params.name">
+        <component :is="`${$route.params.name}Code`" :status="status" />
+      </template>
     </SampleContents>
   </div>
 </template>
 
 <script>
 import SampleContents from './components/SampleContents'
+import bg from './components/samples/background-image/bg'
+import bgCode from './components/samples/background-image/bgCode'
 
 export default {
-  name: 'Header',
   components: {
-    SampleContents
+    SampleContents,
+    bg,
+    bgCode
   },
   data() {
     return {
@@ -46,33 +43,18 @@ export default {
 </script>
 
 <style scoped>
-
-.scroll-contents {
-  height: 2000px;
-  position: relative;
-  overflow: hidden;
-}
-
-.test {
-  background-color: red;
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  top: 500px;
-}
-
 .gnav {
   display: flex;
   overflow: auto;
-  height: 40px;
-  background-color: #333;
+  height: 60px;
+  background-color: #000;
 }
 
 .gnav-item {
   -webkit-overflow-scrolling: touch;
   white-space: nowrap;
   padding: 0 16px;
-  line-height: 40px;
+  line-height: 60px;
   font-size: 14px;
   list-style-type: none;
   & a {

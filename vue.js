@@ -212,7 +212,7 @@ var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollP
     return Math.min(s, lastScrollPosition);
   }
 
-  return scrollPosition;
+  return Math.min(scrollPosition, lastScrollPosition);
 };
 var easing = {
   linear: function linear(t, b, c, d) {
@@ -697,10 +697,17 @@ function () {
       var _this2 = this;
 
       return styleValues.map(function (value, j) {
-        var sp = speed === 'object' ? speed[j] : speed;
-        var newValue = -parseFloat(-status.scrollPosition * sp + Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(_this2.contentScrollPosition, status) * sp) + value;
-        newValue = Math.min(newValue, max === 'object' ? max[j] : max);
-        newValue = Math.max(newValue, min === 'object' ? min[j] : min);
+        var _speed = _typeof(speed) === 'object' ? speed[j] : speed;
+
+        _speed = typeof _speed === 'number' ? _speed : 2;
+        var newValue = -parseFloat(-status.scrollPosition * _speed + Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(_this2.contentScrollPosition, status) * _speed) + value;
+
+        var _min = _typeof(min) === 'object' ? min[j] : min;
+
+        var _max = _typeof(min) === 'object' ? max[j] : max;
+
+        newValue = Math.max(newValue, typeof _min === 'number' ? _min : -99999);
+        newValue = Math.min(newValue, typeof _max === 'number' ? _max : 99999);
 
         if (contentStyleValue.indexOf('rgb') >= 0) {
           newValue = Math.max(parseInt(newValue), 0);
@@ -1039,7 +1046,7 @@ var Parallax = {
         var opt = value || o;
         setTimeout(function () {
           var element = opt.el || el;
-          var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"](element, opt.styles, opt.speed || 2, opt.min || -99999, opt.max || 99999, opt.contentScrollPosition || 0, opt.contentScrollPositionStyleValue);
+          var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"](element, opt.styles, opt.speed, opt.min, opt.max, opt.contentScrollPosition || 0, opt.contentScrollPositionStyleValue);
           setScrollEvents(function (status) {
             var styleValues = s.getStyleValues(status);
 
@@ -1113,7 +1120,7 @@ var Parallax = {
           }, opt, opt.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
         },
         parallaxSpeed: function parallaxSpeed(opt) {
-          var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]('', opt.style, opt.speed || 2, opt.min || -99999, opt.max || 99999, opt.contentScrollPosition || 0, opt.contentScrollPositionStyleValue);
+          var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]('', opt.style, opt.speed, opt.min, opt.max, opt.contentScrollPosition || 0, opt.contentScrollPositionStyleValue);
           setScrollEvents(function (status) {
             return _defineProperty({}, opt.name, s.getStyleValues(status));
           }, opt, opt.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);

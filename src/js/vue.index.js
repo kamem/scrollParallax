@@ -63,9 +63,9 @@ const Parallax = {
           const s = new Speed(
             element,
             opt.styles,
-            opt.speed || 2,
-            opt.min || -99999,
-            opt.max || 99999,
+            opt.speed,
+            opt.min,
+            opt.max,
             opt.contentScrollPosition || 0,
             opt.contentScrollPositionStyleValue
           )
@@ -147,9 +147,9 @@ const Parallax = {
           const s = new Speed(
             '',
             opt.style,
-            opt.speed || 2,
-            opt.min || -99999,
-            opt.max || 99999,
+            opt.speed,
+            opt.min,
+            opt.max,
             opt.contentScrollPosition || 0,
             opt.contentScrollPositionStyleValue
           )

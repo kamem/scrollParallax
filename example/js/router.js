@@ -28,6 +28,11 @@ export default new Router({
       path: '/samples',
       name: 'samples',
       component: Samples
+    },
+    {
+      path: '/samples/:name',
+      name: 'sampleItem',
+      component: Samples
     }
   ]
 })
