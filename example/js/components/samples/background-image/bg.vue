@@ -9,7 +9,8 @@
     :min="[[0, 0]]"
     :max="[[0, 100]]"
     :contentScrollPosition="i * 360"
-    :targetPercentage="0.1">
+    :targetPercentage="0.1"
+  >
   </section>
 </div>
 </template>

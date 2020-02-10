@@ -4,6 +4,7 @@
     <nav>
       <ul class="gnav">
         <li class="gnav-item"><a href="#/samples/bg">背景を動かす</a></li>
+        <li class="gnav-item"><a href="#/samples/inertial">全体を慣性で動かす</a></li>
       </ul>
     </nav>
     
@@ -22,11 +23,16 @@ import SampleContents from './components/SampleContents'
 import bg from './components/samples/background-image/bg'
 import bgCode from './components/samples/background-image/bgCode'
 
+import inertial from './components/samples/inertial-scroll/inertial'
+import inertialCode from './components/samples/inertial-scroll/inertialCode'
+
 export default {
   components: {
     SampleContents,
     bg,
-    bgCode
+    bgCode,
+    inertial,
+    inertialCode
   },
   data() {
     return {

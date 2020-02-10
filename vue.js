@@ -702,9 +702,9 @@ function () {
         _speed = typeof _speed === 'number' ? _speed : 2;
         var newValue = -parseFloat(-status.scrollPosition * _speed + Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(_this2.contentScrollPosition, status) * _speed) + value;
 
-        var _min = _typeof(min) === 'object' ? min[j] : min;
+        var _min = _typeof(min) === 'object' ? min && min[j] : min;
 
-        var _max = _typeof(min) === 'object' ? max[j] : max;
+        var _max = _typeof(min) === 'object' ? min && max[j] : max;
 
         newValue = Math.max(newValue, typeof _min === 'number' ? _min : -99999);
         newValue = Math.min(newValue, typeof _max === 'number' ? _max : 99999);
