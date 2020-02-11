@@ -6,17 +6,13 @@
 
 <script>
 import marked from 'marked'
-import md from '../../README.ja.md'
 export default {
-  name: 'App',
-  data () {
-    return {
-      markdownText: md.source
-    }
+  props: {
+    text: Object
   },
   computed: {
     compiledMarkdownText() {
-      return marked(this.markdownText)
+      return marked(this.text.source)
       .replace(/href="docs/g, `href="${location.pathname}#/docs`)
       .replace(/http:\/\/github.develo.org\/scrollParallax\/public\//g, './')
     }
@@ -28,7 +24,7 @@ export default {
     prettyPrint() {
       const content = this.$refs['content-body']
       content.querySelectorAll('pre').forEach(pre => {
-        content.classList.add('prettyprint')
+        pre.classList.add('prettyprint')
       })
       PR.prettyPrint()
     }

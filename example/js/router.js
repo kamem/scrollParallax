@@ -33,6 +33,11 @@ export default new Router({
       path: '/samples/:name',
       name: 'sampleItem',
       component: Samples
+    },
+    {
+      path: '/samples/:name/preview',
+      name: 'samplePreview',
+      component: Samples
     }
   ]
 })

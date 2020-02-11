@@ -1,38 +1,57 @@
 <template>
   <div>
-  <header class="header">
-    <nav>
-      <ul class="gnav">
-        <li class="gnav-item"><a href="#/samples/bg">背景を動かす</a></li>
-        <li class="gnav-item"><a href="#/samples/inertial">全体を慣性で動かす</a></li>
-      </ul>
-    </nav>
-    
-  </header>
-    <SampleContents ref="sample-contents">
-      <component :is="$route.params.name" :status="status" />
-      <template v-slot:code v-if="$route.params.name">
-        <component :is="`${$route.params.name}Code`" :status="status" />
-      </template>
-    </SampleContents>
+    <header class="header">
+      <nav>
+        <ul class="gnav">
+          <li class="gnav-item"><a href="#/samples/bg">背景を動かす</a></li>
+         <li class="gnav-item"><a href="#/samples/inertial">全体を慣性で動かす</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <Readme v-if="$route.params.name" :text="samples[$route.params.name]" />
+
+    <Modal v-if="isPreview && !!$route.params.name" @close="onClose">
+      <SampleContents v-if="isPreview && !!$route.params.name" ref="sample-contents">
+        <component :is="$route.params.name" :status="status" />
+      </SampleContents>
+    </Modal>
   </div>
 </template>
 
 <script>
+import Modal from './components/Modal'
+
 import SampleContents from './components/SampleContents'
 import bg from './components/samples/background-image/bg'
-import bgCode from './components/samples/background-image/bgCode'
+import Readme from './components/Readme.vue'
+
+import background from './components/samples/background-image/README.ja.md'
+import inertialScroll from './components/samples/inertial-scroll/README.ja.md'
 
 import inertial from './components/samples/inertial-scroll/inertial'
-import inertialCode from './components/samples/inertial-scroll/inertialCode'
 
 export default {
   components: {
     SampleContents,
     bg,
-    bgCode,
     inertial,
-    inertialCode
+    Readme,
+    Modal
+  },
+  data() {
+    return {
+      isVisible: false
+    }
+  },
+  computed: {
+    samples: () => ({
+      bg: background,
+      inertial: inertialScroll
+    }),
+    isPreview() {
+      return ~this.$route.path.indexOf('preview')
+    }
   },
   data() {
     return {
@@ -40,10 +59,29 @@ export default {
       isMounted: false
     }
   },
+  methods: {
+    onClose() {
+      this.$router.push('/samples')
+    },
+    cStatus() {
+      setTimeout(() => {
+        const stage = this.$refs['sample-contents'] && this.$refs['sample-contents'].$refs['sample-contents-item']
+        if(this.status) {
+          this.status.functions = []
+          this.status.setVal(Object.assign({}, this.status, {stage}))
+        } else if(stage) {
+          this.status = this.createStatus({name: 'preview', stage})
+        }
+      }, 0)
+    }
+  },
   mounted() {
-    this.status = this.createStatus({
-      stage: this.$refs['sample-contents'].$refs['sample-contents-item'],
-    })
+    this.cStatus()
+  },
+  watch: {
+    ['$route.params.name']() {
+      this.cStatus()
+    }
   }
 }
 </script>

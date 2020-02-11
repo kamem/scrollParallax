@@ -7,33 +7,45 @@ const setScrollEvents = (func, opt, status = Status) => {
   status.functions.push([func, opt.targetPercentage && new ScrollPosition({ ...status, targetPercentage: opt.targetPercentage })])
 }
 
+const generateScrollStatusValues = (Vue, opt = {}, $scrollStatus) => {
+  if(opt.name) {
+    $scrollStatus[opt.name] = Vue.observable({
+      scrollPosition: Status.scrollPosition,
+      contentSize: Status.contentSize,
+      values: {}
+    })
+  }
+
+  const scrollStatus = opt.name ? $scrollStatus[opt.name] : $scrollStatus
+  return {
+    ...opt, updateFunction: (status) => {
+      scrollStatus.scrollPosition = status.scrollPosition
+      scrollStatus.contentSize = status.contentSize
+      scrollStatus.values = Object.assign(
+        {},
+        scrollStatus.values,
+        status.functions.reduce((result, [current, scrollPosition]) => {
+          return Object.assign(
+            {},
+            result,
+            current(
+              scrollPosition ?
+                Object.assign({}, status, { scrollPosition: scrollPosition.generateScrollPosition() }) :
+                status)
+          )
+        }, {})
+      )
+    }
+  }
+}
+
 const Parallax = {
   install(Vue, opt) {
     const $scrollStatus = Vue.observable({
       scrollPosition: Status.scrollPosition,
       values: {}
     })
-    Status.setVal({
-      ...opt, updateFunction: (status) => {
-        $scrollStatus.scrollPosition = status.scrollPosition
-        $scrollStatus.values = Object.assign(
-          {},
-          $scrollStatus.values,
-          status.functions.reduce((result, [current, scrollPosition]) => {
-
-            return Object.assign(
-              {},
-              result,
-              current(
-                scrollPosition ?
-                  Object.assign({}, status, { scrollPosition: scrollPosition.generateScrollPosition() }) :
-                  status)
-            )
-          }, {})
-        )
-      }
-    })
-
+    Status.setVal(generateScrollStatusValues(Vue, opt, $scrollStatus, name))
 
     Vue.prototype.$scrollStatus = $scrollStatus
 
@@ -128,7 +140,7 @@ const Parallax = {
       methods: {
         createStatus(opt) {
           const status = new ScrollStatus()
-          status.setVal(opt)
+          status.setVal(opt.name ? generateScrollStatusValues(Vue, opt, this.$scrollStatus) : opt)
           return status
         },
         parallaxTiming(opt) {

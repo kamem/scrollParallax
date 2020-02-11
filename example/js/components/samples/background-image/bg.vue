@@ -8,9 +8,8 @@
     :speed="[[0, 0.04 * (i % 2 === 0 ? 1 : -1)]]"
     :min="[[0, 0]]"
     :max="[[0, 100]]"
-    :contentScrollPosition="i * 360"
-    :targetPercentage="0.1"
-  >
+    :contentScrollPosition="i * 300"
+    :targetPercentage="0.1">
   </section>
 </div>
 </template>
@@ -25,7 +24,7 @@ export default {
 
 <style scoped>
 .item {
-  height: 360px;
+  height: 250px;
   background-image: url(https://live.staticflickr.com/616/21925649309_2d863055b4_k.jpg);
   background-size: cover;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5) inset;

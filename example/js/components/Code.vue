@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="label" v-if="type">{{type}}</p>
-    <pre class="code"><slot name="code" /></pre>
+    <pre class="code" ref="code"><slot name="code" /></pre>
   </div>
 </template>
 
@@ -16,6 +16,15 @@ export default {
       return escapeHtml(this.$slots.code.text)
     }
   },
+  mounted() {
+    this.prettyPrint()
+  },
+  methods: {
+    prettyPrint() {
+      this.$refs['code'].classList.add('prettyprint')
+      PR.prettyPrint()
+    }
+  }
 }
 </script>
 

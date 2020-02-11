@@ -3,36 +3,21 @@
   <div :class="['sample-contents-item', {code: $slots.code}]" ref="sample-contents-item">
     <slot />
   </div>
-  <div class="sample-contents-code" v-if="$slots.code" ref="sample-contents-code">
-    <slot name="code" />
-  </div>
 </div>
 </template>
 
 <script>
 export default {
-  mounted() {
-    this.prettyPrint()
-  },
-  methods: {
-    prettyPrint() {
-      const code = this.$refs['sample-contents-code']
-      code.querySelectorAll('pre').forEach(pre => {
-        pre.classList.add('prettyprint')
-      })
-      PR.prettyPrint()
-    }
-  }
 }
 </script>
 
 <style scoped>
 .sample-cntents {
   position: absolute;
-  top: 100px;
-  bottom: 0px;
+  top: 0;
+  bottom: 0;
   right: 0;
-  left: 0px;
+  left: 0;
   display: flex;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
@@ -43,7 +28,6 @@ export default {
   bottom: 0;
   right: 0;
   left: 0;
-  z-index: 2;
 }
 .code {
   right: 25%;
