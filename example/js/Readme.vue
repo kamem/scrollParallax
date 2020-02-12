@@ -28,7 +28,7 @@ export default {
     prettyPrint() {
       const content = this.$refs['content-body']
       content.querySelectorAll('pre').forEach(pre => {
-        content.classList.add('prettyprint')
+        pre.classList.add('prettyprint')
       })
       PR.prettyPrint()
     }
