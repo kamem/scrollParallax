@@ -100,15 +100,19 @@ export default {
 }
 
 .header {
-  margin-top: 8px;
+  width: 20%;
   background-color: rgba(255, 255, 255, 0.8);
+}
+
+.gnav {
+  padding: 8px 0;
 }
 
 .gnav-item {
   margin: 0;
   -webkit-overflow-scrolling: touch;
   white-space: nowrap;
-  padding: 0.4em 8px;
+  padding: 0.4em 16px;
   font-size: 13px;
   list-style-type: none;
   & a {
