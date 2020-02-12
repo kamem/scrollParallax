@@ -1,16 +1,18 @@
 <template>
-<div class="overlay" isVisible="isVisible">
-  <div class="modal">
-    <slot />
-    <p class="close" @click="close">☓</p>
-  </div>
-</div>
+  <transition name="fade">
+    <div class="overlay" v-if="isVisible">
+      <div class="modal">
+        <slot />
+        <p class="close" @click="close">☓</p>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script>
 export default {
   props: {
-    isVisible: String,
+    isVisible: Boolean,
   },
   methods: {
     close(){
@@ -44,6 +46,14 @@ export default {
   &.on {
     opacity: 0.8;
   }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: all .3s cubic-bezier(.16,.56,.51,1);
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+  transform: scale(0.9)
 }
 
 .close {

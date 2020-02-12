@@ -11,7 +11,7 @@
 
     <Readme v-if="$route.params.name" :text="samples[$route.params.name]" />
 
-    <Modal v-if="isPreview && !!$route.params.name" @close="onClose">
+    <Modal :isVisible="isPreview && !!$route.params.name" @close="onClose">
       <SampleContents v-if="isPreview && !!$route.params.name" ref="sample-contents">
         <component :is="$route.params.name" :status="status" />
       </SampleContents>
@@ -50,7 +50,7 @@ export default {
       inertial: inertialScroll
     }),
     isPreview() {
-      return ~this.$route.path.indexOf('preview')
+      return !!~this.$route.path.indexOf('preview')
     }
   },
   data() {
@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     onClose() {
-      this.$router.push('/samples')
+      history.back()
     },
     cStatus() {
       if(!this.isPreview) return

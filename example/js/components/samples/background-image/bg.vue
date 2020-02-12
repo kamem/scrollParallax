@@ -1,5 +1,5 @@
 <template>
-<div v-if="status">
+<div v-if="status" class="background-items">
   <section class="item"
     v-for="i of 4"
     v-parallax-speed
@@ -23,8 +23,14 @@ export default {
 </script>
 
 <style scoped>
+.background-items {
+  display: flex;
+  flex-direction: column;
+  height: 120%;
+}
 .item {
-  height: 250px;
+  height: 30%;
+  flex-grow: 1;
   background-image: url(https://live.staticflickr.com/616/21925649309_2d863055b4_k.jpg);
   background-size: cover;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5) inset;
