@@ -43,24 +43,4 @@ export default {
   right: 0;
   box-sizing: border-box;
 }
-
-@media screen and (max-width: 680px) {
-.sample-cntents {
-  display: flex;
-  flex-direction: column;
-}
-.sample-contents-item {
-  position: static;
-}
-.code {
-  right: 0;
-}
-.sample-contents-code {
-  position: static;
-  width: 100%;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5) inset;
-  height: 100px;
-  min-height: 100px;
-}
-}
 </style>

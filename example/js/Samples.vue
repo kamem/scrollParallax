@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="container">
     <header class="header">
       <nav>
         <ul class="gnav">
+          <li class="gnav-item"><a href="#/samples">一覧</a></li>
           <li class="gnav-item"><a href="#/samples/bg">背景を動かす</a></li>
-         <li class="gnav-item"><a href="#/samples/inertial">全体を慣性で動かす</a></li>
+          <li class="gnav-item"><a href="#/samples/inertial">全体を慣性で動かす</a></li>
         </ul>
       </nav>
     </header>
@@ -88,22 +89,30 @@ export default {
 </script>
 
 <style scoped>
-.gnav {
+.container {
   display: flex;
-  overflow: auto;
-  height: 60px;
-  background-color: #000;
+}
+
+.content-body {
+  max-width: none;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.header {
+  margin-top: 8px;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .gnav-item {
+  margin: 0;
   -webkit-overflow-scrolling: touch;
   white-space: nowrap;
-  padding: 0 16px;
-  line-height: 60px;
-  font-size: 14px;
+  padding: 0.4em 8px;
+  font-size: 13px;
   list-style-type: none;
   & a {
-    color: #fff;
+    color: #333;
     text-decoration: none;
     display: block;
     &:hover {

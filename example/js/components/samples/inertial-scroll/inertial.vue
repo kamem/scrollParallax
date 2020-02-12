@@ -1,7 +1,6 @@
 <template>
 <div v-if="status">
   <div class="body">
-
     <div class="content"
       v-parallax-speed
       styles="transform"
@@ -12,8 +11,7 @@
       contentScrollPositionStyleValue="translate(0px, 0px)"
       :targetPercentage="0.1"
     >
-      <div class="box" v-for="i of 4">
-    {{$scrollStatus}}</div>
+      <div class="box" v-for="i of 4" />
     </div>
   </div>
 </div>

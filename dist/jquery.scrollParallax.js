@@ -206,7 +206,7 @@ var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollP
 
   if (~['string', 'object'].indexOf(_typeof(scrollPosition))) {
     var i = typeof scrollPosition === 'string' ? scrollPosition.split(',') : scrollPosition;
-    var positionName = i[0];
+    var positionName = i[0] || scrollPosition;
     var position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(positionName, status);
     var s = (parseInt(i[1]) || 0) + Math.min(position, lastScrollPosition);
     return Math.min(s, lastScrollPosition);

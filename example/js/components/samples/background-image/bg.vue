@@ -1,6 +1,6 @@
 <template>
 <div v-if="status" class="background-items">
-  <section class="item"
+  <section class="background-item"
     v-for="i of 4"
     v-parallax-speed
     styles="background-position"
@@ -8,8 +8,9 @@
     :speed="[[0, 0.04 * (i % 2 === 0 ? 1 : -1)]]"
     :min="[[0, 0]]"
     :max="[[0, 100]]"
-    :contentScrollPosition="i * 300"
-    :targetPercentage="0.1">
+    ref="background-item"
+    contentScrollPosition="this"
+    :targetPercentage="0.1" />
   </section>
 </div>
 </template>
@@ -19,6 +20,8 @@ export default {
   props: {
     status: Object
   },
+  methods: {
+  }
 }
 </script>
 
@@ -26,12 +29,11 @@ export default {
 .background-items {
   display: flex;
   flex-direction: column;
-  height: 120%;
+  height: 1200px;
 }
-.item {
-  height: 30%;
+.background-item {
+  height: 300px;
   flex-grow: 1;
-  background-image: url(https://live.staticflickr.com/616/21925649309_2d863055b4_k.jpg);
   background-size: cover;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5) inset;
   background-position: 0% 50%;

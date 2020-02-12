@@ -49,7 +49,7 @@ export default {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: all .3s cubic-bezier(.16,.56,.51,1);
+  transition: all .2s cubic-bezier(.16,.56,.51,1);
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;

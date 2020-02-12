@@ -1,27 +1,19 @@
 <template>
-  <article class="content-body">
-    <div v-html="compiledMarkdownText" />
-  </article>
+  <Readme :text="markdownText" />
 </template>
 
 <script>
-import marked from 'marked'
+import Readme from './components/Readme'
 import md from '../../docs/VUE.ja.md'
-
 export default {
-  name: 'Vue',
+  components: {
+    Readme
+  },
   data () {
     return {
-      markdownText: md.source
+      markdownText: md
     }
   },
-  computed: {
-    compiledMarkdownText() {
-      return marked(this.markdownText)
-      .replace(/\&amp;/g, '&')
-      .replace(/..\/README.ja.md/g, '#/')
-    }
-  }
 }
 </script>
 

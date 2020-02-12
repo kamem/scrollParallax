@@ -78,7 +78,7 @@ const Parallax = {
             opt.speed,
             opt.min,
             opt.max,
-            opt.contentScrollPosition || 0,
+            opt.contentScrollPosition === 'this' ? element : opt.contentScrollPosition || 0,
             opt.contentScrollPositionStyleValue
           )
 

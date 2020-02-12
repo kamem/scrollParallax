@@ -206,7 +206,7 @@ var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollP
 
   if (~['string', 'object'].indexOf(_typeof(scrollPosition))) {
     var i = typeof scrollPosition === 'string' ? scrollPosition.split(',') : scrollPosition;
-    var positionName = i[0];
+    var positionName = i[0] || scrollPosition;
     var position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(positionName, status);
     var s = (parseInt(i[1]) || 0) + Math.min(position, lastScrollPosition);
     return Math.min(s, lastScrollPosition);
@@ -1063,7 +1063,7 @@ var Parallax = {
         var opt = value || o;
         setTimeout(function () {
           var element = opt.el || el;
-          var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"](element, opt.styles, opt.speed, opt.min, opt.max, opt.contentScrollPosition || 0, opt.contentScrollPositionStyleValue);
+          var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"](element, opt.styles, opt.speed, opt.min, opt.max, opt.contentScrollPosition === 'this' ? element : opt.contentScrollPosition || 0, opt.contentScrollPositionStyleValue);
           setScrollEvents(function (status) {
             var styleValues = s.getStyleValues(status);
 

@@ -69,7 +69,7 @@ export const scrollPositionStringToNumber = (scrollPosition, status = Status) =>
 
   if (~['string', 'object'].indexOf(typeof scrollPosition)) {
     const i = typeof scrollPosition === 'string' ? scrollPosition.split(',') : scrollPosition
-    const positionName = i[0]
+    const positionName = i[0] || scrollPosition
     const position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(positionName, status)
 
     const s = (parseInt(i[1]) || 0) + Math.min(position, lastScrollPosition)

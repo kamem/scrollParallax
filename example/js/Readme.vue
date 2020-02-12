@@ -1,38 +1,19 @@
 <template>
-  <article class="content-body" ref="content-body">
-    <div v-html="compiledMarkdownText" />
-  </article>
+  <Readme :text="markdownText" />
 </template>
 
 <script>
-import marked from 'marked'
+import Readme from './components/Readme'
 import md from '../../README.ja.md'
 export default {
-  name: 'App',
+  components: {
+    Readme
+  },
   data () {
     return {
-      markdownText: md.source
+      markdownText: md
     }
   },
-  computed: {
-    compiledMarkdownText() {
-      return marked(this.markdownText)
-      .replace(/href="docs/g, `href="${location.pathname}#/docs`)
-      .replace(/http:\/\/github.develo.org\/scrollParallax\/public\//g, './')
-    }
-  },
-  mounted() {
-    this.prettyPrint()
-  },
-  methods: {
-    prettyPrint() {
-      const content = this.$refs['content-body']
-      content.querySelectorAll('pre').forEach(pre => {
-        pre.classList.add('prettyprint')
-      })
-      PR.prettyPrint()
-    }
-  }
 }
 </script>
 
