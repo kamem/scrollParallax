@@ -64,6 +64,7 @@ export default {
       this.$router.push('/samples')
     },
     cStatus() {
+      if(!this.isPreview) return
       setTimeout(() => {
         const stage = this.$refs['sample-contents'] && this.$refs['sample-contents'].$refs['sample-contents-item']
         if(this.status) {
@@ -79,7 +80,7 @@ export default {
     this.cStatus()
   },
   watch: {
-    ['$route.params.name']() {
+    ['$route']() {
       this.cStatus()
     }
   }

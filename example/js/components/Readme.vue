@@ -14,7 +14,7 @@ export default {
     compiledMarkdownText() {
       return marked(this.text.source)
       .replace(/href="docs/g, `href="${location.pathname}#/docs`)
-      .replace(/http:\/\/github.develo.org\/scrollParallax\/public\//g, './')
+      .replace(/http:\/\/github.develo.org\/scrollParallax\/public\//g, '')
     }
   },
   mounted() {

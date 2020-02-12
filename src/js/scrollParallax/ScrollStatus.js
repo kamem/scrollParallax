@@ -65,9 +65,8 @@ export class ScrollPosition {
   generateScrollPosition() {
     const scrollPosition = this.getScrollPosition()
     const offset = (scrollPosition - this.scrollPosition) * this.targetPercentage
-    this.scrollPosition += Math.round(offset * 100) / 100
-
-    return this.scrollPosition
+    this.scrollPosition += offset
+    return Math.round(this.scrollPosition * 100) / 100
   }
 }
 
