@@ -117,8 +117,8 @@ export default class Fit {
   generateScrollStyleValues(style, fromtStyle, toStyle, easingName, scrollPercent) {
     const abs = Math.abs(fromtStyle - toStyle)
     const fixAbs = fromtStyle < toStyle ? abs : -abs
-    const easing = typeof easingName === 'string' ? easing[easingName] : easingName
-    let styleValue = easing(scrollPercent, fromtStyle, fixAbs, 1)
+    const e = typeof easingName === 'string' ? easing[easingName] : easingName
+    let styleValue = e(scrollPercent, fromtStyle, fixAbs, 1)
     if (style.indexOf('rgb') >= 0) {
       styleValue = styleValue >= 1 ? parseInt(styleValue) : styleValue < 0 ? 0 : styleValue;
     }

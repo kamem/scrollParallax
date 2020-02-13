@@ -897,7 +897,8 @@ function () {
     value: function generateScrollStyleValues(style, fromtStyle, toStyle, easingName, scrollPercent) {
       var abs = Math.abs(fromtStyle - toStyle);
       var fixAbs = fromtStyle < toStyle ? abs : -abs;
-      var styleValue = typeof easingName === 'function' ? easingName(scrollPercent, fromtStyle, fixAbs, 1) : _util__WEBPACK_IMPORTED_MODULE_0__[/* easing */ "b"][easingName](scrollPercent, fromtStyle, fixAbs, 1);
+      var e = typeof easingName === 'string' ? _util__WEBPACK_IMPORTED_MODULE_0__[/* easing */ "b"][easingName] : easingName;
+      var styleValue = e(scrollPercent, fromtStyle, fixAbs, 1);
 
       if (style.indexOf('rgb') >= 0) {
         styleValue = styleValue >= 1 ? parseInt(styleValue) : styleValue < 0 ? 0 : styleValue;
