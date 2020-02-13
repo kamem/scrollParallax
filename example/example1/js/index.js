@@ -101,7 +101,11 @@ $('.circle').each(function (i) {
         transform: 'scale(1)',
         top: $(this).css('top')
       },
-      easing: 'easeOutBack'
+      easing: function (t, b, c, d) {
+        var ts = (t /= d) * t;
+        var tc = ts * t;
+        return b + c * (-49 * tc * ts + 135 * ts * ts + -130 * tc + 50 * ts + -5 * t);
+      }
     },
   ])
 })

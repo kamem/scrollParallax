@@ -72,14 +72,14 @@
 easingを指定することも可能です。
 
 
-| option name| Descriptions 
-|:-----------|:------------|
-| start | 移動を始めるスクロール位置（2つ目からは省略すると最後のendの位置からとなります。） [スクロール位置の指定について](#スクロール位置の指定について) |
-| end | 移動が終わるスクロール位置 [スクロール位置の指定について](#スクロール位置の指定について) |
-| fromStyle | 始めのcss（cssは文字列で指定してください） |
-| toStyle | 終わりのcss（cssは文字列で指定してください） |
-| easing | [easing plugin](http://semooh.jp/jquery/cont/doc/easing/)の名前を指定 |
-| targetPercentage| 慣性の割合を指定します（個別に指定したい場合） |`undefined`
+| option name| Descriptions |default
+|:-----------|:------------|:------------|
+| start | 移動を始めるスクロール位置（2つ目からは省略すると最後のendの位置からとなります。） [スクロール位置の指定について](#スクロール位置の指定について) | -
+| end | 移動が終わるスクロール位置 [スクロール位置の指定について](#スクロール位置の指定について) | -
+| fromStyle | 始めのcss（cssは文字列で指定してください） | -
+| toStyle | 終わりのcss（cssは文字列で指定してください） | -
+| easing | [easing plugin](http://semooh.jp/jquery/cont/doc/easing/)の名前を指定、また関数を指定することもできます。[easing function generator](http://www.timotheegroleau.com/Flash/experiments/easing_function_generator.htm) | 'linear'
+| targetPercentage| 慣性の割合を指定します（個別に指定したい場合） | `undefined`
 
 
 ### スクロール位置の指定について
