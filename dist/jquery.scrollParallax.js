@@ -704,7 +704,7 @@ function () {
 
         var _min = _typeof(min) === 'object' ? min && min[j] : min;
 
-        var _max = _typeof(min) === 'object' ? min && max[j] : max;
+        var _max = _typeof(min) === 'object' ? max && max[j] : max;
 
         newValue = Math.max(newValue, typeof _min === 'number' ? _min : -99999);
         newValue = Math.min(newValue, typeof _max === 'number' ? _max : 99999);
@@ -1030,7 +1030,7 @@ $.fn.parallaxTiming = function () {
 
 $.fn.parallaxSpeed = function (opt) {
   var $el = this;
-  var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]($el[0], opt.style || opt.styles, opt.speed, opt.min, opt.max, opt.contentScrollPosition || 0, opt.contentScrollPositionStyleValue);
+  var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]($el[0], opt.style || opt.styles, opt.speed, opt.min, opt.max, opt.contentScrollPosition === 0 || opt.contentScrollPosition ? opt.contentScrollPosition : $el[0], opt.contentScrollPositionStyleValue);
   setScrollEvents(function (status) {
     $el.css(s.getStyleValues(status));
   }, opt);

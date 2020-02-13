@@ -62,6 +62,7 @@
 		</svg>
 		<img class="gear" :src="'../img/gear.svg'"
       v-parallax-speed
+      :contentScrollPosition="0"
       styles="transform"
       contentScrollPositionStyleValue="rotate(0deg)"
       :speed="-0.2"

@@ -20,6 +20,7 @@ for (let i = 0; i < borderContent; i++) {
     width: Math.floor(Math.random() * 300) + 300,
     opacity: Math.random() + 0.1,
   }).parallaxSpeed({
+    contentScrollPosition: 0,
     style: ['width', 'left'],
     speed: Math.random() * 0.2 + 0.5 * ([-1, 1][Math.floor(Math.random() * 2)]),
   })
@@ -82,6 +83,7 @@ $('.birdPath').parallaxFit([
 ])
 
 $('.gear').parallaxSpeed({
+  contentScrollPosition: 0,
   style: 'transform',
   contentScrollPositionStyleValue: 'rotate(0deg)',
   speed: -0.2,

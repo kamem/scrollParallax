@@ -8,6 +8,7 @@
       :speed="-1"
       :min="[[0, null]]"
       :max="[[0, null]]"
+      :contentScrollPosition="0"
       contentScrollPositionStyleValue="translate(0px, 0px)"
       :targetPercentage="0.1"
     >

@@ -37,7 +37,7 @@ export default class Speed {
       let newValue = -parseFloat(-status.scrollPosition * _speed + scrollPositionStringToNumber(this.contentScrollPosition, status) * _speed) + value
      
       const _min = (typeof min === 'object' ? min && min[j] : min)
-      const _max = (typeof min === 'object' ? min && max[j] : max)
+      const _max = (typeof min === 'object' ? max && max[j] : max)
       newValue = Math.max(newValue, typeof _min === 'number' ? _min : -99999)
       newValue = Math.min(newValue, typeof _max === 'number' ? _max : 99999)
 

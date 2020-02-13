@@ -54,7 +54,7 @@ $.fn.parallaxSpeed = function (opt) {
     opt.speed,
     opt.min,
     opt.max,
-    opt.contentScrollPosition || 0,
+    opt.contentScrollPosition === 0 || opt.contentScrollPosition ? opt.contentScrollPosition : $el[0],
     opt.contentScrollPositionStyleValue,
   )
 
