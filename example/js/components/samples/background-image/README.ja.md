@@ -1,4 +1,9 @@
-<template>
+# 背景を動かす
+
+[プレビュー](http://github.develo.org/scrollParallax/public/#/samples/bg/preview)
+
+## Vue
+```vue
 <div v-if="status" class="background-items">
   <section class="background-item"
     v-for="i of 4"
@@ -13,19 +18,10 @@
     :targetPercentage="0.1" />
   </section>
 </div>
-</template>
+```
 
-<script>
-export default {
-  props: {
-    status: Object
-  },
-  methods: {
-  }
-}
-</script>
-
-<style scoped>
+## CSS
+```css
 .background-items {
   display: flex;
   flex-direction: column;
@@ -51,4 +47,4 @@ export default {
     background-image: url(https://live.staticflickr.com/8591/16477295709_b8814d7cad_h.jpg);
   }
 }
-</style>
+```

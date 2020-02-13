@@ -206,7 +206,7 @@ var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollP
 
   if (~['string', 'object'].indexOf(_typeof(scrollPosition))) {
     var i = typeof scrollPosition === 'string' ? scrollPosition.split(',') : scrollPosition;
-    var positionName = i[0];
+    var positionName = i[0] || scrollPosition;
     var position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(positionName, status);
     var s = (parseInt(i[1]) || 0) + Math.min(position, lastScrollPosition);
     return Math.min(s, lastScrollPosition);
@@ -569,8 +569,8 @@ function () {
     value: function generateScrollPosition() {
       var scrollPosition = this.getScrollPosition();
       var offset = (scrollPosition - this.scrollPosition) * this.targetPercentage;
-      this.scrollPosition += Math.round(offset * 100) / 100;
-      return this.scrollPosition;
+      this.scrollPosition += offset;
+      return Math.round(this.scrollPosition * 100) / 100;
     }
   }]);
 
@@ -702,9 +702,9 @@ function () {
         _speed = typeof _speed === 'number' ? _speed : 2;
         var newValue = -parseFloat(-status.scrollPosition * _speed + Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(_this2.contentScrollPosition, status) * _speed) + value;
 
-        var _min = _typeof(min) === 'object' ? min[j] : min;
+        var _min = _typeof(min) === 'object' ? min && min[j] : min;
 
-        var _max = _typeof(min) === 'object' ? max[j] : max;
+        var _max = _typeof(min) === 'object' ? min && max[j] : max;
 
         newValue = Math.max(newValue, typeof _min === 'number' ? _min : -99999);
         newValue = Math.min(newValue, typeof _max === 'number' ? _max : 99999);
@@ -1000,26 +1000,43 @@ var setScrollEvents = function setScrollEvents(func, opt) {
   }))]);
 };
 
+var generateScrollStatusValues = function generateScrollStatusValues(Vue) {
+  var opt = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var $scrollStatus = arguments.length > 2 ? arguments[2] : undefined;
+
+  if (opt.name) {
+    $scrollStatus[opt.name] = Vue.observable({
+      scrollPosition: _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].scrollPosition,
+      contentSize: _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].contentSize,
+      values: {}
+    });
+  }
+
+  var scrollStatus = opt.name ? $scrollStatus[opt.name] : $scrollStatus;
+  return _objectSpread({}, opt, {
+    updateFunction: function updateFunction(status) {
+      scrollStatus.scrollPosition = status.scrollPosition;
+      scrollStatus.contentSize = status.contentSize;
+      scrollStatus.values = Object.assign({}, scrollStatus.values, status.functions.reduce(function (result, _ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            current = _ref2[0],
+            scrollPosition = _ref2[1];
+
+        return Object.assign({}, result, current(scrollPosition ? Object.assign({}, status, {
+          scrollPosition: scrollPosition.generateScrollPosition()
+        }) : status));
+      }, {}));
+    }
+  });
+};
+
 var Parallax = {
   install: function install(Vue, opt) {
     var $scrollStatus = Vue.observable({
       scrollPosition: _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].scrollPosition,
       values: {}
     });
-    _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].setVal(_objectSpread({}, opt, {
-      updateFunction: function updateFunction(status) {
-        $scrollStatus.scrollPosition = status.scrollPosition;
-        $scrollStatus.values = Object.assign({}, $scrollStatus.values, status.functions.reduce(function (result, _ref) {
-          var _ref2 = _slicedToArray(_ref, 2),
-              current = _ref2[0],
-              scrollPosition = _ref2[1];
-
-          return Object.assign({}, result, current(scrollPosition ? Object.assign({}, status, {
-            scrollPosition: scrollPosition.generateScrollPosition()
-          }) : status));
-        }, {}));
-      }
-    }));
+    _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].setVal(generateScrollStatusValues(Vue, opt, $scrollStatus, name));
     Vue.prototype.$scrollStatus = $scrollStatus;
     Vue.directive('parallax-timing', {
       bind: function bind(el, _ref3, _ref4) {
@@ -1046,7 +1063,7 @@ var Parallax = {
         var opt = value || o;
         setTimeout(function () {
           var element = opt.el || el;
-          var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"](element, opt.styles, opt.speed, opt.min, opt.max, opt.contentScrollPosition || 0, opt.contentScrollPositionStyleValue);
+          var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"](element, opt.styles, opt.speed, opt.min, opt.max, opt.contentScrollPosition === 'this' ? element : opt.contentScrollPosition || 0, opt.contentScrollPositionStyleValue);
           setScrollEvents(function (status) {
             var styleValues = s.getStyleValues(status);
 
@@ -1110,7 +1127,7 @@ var Parallax = {
       methods: {
         createStatus: function createStatus(opt) {
           var status = new _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* default */ "c"]();
-          status.setVal(opt);
+          status.setVal(opt.name ? generateScrollStatusValues(Vue, opt, this.$scrollStatus) : opt);
           return status;
         },
         parallaxTiming: function parallaxTiming(opt) {

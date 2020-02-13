@@ -206,7 +206,7 @@ var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollP
 
   if (~['string', 'object'].indexOf(_typeof(scrollPosition))) {
     var i = typeof scrollPosition === 'string' ? scrollPosition.split(',') : scrollPosition;
-    var positionName = i[0];
+    var positionName = i[0] || scrollPosition;
     var position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(positionName, status);
     var s = (parseInt(i[1]) || 0) + Math.min(position, lastScrollPosition);
     return Math.min(s, lastScrollPosition);
@@ -569,8 +569,8 @@ function () {
     value: function generateScrollPosition() {
       var scrollPosition = this.getScrollPosition();
       var offset = (scrollPosition - this.scrollPosition) * this.targetPercentage;
-      this.scrollPosition += Math.round(offset * 100) / 100;
-      return this.scrollPosition;
+      this.scrollPosition += offset;
+      return Math.round(this.scrollPosition * 100) / 100;
     }
   }]);
 
@@ -702,9 +702,9 @@ function () {
         _speed = typeof _speed === 'number' ? _speed : 2;
         var newValue = -parseFloat(-status.scrollPosition * _speed + Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(_this2.contentScrollPosition, status) * _speed) + value;
 
-        var _min = _typeof(min) === 'object' ? min[j] : min;
+        var _min = _typeof(min) === 'object' ? min && min[j] : min;
 
-        var _max = _typeof(min) === 'object' ? max[j] : max;
+        var _max = _typeof(min) === 'object' ? min && max[j] : max;
 
         newValue = Math.max(newValue, typeof _min === 'number' ? _min : -99999);
         newValue = Math.min(newValue, typeof _max === 'number' ? _max : 99999);

@@ -14,7 +14,7 @@ import Vue from 'vue'
 import Parallax from 'scrollParallax/vue'
 import App from './App'
 
-Vue.use(Parallaxm)
+Vue.use(Parallax)
 
 const app = new Vue({
   el: '#app',
@@ -25,7 +25,7 @@ const app = new Vue({
 横方向にしたい場合は下記
 
 ```javascript
-Vue.use(Parallaxm, { direction: 'x' })
+Vue.use(Parallax, { direction: 'x' })
 ```
 
 他の[オプション](../README.ja.md#Usage)もここで指定できます。
