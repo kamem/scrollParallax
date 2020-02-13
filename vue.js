@@ -107,7 +107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getStyleValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getStyleValues; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return generateStyleValue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return generateStyleValueString; });
 /* unused harmony export generateColorString */
@@ -188,10 +188,9 @@ var getStringColor = function getStringColor(styleValue) {
   });
 };
 var _offset = function _offset(element, _ref) {
-  var direction = _ref.direction;
-  var directionPositionName = direction === 'y' ? 'Top' : 'Left';
-  var scrollPosition = global["page".concat(direction.toUpperCase(), "Offset")] || document.documentElement["scroll".concat(directionPositionName)];
-  var el = typeof element !== 'string' ? element : document.querySelector(element);
+  var scrollPosition = _ref.scrollPosition,
+      directionPositionName = _ref.directionPositionName;
+  var el = typeof element === 'string' ? document.querySelector(element) : element;
   return el && el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + scrollPosition;
 };
 var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollPosition) {
@@ -446,7 +445,6 @@ var easing = {
     return easing.easeOutBounce(i * 2 - d, 0, c, d) * 0.5 + c * 0.5 + b;
   }
 };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5)))
 
 /***/ }),
 /* 1 */
@@ -609,9 +607,10 @@ function () {
 
   _createClass(Timing, [{
     key: "getEventScrollElementPosition",
-    value: function getEventScrollElementPosition(direction) {
+    value: function getEventScrollElementPosition(scrollPosition, directionPositionName) {
       return this.eventScrollElementPosition ? Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(this.eventScrollElementPosition) : Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* _offset */ "a"])(this.$el, {
-        direction: direction
+        scrollPosition: scrollPosition,
+        directionPositionName: directionPositionName
       });
     }
   }, {
@@ -619,9 +618,9 @@ function () {
     value: function timingEvent(_ref) {
       var stageSize = _ref.stageSize,
           scrollPosition = _ref.scrollPosition,
-          direction = _ref.direction;
+          directionPositionName = _ref.directionPositionName;
       this.eventScrollPlussWindowPerCentPosition = scrollPosition + stageSize * this.eventTriggerPercentage;
-      var isOver = this.eventScrollPlussWindowPerCentPosition >= this.getEventScrollElementPosition(direction);
+      var isOver = this.eventScrollPlussWindowPerCentPosition >= this.getEventScrollElementPosition(scrollPosition, directionPositionName);
 
       if (isOver !== this.isOver) {
         this.isOver = isOver;

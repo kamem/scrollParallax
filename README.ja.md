@@ -60,7 +60,7 @@
 | min | 最小値 |`-999999`
 | max | 最大値 |`999999`
 | contentScrollPositionStyleValue | スクロールが`contentScrollPosition`の位置にきたときに、ここで指定したstyleに落ち着きます。指定がない場合はcssで予め指定していたstyleになります。 | 自身のタグのstyle
-| contentScrollPosition | スクロールがここで指定した位置に来た時に、希望の位置（contentScrollPositionStyleValue）にstyleが落ち着きます。[スクロール位置の指定について](#スクロール位置の指定について) |`0`
+| contentScrollPosition | スクロールがここで指定した位置に来た時に、希望の位置（contentScrollPositionStyleValue）にstyleが落ち着きます。[スクロール位置の指定について](#スクロール位置の指定について) | 指定したタグの位置
 | targetPercentage| 数値が少ないほどスクロールしてからゆっくり動きます |`undefined`
 
 

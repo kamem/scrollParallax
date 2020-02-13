@@ -9,15 +9,35 @@
     v-for="i of 4"
     v-parallax-speed
     styles="background-position"
-    :status="status"
     :speed="[[0, 0.04 * (i % 2 === 0 ? 1 : -1)]]"
     :min="[[0, 0]]"
     :max="[[0, 100]]"
-    ref="background-item"
-    contentScrollPosition="this"
     :targetPercentage="0.1" />
-  </section>
 </div>
+```
+
+## jQuery
+### html
+```html
+<div class="background-items">
+  <section class="background-item"></section>
+  <section class="background-item"></section>
+  <section class="background-item"></section>
+  <section class="background-item"></section>
+</div>
+```
+### js
+```jquery
+$('.background-item').each(function(i) {
+  $(this).parallaxSpeed({
+    styles: 'background-position',
+    speed: [[0, 0.04 * (i % 2 === 0 ? 1 : -1)]],
+    min: [[0, 0]],
+    max: [[0, 100]],
+    contentScrollPosition: $(this),
+    targetPercentage: 0.1
+  })
+})
 ```
 
 ## CSS
