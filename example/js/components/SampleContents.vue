@@ -1,6 +1,6 @@
 <template>
 <div class="sample-cntents">
-  <div :class="['sample-contents-item', {code: $slots.code}]" ref="sample-contents-item">
+  <div class="sample-contents-item" ref="sample-contents-item">
     <slot />
   </div>
 </div>

@@ -30,7 +30,14 @@ export default {
       })
       PR.prettyPrint()
     }
-  }
+  },
+  watch: {
+    text() {
+      setTimeout(() => {
+        this.prettyPrint()
+      }, 0)
+    },
+  },
 }
 </script>
 

@@ -805,8 +805,9 @@ function () {
     }
   }, {
     key: "setRangeMotions",
-    value: function setRangeMotions(_ref) {
-      var scrollPosition = _ref.scrollPosition;
+    value: function setRangeMotions() {
+      var status = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Status;
+      var scrollPosition = status.scrollPosition;
       var range = [];
       this.motions.forEach(function (motion) {
         var start = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(motion.start);
@@ -818,8 +819,8 @@ function () {
     key: "setDefaultStyles",
     value: function setDefaultStyles() {
       var defaultStyles = {};
-      this.motions.forEach(function (_ref2) {
-        var fromStyle = _ref2.fromStyle;
+      this.motions.forEach(function (_ref) {
+        var fromStyle = _ref.fromStyle;
 
         for (var style in fromStyle) {
           if (defaultStyles[style] === undefined) defaultStyles[style] = fromStyle[style];
@@ -832,9 +833,9 @@ function () {
     value: function setFromStyle() {
       var _this2 = this;
 
-      this.motions.forEach(function (_ref3, i) {
-        var fromStyle = _ref3.fromStyle,
-            toStyle = _ref3.toStyle;
+      this.motions.forEach(function (_ref2, i) {
+        var fromStyle = _ref2.fromStyle,
+            toStyle = _ref2.toStyle;
 
         for (var style in toStyle) {
           if (fromStyle === undefined) fromStyle = {};
@@ -907,13 +908,14 @@ function () {
     }
   }, {
     key: "getStyleValues",
-    value: function getStyleValues(_ref4) {
+    value: function getStyleValues() {
       var _this4 = this;
 
-      var scrollPosition = _ref4.scrollPosition;
+      var status = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Status;
+      var scrollPosition = status.scrollPosition;
       this.rangeMotions.forEach(function (motion, j) {
-        var start = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(motion.start);
-        var end = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(motion.end);
+        var start = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(motion.start, status);
+        var end = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(motion.end, status);
         var isInRange = start < scrollPosition && scrollPosition < end;
         var range = end - start;
         var scrollPercent = isInRange ? (scrollPosition - start) / range : scrollPosition > start ? 1 : scrollPosition < end ? 0 : '';
