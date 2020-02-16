@@ -18,6 +18,7 @@ for (let i = 0; i < borderContent; i++) {
     width: Math.floor(Math.random() * 300) + 300,
     opacity: Math.random() + 0.1,
   }).parallaxSpeed({
+    contentScrollPosition: 0,
     style: ['width', 'left'],
     speed: Math.random() * 0.2 + 0.5 * ([-1, 1][Math.floor(Math.random() * 2)]),
   })
@@ -65,6 +66,7 @@ $('.gear').parallaxSpeed({
   style: 'transform',
   contentScrollPositionStyleValue: 'rotate(0deg)',
   targetPercentage: 0.05,
+  contentScrollPosition: 0,
   speed: -0.2,
 })
 
@@ -101,7 +103,11 @@ $('.circle').each(function (i) {
         transform: 'scale(1)',
         top: $(this).css('top')
       },
-      easing: 'easeOutBack'
+      easing: function (t, b, c, d) {
+        var ts = (t /= d) * t;
+        var tc = ts * t;
+        return b + c * (-49 * tc * ts + 135 * ts * ts + -130 * tc + 50 * ts + -5 * t);
+      }
     },
   ])
 })

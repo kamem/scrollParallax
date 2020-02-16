@@ -107,7 +107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getStyleValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getStyleValues; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return generateStyleValue; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return generateStyleValueString; });
 /* unused harmony export generateColorString */
@@ -188,10 +188,9 @@ var getStringColor = function getStringColor(styleValue) {
   });
 };
 var _offset = function _offset(element, _ref) {
-  var direction = _ref.direction;
-  var directionPositionName = direction === 'y' ? 'Top' : 'Left';
-  var scrollPosition = global["page".concat(direction.toUpperCase(), "Offset")] || document.documentElement["scroll".concat(directionPositionName)];
-  var el = typeof element !== 'string' ? element : document.querySelector(element);
+  var scrollPosition = _ref.scrollPosition,
+      directionPositionName = _ref.directionPositionName;
+  var el = typeof element === 'string' ? document.querySelector(element) : element;
   return el && el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + scrollPosition;
 };
 var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollPosition) {
@@ -446,7 +445,6 @@ var easing = {
     return easing.easeOutBounce(i * 2 - d, 0, c, d) * 0.5 + c * 0.5 + b;
   }
 };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5)))
 
 /***/ }),
 /* 1 */
@@ -609,9 +607,10 @@ function () {
 
   _createClass(Timing, [{
     key: "getEventScrollElementPosition",
-    value: function getEventScrollElementPosition(direction) {
+    value: function getEventScrollElementPosition(scrollPosition, directionPositionName) {
       return this.eventScrollElementPosition ? Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(this.eventScrollElementPosition) : Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* _offset */ "a"])(this.$el, {
-        direction: direction
+        scrollPosition: scrollPosition,
+        directionPositionName: directionPositionName
       });
     }
   }, {
@@ -619,9 +618,9 @@ function () {
     value: function timingEvent(_ref) {
       var stageSize = _ref.stageSize,
           scrollPosition = _ref.scrollPosition,
-          direction = _ref.direction;
+          directionPositionName = _ref.directionPositionName;
       this.eventScrollPlussWindowPerCentPosition = scrollPosition + stageSize * this.eventTriggerPercentage;
-      var isOver = this.eventScrollPlussWindowPerCentPosition >= this.getEventScrollElementPosition(direction);
+      var isOver = this.eventScrollPlussWindowPerCentPosition >= this.getEventScrollElementPosition(scrollPosition, directionPositionName);
 
       if (isOver !== this.isOver) {
         this.isOver = isOver;
@@ -704,7 +703,7 @@ function () {
 
         var _min = _typeof(min) === 'object' ? min && min[j] : min;
 
-        var _max = _typeof(min) === 'object' ? min && max[j] : max;
+        var _max = _typeof(min) === 'object' ? max && max[j] : max;
 
         newValue = Math.max(newValue, typeof _min === 'number' ? _min : -99999);
         newValue = Math.min(newValue, typeof _max === 'number' ? _max : 99999);
@@ -806,8 +805,9 @@ function () {
     }
   }, {
     key: "setRangeMotions",
-    value: function setRangeMotions(_ref) {
-      var scrollPosition = _ref.scrollPosition;
+    value: function setRangeMotions() {
+      var status = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Status;
+      var scrollPosition = status.scrollPosition;
       var range = [];
       this.motions.forEach(function (motion) {
         var start = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(motion.start);
@@ -819,8 +819,8 @@ function () {
     key: "setDefaultStyles",
     value: function setDefaultStyles() {
       var defaultStyles = {};
-      this.motions.forEach(function (_ref2) {
-        var fromStyle = _ref2.fromStyle;
+      this.motions.forEach(function (_ref) {
+        var fromStyle = _ref.fromStyle;
 
         for (var style in fromStyle) {
           if (defaultStyles[style] === undefined) defaultStyles[style] = fromStyle[style];
@@ -833,9 +833,9 @@ function () {
     value: function setFromStyle() {
       var _this2 = this;
 
-      this.motions.forEach(function (_ref3, i) {
-        var fromStyle = _ref3.fromStyle,
-            toStyle = _ref3.toStyle;
+      this.motions.forEach(function (_ref2, i) {
+        var fromStyle = _ref2.fromStyle,
+            toStyle = _ref2.toStyle;
 
         for (var style in toStyle) {
           if (fromStyle === undefined) fromStyle = {};
@@ -897,7 +897,8 @@ function () {
     value: function generateScrollStyleValues(style, fromtStyle, toStyle, easingName, scrollPercent) {
       var abs = Math.abs(fromtStyle - toStyle);
       var fixAbs = fromtStyle < toStyle ? abs : -abs;
-      var styleValue = _util__WEBPACK_IMPORTED_MODULE_0__[/* easing */ "b"][easingName](scrollPercent, fromtStyle, fixAbs, 1);
+      var e = typeof easingName === 'string' ? _util__WEBPACK_IMPORTED_MODULE_0__[/* easing */ "b"][easingName] : easingName;
+      var styleValue = e(scrollPercent, fromtStyle, fixAbs, 1);
 
       if (style.indexOf('rgb') >= 0) {
         styleValue = styleValue >= 1 ? parseInt(styleValue) : styleValue < 0 ? 0 : styleValue;
@@ -907,13 +908,14 @@ function () {
     }
   }, {
     key: "getStyleValues",
-    value: function getStyleValues(_ref4) {
+    value: function getStyleValues() {
       var _this4 = this;
 
-      var scrollPosition = _ref4.scrollPosition;
+      var status = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Status;
+      var scrollPosition = status.scrollPosition;
       this.rangeMotions.forEach(function (motion, j) {
-        var start = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(motion.start);
-        var end = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(motion.end);
+        var start = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(motion.start, status);
+        var end = Object(_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(motion.end, status);
         var isInRange = start < scrollPosition && scrollPosition < end;
         var range = end - start;
         var scrollPercent = isInRange ? (scrollPosition - start) / range : scrollPosition > start ? 1 : scrollPosition < end ? 0 : '';
@@ -1052,7 +1054,7 @@ var Parallax = {
         }]);
         setScrollEvents(function (status) {
           return timing.timingEvent(status);
-        }, opt, opt.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
+        }, opt, opt.status || o.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
       }
     });
     Vue.directive('parallax-speed', {
@@ -1063,14 +1065,14 @@ var Parallax = {
         var opt = value || o;
         setTimeout(function () {
           var element = opt.el || el;
-          var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"](element, opt.styles, opt.speed, opt.min, opt.max, opt.contentScrollPosition === 'this' ? element : opt.contentScrollPosition || 0, opt.contentScrollPositionStyleValue);
+          var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"](element, opt.styles, opt.speed, opt.min, opt.max, opt.contentScrollPosition === 0 || opt.contentScrollPosition ? opt.contentScrollPosition : element, opt.contentScrollPositionStyleValue);
           setScrollEvents(function (status) {
             var styleValues = s.getStyleValues(status);
 
             for (var key in styleValues) {
               element.style[key] = styleValues[key];
             }
-          }, opt, opt.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
+          }, opt, opt.status || o.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
         }, 0);
       }
     });
@@ -1119,7 +1121,7 @@ var Parallax = {
             for (var key in styleValues) {
               el.style[key] = styleValues[key];
             }
-          }, opt, opt.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
+          }, opt, opt.status || o.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
         }, 0);
       }
     });
@@ -1134,13 +1136,13 @@ var Parallax = {
           var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"]('', opt.eventScrollPosition, opt.eventTriggerPercentage, Object.prototype.toString.call(opt) === '[object Array]' ? opt : opt.start ? [opt.start, opt.end] : opt.toggle);
           setScrollEvents(function (status) {
             return _defineProperty({}, opt.name, timing.timingEvent(status));
-          }, opt, opt.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
+          }, opt, opt.status || o.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
         },
         parallaxSpeed: function parallaxSpeed(opt) {
           var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]('', opt.style, opt.speed, opt.min, opt.max, opt.contentScrollPosition || 0, opt.contentScrollPositionStyleValue);
           setScrollEvents(function (status) {
             return _defineProperty({}, opt.name, s.getStyleValues(status));
-          }, opt, opt.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
+          }, opt, opt.status || o.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
         },
         parallaxFit: function parallaxFit(name, opt) {
           var fit = new _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"](this);
@@ -1177,7 +1179,7 @@ var Parallax = {
             fit.setRangeMotions(status);
             fit.setDefaultStyles();
             return _defineProperty({}, name, fit.getStyleValues(status));
-          }, opt, opt.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
+          }, opt, opt.status || o.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
         }
       }
     });

@@ -60,7 +60,7 @@
 | min | 最小値 |`-999999`
 | max | 最大値 |`999999`
 | contentScrollPositionStyleValue | スクロールが`contentScrollPosition`の位置にきたときに、ここで指定したstyleに落ち着きます。指定がない場合はcssで予め指定していたstyleになります。 | 自身のタグのstyle
-| contentScrollPosition | スクロールがここで指定した位置に来た時に、希望の位置（contentScrollPositionStyleValue）にstyleが落ち着きます。[スクロール位置の指定について](#スクロール位置の指定について) |`0`
+| contentScrollPosition | スクロールがここで指定した位置に来た時に、希望の位置（contentScrollPositionStyleValue）にstyleが落ち着きます。[スクロール位置の指定について](#スクロール位置の指定について) | 指定したタグの位置
 | targetPercentage| 数値が少ないほどスクロールしてからゆっくり動きます |`undefined`
 
 
@@ -72,14 +72,14 @@
 easingを指定することも可能です。
 
 
-| option name| Descriptions 
-|:-----------|:------------|
-| start | 移動を始めるスクロール位置（2つ目からは省略すると最後のendの位置からとなります。） [スクロール位置の指定について](#スクロール位置の指定について) |
-| end | 移動が終わるスクロール位置 [スクロール位置の指定について](#スクロール位置の指定について) |
-| fromStyle | 始めのcss（cssは文字列で指定してください） |
-| toStyle | 終わりのcss（cssは文字列で指定してください） |
-| easing | [easing plugin](http://semooh.jp/jquery/cont/doc/easing/)の名前を指定 |
-| targetPercentage| 慣性の割合を指定します（個別に指定したい場合） |`undefined`
+| option name| Descriptions |default
+|:-----------|:------------|:------------|
+| start | 移動を始めるスクロール位置（2つ目からは省略すると最後のendの位置からとなります。） [スクロール位置の指定について](#スクロール位置の指定について) | -
+| end | 移動が終わるスクロール位置 [スクロール位置の指定について](#スクロール位置の指定について) | -
+| fromStyle | 始めのcss（cssは文字列で指定してください）（2つ目からは省略すると最後のtoStyleの最後の値からとなります。） | -
+| toStyle | 終わりのcss（cssは文字列で指定してください） | -
+| easing | [easing plugin](http://semooh.jp/jquery/cont/doc/easing/)の名前を指定、また関数を指定することもできます。[easing function generator](http://www.timotheegroleau.com/Flash/experiments/easing_function_generator.htm) | 'linear'
+| targetPercentage| 慣性の割合を指定します（個別に指定したい場合） | `undefined`
 
 
 ### スクロール位置の指定について

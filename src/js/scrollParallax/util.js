@@ -52,10 +52,8 @@ export const getStringColor = (styleValue) => {
   return styleValue.replace(/red|blue|green|yellow/g, (color) => '#' + colors[color])
 }
 
-export const _offset = (element, { direction }) => {
-  const directionPositionName = direction === 'y' ? 'Top' : 'Left'
-  const scrollPosition = global[`page${direction.toUpperCase()}Offset`] || document.documentElement[`scroll${directionPositionName}`]
-  const el = typeof element !== 'string' ? element : document.querySelector(element)
+export const _offset = (element, { scrollPosition, directionPositionName }) => {
+  const el = typeof element === 'string' ? document.querySelector(element) : element
   return el && el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + scrollPosition
 }
 

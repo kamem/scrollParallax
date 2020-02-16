@@ -46,7 +46,8 @@ export default class Fit {
     return styles
   }
 
-  setRangeMotions({ scrollPosition }) {
+  setRangeMotions(status = Status) {
+    const { scrollPosition } = status
     const range = []
 
     this.motions.forEach((motion) => {
@@ -117,17 +118,19 @@ export default class Fit {
   generateScrollStyleValues(style, fromtStyle, toStyle, easingName, scrollPercent) {
     const abs = Math.abs(fromtStyle - toStyle)
     const fixAbs = fromtStyle < toStyle ? abs : -abs
-    let styleValue = easing[easingName](scrollPercent, fromtStyle, fixAbs, 1)
+    const e = typeof easingName === 'string' ? easing[easingName] : easingName
+    let styleValue = e(scrollPercent, fromtStyle, fixAbs, 1)
     if (style.indexOf('rgb') >= 0) {
       styleValue = styleValue >= 1 ? parseInt(styleValue) : styleValue < 0 ? 0 : styleValue;
     }
     return styleValue
   }
 
-  getStyleValues({ scrollPosition }) {
+  getStyleValues(status = Status) {
+    const { scrollPosition } = status
     this.rangeMotions.forEach((motion, j) => {
-      const start = scrollPositionStringToNumber(motion.start)
-      const end = scrollPositionStringToNumber(motion.end)
+      const start = scrollPositionStringToNumber(motion.start, status)
+      const end = scrollPositionStringToNumber(motion.end, status)
       const isInRange = start < scrollPosition && scrollPosition < end
       const range = end - start
 

@@ -8,10 +8,7 @@
     :speed="[[0, 0.04 * (i % 2 === 0 ? 1 : -1)]]"
     :min="[[0, 0]]"
     :max="[[0, 100]]"
-    ref="background-item"
-    contentScrollPosition="this"
     :targetPercentage="0.1" />
-  </section>
 </div>
 </template>
 

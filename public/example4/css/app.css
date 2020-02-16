@@ -46,13 +46,13 @@
 }
 
 
-.gear[data-v-04cbf8b7] {
+.gear[data-v-6cfd8162] {
   position: absolute;
   top: -300px;
   right: -450px;
   z-index: -1;
 }
-.material[data-v-04cbf8b7] {
+.material[data-v-6cfd8162] {
   position: absolute;
   z-index: -1;
   top: 0;
@@ -60,14 +60,14 @@
   height: 3400px;
   overflow: hidden;
 }
-.drop[data-v-04cbf8b7] {
+.drop[data-v-6cfd8162] {
   position: fixed;
   top: 30px;
   left: 0;
   right: 0;
   margin: 0 auto;
 }
-.site-name[data-v-04cbf8b7] {
+.site-name[data-v-6cfd8162] {
   background-color: var(--color-black);
   position: absolute;
   top: 0;
@@ -76,18 +76,18 @@
   font-size: 12px;
   color: #ccc;
 }
-.gnav[data-v-04cbf8b7] {
+.gnav[data-v-6cfd8162] {
   position: fixed;
   top: 50%;
   right: 16px;
   margin-top: -8%;
   z-index: 2;
 }
-.gnav-item[data-v-04cbf8b7] {
+.gnav-item[data-v-6cfd8162] {
   list-style-type: none;
   margin: 12px 0
 }
-.gnav-item > a[data-v-04cbf8b7] {
+.gnav-item > a[data-v-6cfd8162] {
     display: block;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
@@ -98,16 +98,16 @@
     border-radius: 50%;
     overflow: hidden;
 }
-.gnav-item.on > a[data-v-04cbf8b7]{
+.gnav-item.on > a[data-v-6cfd8162]{
     background-color: #1176ff;
 }
-.gnav-item.timing.on > a[data-v-04cbf8b7] {
+.gnav-item.timing.on > a[data-v-6cfd8162] {
     background-color: #67ad0c;
 }
-.gnav-item.speed.on > a[data-v-04cbf8b7] {
+.gnav-item.speed.on > a[data-v-6cfd8162] {
     background-color: #ff15d0;
 }
-.gnav-item.fit.on > a[data-v-04cbf8b7] {
+.gnav-item.fit.on > a[data-v-6cfd8162] {
     background-color: #1176ff;
 }
 
@@ -320,27 +320,27 @@
 }
 
 
-.triangles[data-v-cd862c70] {
+.triangles[data-v-071af9b0] {
   top: 0;
   bottom: 0;
   position: absolute;
   z-index: -1;
   width: 100%;
 }
-.triangle[data-v-cd862c70] {
+.triangle[data-v-071af9b0] {
   position: absolute
 }
-.triangle[data-v-cd862c70]:nth-child(1) {
+.triangle[data-v-071af9b0]:nth-child(1) {
     top: -80px;
     right: -80px;
 }
-.triangle[data-v-cd862c70]:nth-child(2) {
+.triangle[data-v-071af9b0]:nth-child(2) {
     top: 80px;
     left: 120px;
     width: 240px;
     height: 160px;
 }
-.triangle[data-v-cd862c70]:nth-child(3) {
+.triangle[data-v-071af9b0]:nth-child(3) {
     bottom: -30px;
     left: 50px;
     width: 240px;

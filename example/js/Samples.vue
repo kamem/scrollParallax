@@ -4,7 +4,8 @@
       <nav>
         <ul class="gnav">
           <li class="gnav-item"><a href="#/samples">一覧</a></li>
-          <li class="gnav-item"><a href="#/samples/bg">背景を動かす</a></li>
+          <li class="gnav-item"><a href="#/samples/bg">上下に背景を動かす</a></li>
+          <li class="gnav-item"><a href="#/samples/changeRgb">色を変更する</a></li>
           <li class="gnav-item"><a href="#/samples/inertial">全体を慣性で動かす</a></li>
         </ul>
       </nav>
@@ -22,13 +23,15 @@
 
 <script>
 import Modal from './components/Modal'
-
 import SampleContents from './components/SampleContents'
+
 import bg from './components/samples/background-image/bg'
+import changeRgb from './components/samples/change-rgb/changeRgb'
 import Readme from './components/Readme.vue'
 
-import background from './components/samples/background-image/README.ja.md'
-import inertialScroll from './components/samples/inertial-scroll/README.ja.md'
+import bgReadme from './components/samples/background-image/README.ja.md'
+import changeRgbReadme from './components/samples/change-rgb/README.ja.md'
+import inertialReadme from './components/samples/inertial-scroll/README.ja.md'
 
 import inertial from './components/samples/inertial-scroll/inertial'
 
@@ -36,6 +39,7 @@ export default {
   components: {
     SampleContents,
     bg,
+    changeRgb,
     inertial,
     Readme,
     Modal
@@ -47,8 +51,9 @@ export default {
   },
   computed: {
     samples: () => ({
-      bg: background,
-      inertial: inertialScroll
+      bg: bgReadme,
+      changeRgb: changeRgbReadme,
+      inertial: inertialReadme
     }),
     isPreview() {
       return !!~this.$route.path.indexOf('preview')

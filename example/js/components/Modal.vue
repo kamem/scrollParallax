@@ -3,7 +3,14 @@
     <div class="overlay" v-if="isVisible">
       <div class="modal">
         <slot />
-        <p class="close" @click="close">☓</p>
+        <p class="close" @click="close">
+          <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
+            <g>
+              <polygon class="st0" points="512,52.535 459.467,0.002 256.002,203.462 52.538,0.002 0,52.535 203.47,256.005 0,459.465 
+                52.533,511.998 256.002,308.527 459.467,511.998 512,459.475 308.536,256.005 	"></polygon>
+            </g>
+          </svg>
+        </p>
       </div>
     </div>
   </transition>
@@ -59,8 +66,26 @@ export default {
 .close {
   z-index: 1;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 16px;
+  right: 16px;
+  background-color: #fff;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.2s;
+  & svg {
+    width: 12px;
+    height: 12px;
+    fill: #666;
+  }
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 </style>

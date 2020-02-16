@@ -63,7 +63,7 @@ const Parallax = {
           ]
         )
 
-        setScrollEvents((status) => timing.timingEvent(status), opt, opt.status || Status)
+        setScrollEvents((status) => timing.timingEvent(status), opt, opt.status || o.status || Status)
       }
     })
 
@@ -78,7 +78,7 @@ const Parallax = {
             opt.speed,
             opt.min,
             opt.max,
-            opt.contentScrollPosition === 'this' ? element : opt.contentScrollPosition || 0,
+            opt.contentScrollPosition === 0 || opt.contentScrollPosition ? opt.contentScrollPosition : element,
             opt.contentScrollPositionStyleValue
           )
 
@@ -87,7 +87,7 @@ const Parallax = {
             for (const key in styleValues) {
               element.style[key] = styleValues[key]
             }
-          }, opt, opt.status || Status)
+          }, opt, opt.status || o.status || Status)
         }, 0)
       }
     })
@@ -131,7 +131,7 @@ const Parallax = {
             for (const key in styleValues) {
               el.style[key] = styleValues[key]
             }
-          }, opt, opt.status || Status)
+          }, opt, opt.status || o.status || Status)
         }, 0)
       }
     })
@@ -153,7 +153,7 @@ const Parallax = {
 
           setScrollEvents((status) => ({
             [opt.name]: timing.timingEvent(status)
-          }), opt, opt.status || Status)
+          }), opt, opt.status || o.status || Status)
         },
         parallaxSpeed(opt) {
           const s = new Speed(
@@ -168,7 +168,7 @@ const Parallax = {
 
           setScrollEvents((status) => ({
             [opt.name]: s.getStyleValues(status)
-          }), opt, opt.status || Status)
+          }), opt, opt.status || o.status || Status)
         },
         parallaxFit(name, opt) {
           const fit = new Fit(this)
@@ -206,7 +206,7 @@ const Parallax = {
             return {
               [name]: fit.getStyleValues(status)
             }
-          }, opt, opt.status || Status)
+          }, opt, opt.status || o.status || Status)
         }
       }
     })
