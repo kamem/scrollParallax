@@ -61,7 +61,7 @@
     "parallax",
     "effect",
     "events",
-    "jquery-plugin"
+    "jquery-plugin",
     "vue"
   ]
 }
