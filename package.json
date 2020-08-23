@@ -1,5 +1,5 @@
 {
-  "name": "scroll-parallax",
+  "name": "scroll-parallax-effect",
   "description": "Implementing parallax effect by utilizing various events of scroll.",
   "version": "1.0.0",
   "main": "index.js",
@@ -16,6 +16,7 @@
     "name": "kamem",
     "url": "https://github.com/kamem"
   },
+  "homepage": "http://github.develo.org/scrollParallax/public/#/",
   "repository": {
     "type": "git",
     "url": "https://github.com/kamem/scrollParallax.git"
@@ -52,5 +53,15 @@
   },
   "browserslist": [
     "last 2 versions"
+  ],
+  "keywords": [
+    "scroll",
+    "scrolling",
+    "animation",
+    "parallax",
+    "effect",
+    "events",
+    "jquery-plugin"
+    "vue"
   ]
 }
