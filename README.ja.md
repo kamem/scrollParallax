@@ -23,6 +23,17 @@
 * [y scroll](http://github.develo.org/scrollParallax/public/example4/)
 * [x scroll](http://github.develo.org/scrollParallax/public/example5/)
 
+## Install
+
+### npm 
+```terminal
+npm install scroll-parallax-effect
+```
+
+### yarn
+```terminal
+yarn add scroll-parallax-effect
+```
 
 ## Usage
 
