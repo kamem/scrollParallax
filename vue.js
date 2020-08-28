@@ -1,8 +1,8 @@
 /*!
- * scroll-parallax
+ * scroll-parallax-effect
  * Implementing parallax effect by utilizing various events of scroll.
  * https://github.com/kamem/scrollParallax.git
- * @version 1.0.0
+ * @version 0.0.1
  * @license Released under MIT license
  * @author kamem
  */
@@ -99,7 +99,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -575,7 +575,7 @@ function () {
   return ScrollPosition;
 }();
 var Status = new ScrollStatus();
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(6)))
 
 /***/ }),
 /* 2 */
@@ -943,7 +943,8 @@ function () {
 
 
 /***/ }),
-/* 5 */
+/* 5 */,
+/* 6 */
 /***/ (function(module, exports) {
 
 var g; // This works in non-strict mode
@@ -966,8 +967,8 @@ try {
 module.exports = g;
 
 /***/ }),
-/* 6 */,
-/* 7 */
+/* 7 */,
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1136,13 +1137,13 @@ var Parallax = {
           var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"]('', opt.eventScrollPosition, opt.eventTriggerPercentage, Object.prototype.toString.call(opt) === '[object Array]' ? opt : opt.start ? [opt.start, opt.end] : opt.toggle);
           setScrollEvents(function (status) {
             return _defineProperty({}, opt.name, timing.timingEvent(status));
-          }, opt, opt.status || o.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
+          }, opt, opt.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
         },
         parallaxSpeed: function parallaxSpeed(opt) {
           var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]('', opt.style, opt.speed, opt.min, opt.max, opt.contentScrollPosition || 0, opt.contentScrollPositionStyleValue);
           setScrollEvents(function (status) {
             return _defineProperty({}, opt.name, s.getStyleValues(status));
-          }, opt, opt.status || o.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
+          }, opt, opt.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
         },
         parallaxFit: function parallaxFit(name, opt) {
           var fit = new _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"](this);
@@ -1179,7 +1180,7 @@ var Parallax = {
             fit.setRangeMotions(status);
             fit.setDefaultStyles();
             return _defineProperty({}, name, fit.getStyleValues(status));
-          }, opt, opt.status || o.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
+          }, opt, opt.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"]);
         }
       }
     });
