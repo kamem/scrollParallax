@@ -49,7 +49,9 @@ ${package.repository.url}
       test: /\.min.js(\?.*)?$/i
     }),
   ],
-
+  externals: {
+    jquery: 'jquery',
+  },
   optimization: {
     minimize: true,
     minimizer: [

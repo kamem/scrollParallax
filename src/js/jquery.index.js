@@ -1,7 +1,10 @@
+import jquery from 'jquery'
 import { Status, ScrollPosition } from './scrollParallax/ScrollStatus'
 import Timing from './scrollParallax/Timing'
 import Speed from './scrollParallax/Speed'
 import Fit from './scrollParallax/Fit'
+
+const $ = window.$ || jquery
 
 /* all parallax default options */
 $.parallax = (opt) => {

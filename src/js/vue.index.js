@@ -153,7 +153,7 @@ const Parallax = {
 
           setScrollEvents((status) => ({
             [opt.name]: timing.timingEvent(status)
-          }), opt, opt.status || o.status || Status)
+          }), opt, opt.status || Status)
         },
         parallaxSpeed(opt) {
           const s = new Speed(
@@ -168,7 +168,7 @@ const Parallax = {
 
           setScrollEvents((status) => ({
             [opt.name]: s.getStyleValues(status)
-          }), opt, opt.status || o.status || Status)
+          }), opt, opt.status || Status)
         },
         parallaxFit(name, opt) {
           const fit = new Fit(this)
@@ -206,7 +206,7 @@ const Parallax = {
             return {
               [name]: fit.getStyleValues(status)
             }
-          }, opt, opt.status || o.status || Status)
+          }, opt, opt.status || Status)
         }
       }
     })
