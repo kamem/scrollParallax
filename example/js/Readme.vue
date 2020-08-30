@@ -4,7 +4,7 @@
 
 <script>
 import Readme from './components/Readme'
-import md from '../../README.ja.md'
+import md from '../../README.md'
 export default {
   components: {
     Readme

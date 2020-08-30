@@ -16,7 +16,7 @@ export default {
       .replace(/href="docs/g, `href="${location.pathname}#/docs`)
       .replace(/http:\/\/github.develo.org\/scrollParallax\/public\//g, '')
       .replace(/\&amp;/g, '&')
-      .replace(/..\/README.ja.md/g, '#/')
+      .replace(/..\/README.md/g, '#/')
     }
   },
   mounted() {

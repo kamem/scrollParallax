@@ -9,7 +9,7 @@
 2. [Speed スクロール量に応じてcssを変化させる](#speed)
 3. [Fit 移動距離に応じてcssを変化させる](#fit)
 
-[jQueryプラグイン](docs/JQUERY.md)と、[vueプラグイン](docs/VUE.md)があります。
+[jQueryプラグイン](docs/JQUERY.ja.md)と、[vueプラグイン](docs/VUE.ja.md)があります。
 
 ## Example
 [![example4](http://github.develo.org/scrollParallax/public/img/thumbs/example1.jpg)](http://github.develo.org/scrollParallax/public/example4/)

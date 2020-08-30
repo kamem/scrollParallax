@@ -28,7 +28,7 @@ const app = new Vue({
 Vue.use(Parallax, { direction: 'x' })
 ```
 
-他の[オプション](../README.ja.md#Usage)もここで指定できます。
+他の[オプション](../README.md#Usage)もここで指定できます。
 
 
 * v-parallax-timing

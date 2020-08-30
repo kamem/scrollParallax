@@ -4,7 +4,7 @@
 
 <script>
 import Readme from './components/Readme'
-import md from '../../docs/JQUERY.ja.md'
+import md from '../../docs/JQUERY.md'
 export default {
   components: {
     Readme

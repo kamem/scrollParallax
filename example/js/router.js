@@ -15,12 +15,12 @@ export default new Router({
       component: Readme
     },
     {
-      path: '/docs/VUE.ja.md',
+      path: '/docs/VUE.md',
       name: 'jquery',
       component: VueReadme
     },
     {
-      path: '/docs/JQUERY.ja.md',
+      path: '/docs/JQUERY.md',
       name: 'vue',
       component: Jquery
     },
