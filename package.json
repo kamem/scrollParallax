@@ -1,7 +1,7 @@
 {
   "name": "scroll-parallax-effect",
   "description": "Implementing parallax effect by utilizing various events of scroll.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
