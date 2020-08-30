@@ -3,10 +3,9 @@
   <nav>
     <ul class="gnav">
       <li class="gnav-item"><a href="#/">Readme</a></li>
-      <li class="gnav-item"><a href="#/docs/JQUERY.ja.md">jQuery Readme</a></li>
-      <li class="gnav-item"><a href="#/docs/VUE.ja.md">Vue Readme</a></li>
+      <li class="gnav-item"><a href="#/docs/JQUERY.md">jQuery Readme</a></li>
+      <li class="gnav-item"><a href="#/docs/VUE.md">Vue Readme</a></li>
       <li class="gnav-item"><a href="#/samples">Samples</a></li>
-      <li class="gnav-item"><a href="#/examples">Examples</a></li>
     </ul>
   </nav>
 </header>

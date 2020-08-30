@@ -29,9 +29,9 @@ import bg from './components/samples/background-image/bg'
 import changeRgb from './components/samples/change-rgb/changeRgb'
 import Readme from './components/Readme.vue'
 
-import bgReadme from './components/samples/background-image/README.ja.md'
-import changeRgbReadme from './components/samples/change-rgb/README.ja.md'
-import inertialReadme from './components/samples/inertial-scroll/README.ja.md'
+import bgReadme from './components/samples/background-image/README.md'
+import changeRgbReadme from './components/samples/change-rgb/README.md'
+import inertialReadme from './components/samples/inertial-scroll/README.md'
 
 import inertial from './components/samples/inertial-scroll/inertial'
 

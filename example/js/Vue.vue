@@ -4,7 +4,7 @@
 
 <script>
 import Readme from './components/Readme'
-import md from '../../docs/VUE.ja.md'
+import md from '../../docs/VUE.md'
 export default {
   components: {
     Readme

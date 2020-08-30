@@ -28,7 +28,7 @@ import 'scrollParallax/jquery'
 $.parallax({ direction: 'x' })
 ```
 
-他の[オプション](../README.ja.md#Usage)もここで指定できます。
+他の[オプション](../README.md#Usage)もここで指定できます。
 
 
 ### timing
