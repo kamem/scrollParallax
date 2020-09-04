@@ -11,7 +11,7 @@
 
 ```javascript
 import $ from 'jquery'
-import 'scrollParallax/jquery'
+import 'scroll-parallax-effect/jquery'
 ```
 
 直接HTMLに読みたい場合はdistフォルダのファイルを使い下記の通り読み込んでください。

@@ -50,7 +50,7 @@ yarn add scroll-parallax-effect
 
 | option name| Descriptions |default
 |:-----------|:------------|:------------|
-| target | ここで指定したタグを通過したときにtoggleが実行されます。 |`50`
+| target | ここで指定したタグを通過したときにtoggleが実行されます。 |`$(this)[0]`
 | class | 追加したいクラス名 |`on`
 | eventTriggerPercentage | `スクロール量 + window幅 * eventTriggerPercentage`にtoggle実行|`0.5`
 | eventScrollElementPosition | 指定した位置にきたときに`toggle`を実行します [スクロール位置の指定について](#スクロール位置の指定について) | 自分自身の位置
