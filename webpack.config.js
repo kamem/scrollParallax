@@ -50,6 +50,7 @@ ${package.repository.url}
     }),
   ],
   externals: {
+    vue: 'vue',
     jquery: 'jquery',
   },
   optimization: {

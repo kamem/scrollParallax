@@ -1,3 +1,4 @@
+import { reactive } from 'vue'
 import ScrollStatus, { Status, ScrollPosition } from './scrollParallax/ScrollStatus'
 import Timing from './scrollParallax/Timing'
 import Speed from './scrollParallax/Speed'
@@ -9,11 +10,12 @@ const setScrollEvents = (func, opt, status = Status) => {
 
 const generateScrollStatusValues = (Vue, opt = {}, $scrollStatus) => {
   if(opt.name) {
-    $scrollStatus[opt.name] = Vue.observable({
+    const scrollObj = {
       scrollPosition: Status.scrollPosition,
       contentSize: Status.contentSize,
       values: {}
-    })
+    }
+    $scrollStatus[opt.name] = Vue.observable ? Vue.observable(scrollObj) : reactive(scrollObj)
   }
 
   const scrollStatus = opt.name ? $scrollStatus[opt.name] : $scrollStatus
@@ -41,16 +43,24 @@ const generateScrollStatusValues = (Vue, opt = {}, $scrollStatus) => {
 
 const Parallax = {
   install(Vue, opt) {
-    const $scrollStatus = Vue.observable({
+    const isVue3 = Vue.version.startsWith('3')
+    const prototype = isVue3 ? Vue.config.globalProperties : Vue.prototype
+    const beforeMount = isVue3 ? 'beforeMount' : 'bind'
+
+    const scrollObj = {
       scrollPosition: Status.scrollPosition,
+      contentSize: Status.contentSize,
       values: {}
-    })
+    }
+    const $scrollStatus = Vue.observable ? Vue.observable(scrollObj) : reactive(scrollObj)
+
     Status.setVal(generateScrollStatusValues(Vue, opt, $scrollStatus, name))
 
-    Vue.prototype.$scrollStatus = $scrollStatus
+    prototype.$scrollStatus = $scrollStatus
 
     Vue.directive('parallax-timing', {
-      bind: (el, { value }, { data: { attrs: o = {} } }) => {
+      [beforeMount]: (el, { value }, d) => {
+        const o = isVue3 ? d.props : d.data.attrs
         const opt = value || o
         const c = opt.class || 'on'
         const timing = new Timing(
@@ -68,7 +78,8 @@ const Parallax = {
     })
 
     Vue.directive('parallax-speed', {
-      bind: (el, { value }, { data: { attrs: o = {} } }) => {
+      [beforeMount]: (el, { value }, d) => {
+        const o = isVue3 ? d.props : d.data.attrs
         const opt = value || o
         setTimeout(() => {
           const element = opt.el || el
@@ -93,7 +104,8 @@ const Parallax = {
     })
 
     Vue.directive('parallax-fit', {
-      bind: (el, { value }, { data: { attrs: o = {} } }) => {
+      [beforeMount]: (el, { value }, d) => {
+        const o = isVue3 ? d.props : d.data.attrs
         setTimeout(() => {
           const fit = new Fit(el)
           const opt = value || o
