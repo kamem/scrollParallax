@@ -27,7 +27,7 @@ const app = new Vue({
 ```javascript
 import { createApp } from 'vue'
 import App from './App.vue'
-import Parallax from './vue'
+import Parallax from 'scrollParallax/vue'
 
 createApp(App).use(Parallax).mount('#app')
 ```
