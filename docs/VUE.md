@@ -9,6 +9,7 @@
 
 ## Usage
 
+### vue2
 ```javascript
 import Vue from 'vue'
 import Parallax from 'scrollParallax/vue'
@@ -20,6 +21,15 @@ const app = new Vue({
   el: '#app',
   render: (h) => h(App)
 })
+```
+
+Vue3
+```javascript
+import { createApp } from 'vue'
+import App from './App.vue'
+import Parallax from './vue'
+
+createApp(App).use(Parallax).mount('#app')
 ```
 
 横方向にしたい場合は下記
