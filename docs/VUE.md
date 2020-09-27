@@ -23,7 +23,7 @@ const app = new Vue({
 })
 ```
 
-Vue3
+### Vue3
 ```javascript
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -34,8 +34,14 @@ createApp(App).use(Parallax).mount('#app')
 
 横方向にしたい場合は下記
 
+### vue2
 ```javascript
 Vue.use(Parallax, { direction: 'x' })
+```
+
+### Vue3
+```javascript
+createApp(App).use(Parallax, { direction: 'x' }).mount('#app')
 ```
 
 他の[オプション](../README.md#Usage)もここで指定できます。
