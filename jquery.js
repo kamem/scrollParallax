@@ -2,7 +2,7 @@
  * scroll-parallax-effect
  * Implementing parallax effect by utilizing various events of scroll.
  * https://github.com/kamem/scrollParallax.git
- * @version 0.1.0
+ * @version 0.1.1
  * @license Released under MIT license
  * @author kamem
  */
