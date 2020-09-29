@@ -14,6 +14,12 @@
   <h1 class="title parallax-speed" data-content-scroll-position="0" data-speed="0.2" data-max="20" data-style="letter-spacing">jquery.scrollParallax</h1>
   <p class="description">Implementing parallax effect by utilizing various events of scroll.</p>
 
+  <div class="scrollContents">
+    <section class="item"></section>
+    <section class="item"></section>
+    <section class="item"></section>
+  </div>
+
   <p class="parallax-fit box"
     data-start="0"
     data-end="200"
@@ -90,13 +96,21 @@
 $('.parallax-timing').dataExtend('parallaxTiming');
 $('.parallax-speed').dataExtend('parallaxSpeed');
 $('.parallax-fit').dataExtend('parallaxFit');
-
-$.parallax({
-  debugMode: true
-});
 $.parallaxTiming({
   center: 30
 })
+
+const status = $.createStatus({
+  stage: $('.scrollContents')[0]
+})
+
+
+$('.scrollContents > .item').each(function(){
+  console.log( $(this))
+  $(this).parallaxTiming({
+    status
+  })
+});
 
 /* Nav */
 const parallaxMain = (function() {
@@ -104,10 +118,12 @@ const parallaxMain = (function() {
   const $nav = $('.nav > *');
 
   $contents.each(function(){
-    $(this).parallaxTiming([
-      selectNav,
-      selectNav
-    ])
+    $(this).parallaxTiming(
+      [
+        selectNav,
+        selectNav
+      ]
+    )
   });
 
   function selectNav(e) {

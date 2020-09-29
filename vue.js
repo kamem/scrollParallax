@@ -1007,9 +1007,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var setScrollEvents = function setScrollEvents(func, opt) {
   var status = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"];
-  status.functions.push([func, opt.targetPercentage && new _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* ScrollPosition */ "a"](_objectSpread({}, status, {
+  status.functions.push([func, opt.targetPercentage !== status.targetPercentage ? new _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* ScrollPosition */ "a"](_objectSpread({}, status, {
     targetPercentage: opt.targetPercentage
-  }))]);
+  })) : status !== _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"] && status.ScrollPosition]);
 };
 
 var generateScrollStatusValues = function generateScrollStatusValues(Vue) {
