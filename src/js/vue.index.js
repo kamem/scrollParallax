@@ -5,7 +5,11 @@ import Speed from './scrollParallax/Speed'
 import Fit from './scrollParallax/Fit'
 
 const setScrollEvents = (func, opt, status = Status) => {
-  status.functions.push([func, opt.targetPercentage && new ScrollPosition({ ...status, targetPercentage: opt.targetPercentage })])
+  status.functions.push([
+    func,
+    opt.targetPercentage !== status.targetPercentage ? new ScrollPosition({ ...status, targetPercentage: opt.targetPercentage }) :
+    status !== Status && status.ScrollPosition
+  ])
 }
 
 const generateScrollStatusValues = (Vue, opt = {}, $scrollStatus) => {

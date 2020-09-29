@@ -1,5 +1,5 @@
 import jquery from 'jquery'
-import { Status, ScrollPosition } from './scrollParallax/ScrollStatus'
+import ScrollStatus, { Status, ScrollPosition } from './scrollParallax/ScrollStatus'
 import Timing from './scrollParallax/Timing'
 import Speed from './scrollParallax/Speed'
 import Fit from './scrollParallax/Fit'
@@ -17,8 +17,18 @@ $.parallaxTiming = function (opt) {
   this.eventTriggerPercentage = opt.eventTriggerPercentage
 }
 
+$.createStatus = (opt) => {
+  const status = new ScrollStatus()
+  status.setVal(opt)
+  return status
+}
+
 const setScrollEvents = (func, opt, status = Status) => {
-  status.functions.push([func, opt.targetPercentage && new ScrollPosition({ ...status, targetPercentage: opt.targetPercentage })])
+  status.functions.push([
+    func,
+    opt.targetPercentage !== status.targetPercentage ? new ScrollPosition({ ...status, targetPercentage: opt.targetPercentage }) :
+    status !== Status && status.ScrollPosition
+  ])
 }
 
 $.fn.parallaxTiming = function (opt = {}) {
@@ -43,7 +53,7 @@ $.fn.parallaxTiming = function (opt = {}) {
         timing.eventScrollPlussWindowPerCentPosition
       )
     }
-  }, opt)
+  }, opt, opt.status)
 
   return this
 }
@@ -63,7 +73,7 @@ $.fn.parallaxSpeed = function (opt) {
 
   setScrollEvents((status) => {
     $el.css(s.getStyleValues(status))
-  }, opt)
+  }, opt, opt.status)
 
   return this
 }
@@ -103,7 +113,7 @@ $.fn.parallaxFit = function (opt) {
     fit.setDefaultStyles()
 
     $el.css(fit.getStyleValues(status))
-  }, opt)
+  }, opt, opt.status)
 
   return this
 }
