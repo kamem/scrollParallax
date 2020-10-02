@@ -20,7 +20,7 @@ li {
   overflow: auto;
   z-index: 1;
   position: relative;
-  & > * {
+  & > section {
     height: 500px;
     &.on {
       background-color: #3399cc;

@@ -19,16 +19,16 @@ li {
   width: 200px;
   overflow: auto;
   z-index: 1;
-  position: relative
+  position: relative;
 }
 
-.scrollContents > * {
+.scrollContents > section {
     height: 500px
   }
 
 .scrollContents > *.on {
-      background-color: #3399cc;
-    }
+  background-color: #3399cc;
+}
 
 #header,
 #main,

@@ -999,7 +999,7 @@ var $ = window.$ || jquery__WEBPACK_IMPORTED_MODULE_0___default.a;
 
 $.parallax = function (opt) {
   _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].setVal(opt);
-  if (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].debugMode) $('body').append('<p class="parallax-debug" style="border: 1px solid red;position: absolute;' + (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].direction === 'y' ? 'width' : 'height') + ': 100%;' + (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].direction === 'y' ? 'left' : 'top') + ': 0;' + '"></p>');
+  if (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].debugMode) $(opt.debug).append('<p class="parallax-debug" style="border: 1px solid red;position: absolute;' + (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].direction === 'y' ? 'width' : 'height') + ': 100%;' + (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].direction === 'y' ? 'left' : 'top') + ': 0;' + '"></p>');
 };
 /* timing default options */
 
@@ -1037,7 +1037,7 @@ $.fn.parallaxTiming = function () {
     timing.timingEvent(status);
 
     if (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].debugMode) {
-      $('body > .parallax-debug').css(positionName, timing.eventScrollPlussWindowPerCentPosition);
+      $('.parallax-debug').css(positionName, timing.eventScrollPlussWindowPerCentPosition);
     }
   }, opt, opt.status);
   return this;

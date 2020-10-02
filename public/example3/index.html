@@ -104,9 +104,9 @@ const status = $.createStatus({
   stage: $('.scrollContents')[0]
 })
 
+$.parallax({debugMode: true, debug: $('body')})
 
 $('.scrollContents > .item').each(function(){
-  console.log( $(this))
   $(this).parallaxTiming({
     status
   })

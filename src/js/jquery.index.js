@@ -9,7 +9,7 @@ const $ = window.$ || jquery
 /* all parallax default options */
 $.parallax = (opt) => {
   Status.setVal(opt)
-  if(Status.debugMode) $('body').append('<p class="parallax-debug" style="border: 1px solid red;position: absolute;' + (Status.direction === 'y' ? 'width' : 'height') + ': 100%;' + (Status.direction === 'y' ? 'left' : 'top') + ': 0;' + '"></p>')
+  if(Status.debugMode) $(opt.debug).append('<p class="parallax-debug" style="border: 1px solid red;position: absolute;' + (Status.direction === 'y' ? 'width' : 'height') + ': 100%;' + (Status.direction === 'y' ? 'left' : 'top') + ': 0;' + '"></p>')
 }
 
 /* timing default options */
@@ -48,7 +48,7 @@ $.fn.parallaxTiming = function (opt = {}) {
   setScrollEvents((status) => {
     timing.timingEvent(status)
     if(Status.debugMode) {
-      $('body > .parallax-debug').css(
+      $('.parallax-debug').css(
         positionName,
         timing.eventScrollPlussWindowPerCentPosition
       )
