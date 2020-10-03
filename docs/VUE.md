@@ -1,4 +1,4 @@
-# vue.scrollParallax
+# vue scroll-parallax-effect
 
 [![example4](http://github.develo.org/scrollParallax/public/img/thumbs/example1.jpg)](http://github.develo.org/scrollParallax/public/example4/)
 
@@ -12,7 +12,7 @@
 ### vue2
 ```javascript
 import Vue from 'vue'
-import Parallax from 'scrollParallax/vue'
+import Parallax from 'scroll-parallax-effect/vue'
 import App from './App'
 
 Vue.use(Parallax)
@@ -27,7 +27,7 @@ const app = new Vue({
 ```javascript
 import { createApp } from 'vue'
 import App from './App.vue'
-import Parallax from 'scrollParallax/vue'
+import Parallax from 'scroll-parallax-effect/vue'
 
 createApp(App).use(Parallax).mount('#app')
 ```

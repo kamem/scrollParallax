@@ -22,11 +22,11 @@ li {
   position: relative
 }
 
-.scrollContents > * {
+.scrollContents > section {
     height: 500px
   }
 
-.scrollContents > *.on {
+.scrollContents > section.on {
       background-color: #3399cc;
     }
 

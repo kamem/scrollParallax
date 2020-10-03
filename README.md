@@ -1,4 +1,4 @@
-# scrollParallax
+# scroll-parallax-effect
 
 [View the demo](http://github.develo.org/scrollParallax/public/)
 
@@ -9,7 +9,7 @@
 2. [Speed スクロール量に応じてcssを変化させる](#speed)
 3. [Fit 移動距離に応じてcssを変化させる](#fit)
 
-[jQueryプラグイン](docs/JQUERY.md)と、[vueプラグイン](docs/VUE.md)があります。
+[vanilla,es6プラグイン](docs/VANILLA_ES6.md)、[jQueryプラグイン](docs/JQUERY.md)と、[vueプラグイン](docs/VUE.md)があります。
 
 ## Example
 [![example4](http://github.develo.org/scrollParallax/public/img/thumbs/example1.jpg)](http://github.develo.org/scrollParallax/public/example4/)

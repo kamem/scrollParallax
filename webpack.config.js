@@ -12,8 +12,11 @@ module.exports = {
   entry: {
     'dist/jquery.scrollParallax': './src/js/jquery.index.js',
     'dist/jquery.scrollParallax.min': './src/js/jquery.index.js',
+    'dist/scrollParallax': './src/js/index.js',
+    'dist/scrollParallax.min': './src/js/index.js',
     'jquery': './src/js/jquery.index.js',
     'vue': './src/js/vue.index.js',
+    'index': './src/js/index.js',
   },
   output: {
     path: path.join(__dirname, '/'),

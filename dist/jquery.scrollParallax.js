@@ -2,7 +2,7 @@
  * scroll-parallax-effect
  * Implementing parallax effect by utilizing various events of scroll.
  * https://github.com/kamem/scrollParallax.git
- * @version 0.1.1
+ * @version 0.2.0
  * @license Released under MIT license
  * @author kamem
  */
@@ -15,7 +15,7 @@
 		exports["scrollParallax"] = factory(require("jquery"));
 	else
 		root["scrollParallax"] = factory(root["jquery"]);
-})(window, function(__WEBPACK_EXTERNAL_MODULE__5__) {
+})(window, function(__WEBPACK_EXTERNAL_MODULE__6__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -575,7 +575,7 @@ function () {
   return ScrollPosition;
 }();
 var Status = new ScrollStatus();
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5)))
 
 /***/ }),
 /* 2 */
@@ -946,12 +946,6 @@ function () {
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE__5__;
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
 var g; // This works in non-strict mode
 
 g = function () {
@@ -972,12 +966,18 @@ try {
 module.exports = g;
 
 /***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE__6__;
+
+/***/ }),
 /* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
 /* harmony import */ var _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
@@ -999,7 +999,7 @@ var $ = window.$ || jquery__WEBPACK_IMPORTED_MODULE_0___default.a;
 
 $.parallax = function (opt) {
   _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].setVal(opt);
-  if (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].debugMode) $('body').append('<p class="parallax-debug" style="border: 1px solid red;position: absolute;' + (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].direction === 'y' ? 'width' : 'height') + ': 100%;' + (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].direction === 'y' ? 'left' : 'top') + ': 0;' + '"></p>');
+  if (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].debugMode) $(opt.debug).append('<p class="parallax-debug" style="border: 1px solid red;position: absolute;' + (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].direction === 'y' ? 'width' : 'height') + ': 100%;' + (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].direction === 'y' ? 'left' : 'top') + ': 0;' + '"></p>');
 };
 /* timing default options */
 
@@ -1037,7 +1037,7 @@ $.fn.parallaxTiming = function () {
     timing.timingEvent(status);
 
     if (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].debugMode) {
-      $('body > .parallax-debug').css(positionName, timing.eventScrollPlussWindowPerCentPosition);
+      $('.parallax-debug').css(positionName, timing.eventScrollPlussWindowPerCentPosition);
     }
   }, opt, opt.status);
   return this;

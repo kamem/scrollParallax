@@ -8,14 +8,14 @@
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("jquery"));
+		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define(["jquery"], factory);
+		define([], factory);
 	else if(typeof exports === 'object')
-		exports["scrollParallax"] = factory(require("jquery"));
+		exports["scrollParallax"] = factory();
 	else
-		root["scrollParallax"] = factory(root["jquery"]);
-})(window, function(__WEBPACK_EXTERNAL_MODULE__6__) {
+		root["scrollParallax"] = factory();
+})(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -99,7 +99,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -966,23 +966,29 @@ try {
 module.exports = g;
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE__6__;
-
-/***/ }),
-/* 7 */
+/* 6 */,
+/* 7 */,
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
-/* harmony import */ var _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
-/* harmony import */ var _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(3);
-/* harmony import */ var _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateStatus", function() { return updateStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "status", function() { return status; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ScrollStatus", function() { return ScrollStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ParallaxTiming", function() { return ParallaxTiming; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ParallaxSpeed", function() { return ParallaxSpeed; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ParallaxFit", function() { return ParallaxFit; });
+/* harmony import */ var _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
+/* harmony import */ var _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -994,106 +1000,128 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var $ = window.$ || jquery__WEBPACK_IMPORTED_MODULE_0___default.a;
-/* all parallax default options */
-
-$.parallax = function (opt) {
-  _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].setVal(opt);
-  if (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].debugMode) $(opt.debug).append('<p class="parallax-debug" style="border: 1px solid red;position: absolute;' + (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].direction === 'y' ? 'width' : 'height') + ': 100%;' + (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].direction === 'y' ? 'left' : 'top') + ': 0;' + '"></p>');
-};
-/* timing default options */
-
-
-$.parallaxTiming = function (opt) {
-  this.eventTriggerPercentage = opt.eventTriggerPercentage;
-};
-
-$.createStatus = function (opt) {
-  var status = new _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* default */ "c"]();
-  status.setVal(opt);
-  return status;
-};
-
 var setScrollEvents = function setScrollEvents(func, opt) {
-  var status = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"];
-  status.functions.push([func, opt.targetPercentage !== status.targetPercentage ? new _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* ScrollPosition */ "a"](_objectSpread({}, status, {
+  var status = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"];
+  status.functions.push([func, opt.targetPercentage !== status.targetPercentage ? new _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* ScrollPosition */ "a"](_objectSpread({}, status, {
     targetPercentage: opt.targetPercentage
-  })) : status !== _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"] && status.ScrollPosition]);
+  })) : status !== _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"] && status.ScrollPosition]);
 };
 
-$.fn.parallaxTiming = function () {
-  var _this = this;
+var updateStatus = function updateStatus(opt) {
+  return _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].setVal(opt);
+};
+var status = _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"];
+var ScrollStatus = _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* default */ "c"];
 
-  var opt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var positionName = _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].directionPositionName.toLocaleLowerCase();
+var getElement = function getElement(element) {
+  var el = typeof element === 'string' ? document.querySelector(element) : element;
+  if (!el) throw "undefined element \"".concat(element, "\"");
+  return el;
+};
+
+var ParallaxTiming = function ParallaxTiming(element) {
+  var opt = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  _classCallCheck(this, ParallaxTiming);
+
+  var el = getElement(element);
   var timingEvent = Object.prototype.toString.call(opt) === '[object Array]' ? opt : opt.start ? [opt.start, opt.end] : opt.toggle;
   var c = opt.class || 'on';
-  var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"](opt.target || this[0], opt.eventScrollPosition, opt.eventTriggerPercentage || $.eventTriggerPercentage, timingEvent || [function () {
-    return $(_this).addClass(c);
+  var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](opt.target || el, opt.eventScrollPosition, opt.eventTriggerPercentage, timingEvent || [function () {
+    return el.classList.add(c);
   }, function () {
-    return $(_this).removeClass(c);
+    return el.classList.remove(c);
   }]);
   setScrollEvents(function (status) {
     timing.timingEvent(status);
+  }, opt, opt.status);
+};
+var ParallaxSpeed =
+/*#__PURE__*/
+function () {
+  function ParallaxSpeed(element) {
+    var opt = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-    if (_scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].debugMode) {
-      $('.parallax-debug').css(positionName, timing.eventScrollPlussWindowPerCentPosition);
+    _classCallCheck(this, ParallaxSpeed);
+
+    var el = getElement(element);
+    var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"](el, opt.style || opt.styles, opt.speed, opt.min, opt.max, opt.contentScrollPosition === 0 || opt.contentScrollPosition ? opt.contentScrollPosition : el, opt.contentScrollPositionStyleValue);
+    this.speed = s;
+    setScrollEvents(function (status) {
+      Object.assign(el.style, s.getStyleValues(status));
+    }, opt, opt.status);
+  }
+
+  _createClass(ParallaxSpeed, [{
+    key: "getValues",
+    value: function getValues() {
+      return this.speed;
     }
-  }, opt, opt.status);
-  return this;
-};
-/* speed */
+  }]);
 
+  return ParallaxSpeed;
+}();
+var ParallaxFit =
+/*#__PURE__*/
+function () {
+  function ParallaxFit(element, opt) {
+    _classCallCheck(this, ParallaxFit);
 
-$.fn.parallaxSpeed = function (opt) {
-  var $el = this;
-  var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]($el[0], opt.style || opt.styles, opt.speed, opt.min, opt.max, opt.contentScrollPosition === 0 || opt.contentScrollPosition ? opt.contentScrollPosition : $el[0], opt.contentScrollPositionStyleValue);
-  setScrollEvents(function (status) {
-    $el.css(s.getStyleValues(status));
-  }, opt, opt.status);
-  return this;
-};
-/* fit */
+    var el = getElement(element);
+    var fit = new _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"](el);
+    this.fit = fit;
 
+    if (opt.length) {
+      opt.forEach(function (motion) {
+        return fit.setMotion(motion);
+      });
+    } else if (opt['end'] !== undefined) {
+      fit.setMotion({
+        start: opt['start'],
+        end: opt['end'],
+        fromStyle: opt['fromStyle'],
+        toStyle: opt['toStyle'],
+        easing: opt['easing']
+      });
+    }
 
-$.fn.parallaxFit = function (opt) {
-  var $el = this;
-  var fit = new _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"]($el[0]);
+    for (var i = 1; opt['motion' + i + 'End'] !== undefined; i++) {
+      var motion = 'motion' + i;
+      fit.setMotion({
+        start: opt[motion + 'Start'],
+        end: opt[motion + 'End'],
+        fromStyle: opt[motion + 'FromStyle'],
+        toStyle: opt[motion + 'ToStyle'],
+        easing: opt[motion + 'Easing']
+      });
+    }
 
-  if (opt.length) {
-    opt.forEach(function (motion) {
-      return fit.setMotion(motion);
-    });
-  } else if (opt['end'] !== undefined) {
-    fit.setMotion({
-      start: opt['start'],
-      end: opt['end'],
-      fromStyle: opt['fromStyle'],
-      toStyle: opt['toStyle'],
-      easing: opt['easing']
-    });
+    fit.setFromStyle();
+    fit.setStyleValues();
+    fit.setStart();
+    setScrollEvents(function (status) {
+      fit.setRangeMotions(status);
+      fit.setDefaultStyles();
+      Object.assign(el.style, fit.getStyleValues(status));
+    }, opt, opt.status);
   }
 
-  for (var i = 1; opt['motion' + i + 'End'] !== undefined; i++) {
-    var motion = 'motion' + i;
-    fit.setMotion({
-      start: opt[motion + 'Start'],
-      end: opt[motion + 'End'],
-      fromStyle: opt[motion + 'FromStyle'],
-      toStyle: opt[motion + 'ToStyle'],
-      easing: opt[motion + 'Easing']
-    });
-  }
+  _createClass(ParallaxFit, [{
+    key: "getValues",
+    value: function getValues() {
+      return this.fit;
+    }
+  }]);
 
-  fit.setFromStyle();
-  fit.setStyleValues();
-  fit.setStart();
-  setScrollEvents(function (status) {
-    fit.setRangeMotions(status);
-    fit.setDefaultStyles();
-    $el.css(fit.getStyleValues(status));
-  }, opt, opt.status);
-  return this;
+  return ParallaxFit;
+}();
+window.Parallax = {
+  Timing: ParallaxTiming,
+  Speed: ParallaxSpeed,
+  Fit: ParallaxFit,
+  updateStatus: updateStatus,
+  Status: _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"],
+  ScrollStatus: ScrollStatus
 };
 
 /***/ })

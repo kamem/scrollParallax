@@ -3,6 +3,7 @@
   <nav>
     <ul class="gnav">
       <li class="gnav-item"><a href="#/">Readme</a></li>
+      <li class="gnav-item"><a href="#/docs/VANILLA_ES6.md">Vanilla ES6 Readme</a></li>
       <li class="gnav-item"><a href="#/docs/JQUERY.md">jQuery Readme</a></li>
       <li class="gnav-item"><a href="#/docs/VUE.md">Vue Readme</a></li>
       <li class="gnav-item"><a href="#/samples">Samples</a></li>

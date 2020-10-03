@@ -1,4 +1,4 @@
-# jquery.scrollParallax
+# jquery scroll-parallax-effect
 
 [![example2](http://github.develo.org/scrollParallax/public/img/thumbs/example2.jpg)](http://github.develo.org/scrollParallax/public/example2/)
 
