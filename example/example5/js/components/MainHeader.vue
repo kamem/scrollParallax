@@ -1,6 +1,6 @@
 <template>
   <header id="main-header">
-    <h1 class="main-title">jquery.scroll.parallax</h1>
+    <h1 class="main-title">vue.scroll.parallax</h1>
     <p class="main-text">このプラグインには3つの機能があります。</p>
 
     <MainParallaxItem href="#timing">

@@ -8,14 +8,14 @@
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("vue"));
+		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define(["vue"], factory);
+		define([], factory);
 	else if(typeof exports === 'object')
-		exports["scrollParallax"] = factory(require("vue"));
+		exports["scrollParallax"] = factory();
 	else
-		root["scrollParallax"] = factory(root["vue"]);
-})(window, function(__WEBPACK_EXTERNAL_MODULE__9__) {
+		root["scrollParallax"] = factory();
+})(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -99,7 +99,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -968,31 +968,26 @@ module.exports = g;
 /***/ }),
 /* 6 */,
 /* 7 */,
-/* 8 */,
-/* 9 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE__9__;
-
-/***/ }),
-/* 10 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
-/* harmony import */ var _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
-/* harmony import */ var _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(3);
-/* harmony import */ var _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateStatus", function() { return updateStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "status", function() { return status; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ScrollStatus", function() { return ScrollStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ParallaxTiming", function() { return ParallaxTiming; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ParallaxSpeed", function() { return ParallaxSpeed; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ParallaxFit", function() { return ParallaxFit; });
+/* harmony import */ var _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
+/* harmony import */ var _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -1005,195 +1000,129 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
 var setScrollEvents = function setScrollEvents(func, opt) {
-  var status = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"];
-  status.functions.push([func, opt.targetPercentage !== status.targetPercentage ? new _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* ScrollPosition */ "a"](_objectSpread({}, status, {
+  var status = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"];
+  status.functions.push([func, opt.targetPercentage !== status.targetPercentage ? new _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* ScrollPosition */ "a"](_objectSpread({}, status, {
     targetPercentage: opt.targetPercentage
-  })) : status !== _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"] && status.ScrollPosition]);
+  })) : status !== _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"] && status.ScrollPosition]);
 };
 
-var generateScrollStatusValues = function generateScrollStatusValues(Vue) {
+var updateStatus = function updateStatus(opt) {
+  return _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"].setVal(opt);
+};
+var status = _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"];
+var ScrollStatus = _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* default */ "c"];
+
+var getElement = function getElement(element) {
+  var el = typeof element === 'string' ? document.querySelector(element) : element;
+  if (!el) throw "undefined element \"".concat(element, "\"");
+  return el;
+};
+
+var ParallaxTiming = function ParallaxTiming(element) {
   var opt = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var $scrollStatus = arguments.length > 2 ? arguments[2] : undefined;
 
-  if (opt.name) {
-    var scrollObj = {
-      scrollPosition: _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].scrollPosition,
-      contentSize: _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].contentSize,
-      values: {}
-    };
-    $scrollStatus[opt.name] = Vue.observable ? Vue.observable(scrollObj) : Object(vue__WEBPACK_IMPORTED_MODULE_0__["reactive"])(scrollObj);
+  _classCallCheck(this, ParallaxTiming);
+
+  var el = getElement(element);
+  var timingEvent = Object.prototype.toString.call(opt) === '[object Array]' ? opt : opt.start ? [opt.start, opt.end] : opt.toggle;
+  var c = opt.class || 'on';
+  var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](opt.target || el, opt.eventScrollPosition, opt.eventTriggerPercentage, timingEvent || [function () {
+    return el.classList.add(c);
+  }, function () {
+    return el.classList.remove(c);
+  }]);
+  setScrollEvents(function (status) {
+    timing.timingEvent(status);
+  }, opt, opt.status);
+};
+var ParallaxSpeed =
+/*#__PURE__*/
+function () {
+  function ParallaxSpeed(element) {
+    var opt = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    _classCallCheck(this, ParallaxSpeed);
+
+    var el = getElement(element);
+    var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"](el, opt.style || opt.styles, opt.speed, opt.min, opt.max, opt.contentScrollPosition === 0 || opt.contentScrollPosition ? opt.contentScrollPosition : el, opt.contentScrollPositionStyleValue);
+    this.speed = s;
+    setScrollEvents(function (status) {
+      Object.assign(el.style, s.getStyleValues(status));
+    }, opt, opt.status);
   }
 
-  var scrollStatus = opt.name ? $scrollStatus[opt.name] : $scrollStatus;
-  return _objectSpread({}, opt, {
-    updateFunction: function updateFunction(status) {
-      scrollStatus.scrollPosition = status.scrollPosition;
-      scrollStatus.contentSize = status.contentSize;
-      scrollStatus.values = Object.assign({}, scrollStatus.values, status.functions.reduce(function (result, _ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            current = _ref2[0],
-            scrollPosition = _ref2[1];
-
-        return Object.assign({}, result, current(scrollPosition ? Object.assign({}, status, {
-          scrollPosition: scrollPosition.generateScrollPosition()
-        }) : status));
-      }, {}));
+  _createClass(ParallaxSpeed, [{
+    key: "getValues",
+    value: function getValues() {
+      return this.speed;
     }
-  });
-};
+  }]);
 
-var Parallax = {
-  install: function install(Vue, opt) {
-    var isVue3 = Vue.version.startsWith('3');
-    var prototype = isVue3 ? Vue.config.globalProperties : Vue.prototype;
-    var beforeMount = isVue3 ? 'beforeMount' : 'bind';
-    var scrollObj = {
-      scrollPosition: _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].scrollPosition,
-      contentSize: _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].contentSize,
-      values: {}
-    };
-    var $scrollStatus = Vue.observable ? Vue.observable(scrollObj) : Object(vue__WEBPACK_IMPORTED_MODULE_0__["reactive"])(scrollObj);
-    _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].setVal(generateScrollStatusValues(Vue, opt, $scrollStatus, name));
-    prototype.$scrollStatus = $scrollStatus;
-    Vue.directive('parallax-timing', _defineProperty({}, beforeMount, function (el, _ref3, d) {
-      var value = _ref3.value;
-      var o = isVue3 ? d.props : d.data.attrs;
-      var opt = value || o;
-      var c = opt.class || 'on';
-      var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"](opt.target || el, opt.eventScrollPosition, opt.eventTriggerPercentage, opt.toggle || [function () {
-        return el.classList.add(c);
-      }, function () {
-        return el.classList.remove(c);
-      }]);
-      setScrollEvents(function (status) {
-        return timing.timingEvent(status);
-      }, opt, opt.status || o.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"]);
-    }));
-    Vue.directive('parallax-speed', _defineProperty({}, beforeMount, function (el, _ref4, d) {
-      var value = _ref4.value;
-      var o = isVue3 ? d.props : d.data.attrs;
-      var opt = value || o;
-      setTimeout(function () {
-        var element = opt.el || el;
-        var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"](element, opt.styles, opt.speed, opt.min, opt.max, opt.contentScrollPosition === 0 || opt.contentScrollPosition ? opt.contentScrollPosition : element, opt.contentScrollPositionStyleValue);
-        setScrollEvents(function (status) {
-          var styleValues = s.getStyleValues(status);
+  return ParallaxSpeed;
+}();
+var ParallaxFit =
+/*#__PURE__*/
+function () {
+  function ParallaxFit(element, opt) {
+    _classCallCheck(this, ParallaxFit);
 
-          for (var key in styleValues) {
-            element.style[key] = styleValues[key];
-          }
-        }, opt, opt.status || o.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"]);
-      }, 0);
-    }));
-    Vue.directive('parallax-fit', _defineProperty({}, beforeMount, function (el, _ref5, d) {
-      var value = _ref5.value;
-      var o = isVue3 ? d.props : d.data.attrs;
-      setTimeout(function () {
-        var fit = new _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"](el);
-        var opt = value || o;
+    var el = getElement(element);
+    var fit = new _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"](el);
+    this.fit = fit;
 
-        if (opt.length) {
-          opt.forEach(function (motion) {
-            return fit.setMotion(motion);
-          });
-        } else if (opt['end'] !== undefined) {
-          fit.setMotion({
-            start: opt['start'],
-            end: opt['end'],
-            fromStyle: opt['fromStyle'],
-            toStyle: opt['toStyle'],
-            easing: opt['easing']
-          });
-        }
+    if (opt.length) {
+      opt.forEach(function (motion) {
+        return fit.setMotion(motion);
+      });
+    } else if (opt['end'] !== undefined) {
+      fit.setMotion({
+        start: opt['start'],
+        end: opt['end'],
+        fromStyle: opt['fromStyle'],
+        toStyle: opt['toStyle'],
+        easing: opt['easing']
+      });
+    }
 
-        for (var i = 1; opt['motion' + i + 'End'] !== undefined; i++) {
-          var motion = 'motion' + i;
-          fit.setMotion({
-            start: opt[motion + 'Start'],
-            end: opt[motion + 'End'],
-            fromStyle: opt[motion + 'FromStyle'],
-            toStyle: opt[motion + 'ToStyle'],
-            easing: opt[motion + 'Easing']
-          });
-        }
+    for (var i = 1; opt['motion' + i + 'End'] !== undefined; i++) {
+      var motion = 'motion' + i;
+      fit.setMotion({
+        start: opt[motion + 'Start'],
+        end: opt[motion + 'End'],
+        fromStyle: opt[motion + 'FromStyle'],
+        toStyle: opt[motion + 'ToStyle'],
+        easing: opt[motion + 'Easing']
+      });
+    }
 
-        fit.setFromStyle();
-        fit.setStyleValues();
-        fit.setStart();
-        setScrollEvents(function (status) {
-          fit.setRangeMotions(status);
-          fit.setDefaultStyles();
-          var styleValues = fit.getStyleValues(status);
-
-          for (var key in styleValues) {
-            el.style[key] = styleValues[key];
-          }
-        }, opt, opt.status || o.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"]);
-      }, 0);
-    }));
-    Vue.mixin({
-      methods: {
-        createStatus: function createStatus(opt) {
-          var status = new _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* default */ "c"]();
-          status.setVal(opt.name ? generateScrollStatusValues(Vue, opt, this.$scrollStatus) : opt);
-          return status;
-        },
-        parallaxTiming: function parallaxTiming(opt) {
-          var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]('', opt.eventScrollPosition, opt.eventTriggerPercentage, Object.prototype.toString.call(opt) === '[object Array]' ? opt : opt.start ? [opt.start, opt.end] : opt.toggle);
-          setScrollEvents(function (status) {
-            return _defineProperty({}, opt.name, timing.timingEvent(status));
-          }, opt, opt.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"]);
-        },
-        parallaxSpeed: function parallaxSpeed(opt) {
-          var s = new _scrollParallax_Speed__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]('', opt.style, opt.speed, opt.min, opt.max, opt.contentScrollPosition || 0, opt.contentScrollPositionStyleValue);
-          setScrollEvents(function (status) {
-            return _defineProperty({}, opt.name, s.getStyleValues(status));
-          }, opt, opt.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"]);
-        },
-        parallaxFit: function parallaxFit(name, opt) {
-          var fit = new _scrollParallax_Fit__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"](this);
-
-          if (opt.length) {
-            opt.forEach(function (motion) {
-              return fit.setMotion(motion);
-            });
-          } else if (opt['end'] !== undefined) {
-            fit.setMotion({
-              start: opt['start'],
-              end: opt['end'],
-              fromStyle: opt['fromStyle'],
-              toStyle: opt['toStyle'],
-              easing: opt['easing']
-            });
-          }
-
-          for (var i = 1; opt['motion' + i + 'End'] !== undefined; i++) {
-            var motion = 'motion' + i;
-            fit.setMotion({
-              start: opt[motion + 'Start'],
-              end: opt[motion + 'End'],
-              fromStyle: opt[motion + 'FromStyle'],
-              toStyle: opt[motion + 'ToStyle'],
-              easing: opt[motion + 'Easing']
-            });
-          }
-
-          fit.setFromStyle();
-          fit.setStyleValues();
-          fit.setStart();
-          setScrollEvents(function (status) {
-            fit.setRangeMotions(status);
-            fit.setDefaultStyles();
-            return _defineProperty({}, name, fit.getStyleValues(status));
-          }, opt, opt.status || _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"]);
-        }
-      }
-    });
+    fit.setFromStyle();
+    fit.setStyleValues();
+    fit.setStart();
+    setScrollEvents(function (status) {
+      fit.setRangeMotions(status);
+      fit.setDefaultStyles();
+      Object.assign(el.style, fit.getStyleValues(status));
+    }, opt, opt.status);
   }
+
+  _createClass(ParallaxFit, [{
+    key: "getValues",
+    value: function getValues() {
+      return this.fit;
+    }
+  }]);
+
+  return ParallaxFit;
+}();
+window.Parallax = {
+  Timing: ParallaxTiming,
+  Speed: ParallaxSpeed,
+  Fit: ParallaxFit,
+  updateStatus: updateStatus,
+  Status: _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"],
+  ScrollStatus: ScrollStatus
 };
-/* harmony default export */ __webpack_exports__["default"] = (Parallax);
 
 /***/ })
 /******/ ]);

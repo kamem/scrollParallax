@@ -1,4 +1,4 @@
-# vue.scrollParallax
+# vue scroll-parallax-effect
 
 [![example4](http://github.develo.org/scrollParallax/public/img/thumbs/example1.jpg)](http://github.develo.org/scrollParallax/public/example4/)
 

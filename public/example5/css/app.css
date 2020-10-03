@@ -155,29 +155,29 @@
 }
 
 
-#main-header[data-v-d770482c] {
+#main-header[data-v-d1368a4c] {
   width: 100%;
 }
-.main-title[data-v-d770482c] {
+.main-title[data-v-d1368a4c] {
   padding-top: 160px;
   text-align: center;
   font-size: 40px;
   font-weight: normal;
   letter-spacing: 0.05em;
 }
-.main-text[data-v-d770482c] {
+.main-text[data-v-d1368a4c] {
   margin: 16px 0 64px;
   text-align: center;
   font-size: 24px;
   letter-spacing: 0.1em;
 }
-.gear[data-v-d770482c] {
+.gear[data-v-d1368a4c] {
   position: absolute;
   top: -300px;
   left: calc(100% / 5 - 400px);
   z-index: -1;
 }
-.main-parallax-item[data-v-d770482c] {
+.main-parallax-item[data-v-d1368a4c] {
   color: #fff;
   text-align: center;
   text-decoration: none;
@@ -185,14 +185,14 @@
   position: relative;
   z-index: 1
 }
-.main-parallax-item > *[data-v-d770482c] {
+.main-parallax-item > *[data-v-d1368a4c] {
     -webkit-transition: opacity 0.15s;
     transition: opacity 0.15s;
 }
-.main-parallax-item:hover > *[data-v-d770482c] {
+.main-parallax-item:hover > *[data-v-d1368a4c] {
     opacity: 0.6;
 }
-.main-parallax-item-label[data-v-d770482c] {
+.main-parallax-item-label[data-v-d1368a4c] {
   padding: 10px 0;
   width: 160px;
   background-color: var(--color-black);
@@ -202,7 +202,7 @@
   margin-bottom: 24px;
   letter-spacing: 0.1em;
 }
-.main-parallax-item-value[data-v-d770482c] {
+.main-parallax-item-value[data-v-d1368a4c] {
   padding: 10px 20px;
   text-decoration: underline;
   display: inline-block;
