@@ -22,6 +22,7 @@ export default class ScrollStatus {
     this.ScrollPosition = new ScrollPosition(this)
     this.scrollPosition = this.ScrollPosition.generateScrollPosition()
     this.setDirectionInfo()
+    return this
   }
   scrollEventUpdate() {
     this.update()
