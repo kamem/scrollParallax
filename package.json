@@ -1,7 +1,7 @@
 {
   "name": "scroll-parallax-effect",
   "description": "Implementing parallax effect by utilizing various events of scroll.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -10,7 +10,9 @@
     "build": "NODE_ENV=production webpack",
     "example": "webpack-dev-server --config example/webpack.config",
     "build:example": "NODE_ENV=production webpack --config example/webpack.config",
-    "test": "jest"
+    "test": "jest",
+    "commitlint": "commitlint -e $GIT_PARAMS",
+    "release": "standard-version"
   },
   "author": {
     "name": "kamem",
@@ -21,13 +23,20 @@
     "type": "git",
     "url": "https://github.com/kamem/scrollParallax.git"
   },
+  "husky": {
+    "commit-message": "commitlint -e $GIT_PARAMS"
+  },
   "dependencies": {
     "@babel/core": "^7.7.5",
     "@babel/preset-env": "^7.7.5",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@types/jquery": "^3.5.1",
     "autoprefixer": "^9.7.3",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.3.2",
     "escape-html": "^1.0.3",
+    "husky": "^4.3.0",
     "jest": "^24.9.0",
     "jquery": "^3.4.1",
     "markdown-to-vue-loader": "^2.0.0",
@@ -36,10 +45,11 @@
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
+    "standard-version": "^9.0.0",
     "style-loader": "^1.0.1",
     "terser-webpack-plugin": "^2.3.1",
-    "vue": "^2.6.11",
-    "vue-loader": "^15.8.3",
+    "vue": "^2.6.12",
+    "vue-loader": "^15.9.3",
     "vue-router": "^3.1.5",
     "vue-template-compiler": "^2.6.12",
     "webpack": "^4.41.2",

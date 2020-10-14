@@ -2,7 +2,7 @@
  * scroll-parallax-effect
  * Implementing parallax effect by utilizing various events of scroll.
  * https://github.com/kamem/scrollParallax.git
- * @version 0.2.0
+ * @version 0.2.1
  * @license Released under MIT license
  * @author kamem
  */
@@ -499,6 +499,7 @@ function () {
       this.ScrollPosition = new ScrollPosition(this);
       this.scrollPosition = this.ScrollPosition.generateScrollPosition();
       this.setDirectionInfo();
+      return this;
     }
   }, {
     key: "scrollEventUpdate",
