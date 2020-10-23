@@ -52,9 +52,9 @@ export const getStringColor = (styleValue) => {
   return styleValue.replace(/red|blue|green|yellow/g, (color) => '#' + colors[color])
 }
 
-export const _offset = (element, { scrollPosition, directionPositionName }) => {
+export const _offset = (element, { endScrollPosition, directionPositionName }) => {
   const el = typeof element === 'string' ? document.querySelector(element) : element
-  return el && el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + scrollPosition
+  return el && el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + endScrollPosition
 }
 
 export const scrollPositionStringToNumber = (scrollPosition, status = Status) => {
