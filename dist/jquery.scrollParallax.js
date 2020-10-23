@@ -2,7 +2,7 @@
  * scroll-parallax-effect
  * Implementing parallax effect by utilizing various events of scroll.
  * https://github.com/kamem/scrollParallax.git
- * @version 0.2.1
+ * @version 0.2.2
  * @license Released under MIT license
  * @author kamem
  */
@@ -118,13 +118,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return scrollPositionStringToNumber; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return easing; });
 /* harmony import */ var _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -188,10 +192,10 @@ var getStringColor = function getStringColor(styleValue) {
   });
 };
 var _offset = function _offset(element, _ref) {
-  var scrollPosition = _ref.scrollPosition,
+  var endScrollPosition = _ref.endScrollPosition,
       directionPositionName = _ref.directionPositionName;
   var el = typeof element === 'string' ? document.querySelector(element) : element;
-  return el && el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + scrollPosition;
+  return el && el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + endScrollPosition;
 };
 var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollPosition) {
   var status = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"];
@@ -454,11 +458,15 @@ var easing = {
 /* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ScrollStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ScrollPosition; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Status; });
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -470,9 +478,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
-var ScrollStatus =
-/*#__PURE__*/
-function () {
+var ScrollStatus = /*#__PURE__*/function () {
   function ScrollStatus() {
     _classCallCheck(this, ScrollStatus);
 
@@ -484,6 +490,7 @@ function () {
     this.setDirectionInfo();
     this.ScrollPosition = new ScrollPosition(this);
     this.scrollPosition = this.ScrollPosition.generateScrollPosition();
+    this.endScrollPosition = this.ScrollPosition.endScrollPosition;
     this.scrollEventUpdate();
   }
 
@@ -498,6 +505,7 @@ function () {
       this.updateFunction = opt.updateFunction;
       this.ScrollPosition = new ScrollPosition(this);
       this.scrollPosition = this.ScrollPosition.generateScrollPosition();
+      this.endScrollPosition = this.ScrollPosition.endScrollPosition;
       this.setDirectionInfo();
       return this;
     }
@@ -528,6 +536,7 @@ function () {
     key: "update",
     value: function update() {
       this.scrollPosition = this.ScrollPosition.generateScrollPosition();
+      this.endScrollPosition = this.ScrollPosition.endScrollPosition;
       this.stageSize = this.$stage["inner".concat(this.stageSizeName)] || this.$stage["client".concat(this.stageSizeName)];
       this.contentSize = this.$stage["scroll".concat(this.stageSizeName)] || document.documentElement["scroll".concat(this.stageSizeName)];
     }
@@ -543,9 +552,7 @@ function () {
 }();
 
 
-var ScrollPosition =
-/*#__PURE__*/
-function () {
+var ScrollPosition = /*#__PURE__*/function () {
   function ScrollPosition() {
     var opt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
@@ -555,7 +562,9 @@ function () {
     this.direction = opt.direction;
     this.targetPercentage = opt.targetPercentage || 0.2;
     this.scrollName = this.$stage === window ? "page".concat(opt.direction.toUpperCase(), "Offset") : "scroll".concat(opt.directionPositionName);
-    this.scrollPosition = this.getScrollPosition();
+    var scrollPosition = this.getScrollPosition();
+    this.scrollPosition = scrollPosition;
+    this.endScrollPosition = scrollPosition;
   }
 
   _createClass(ScrollPosition, [{
@@ -569,6 +578,7 @@ function () {
       var scrollPosition = this.getScrollPosition();
       var offset = (scrollPosition - this.scrollPosition) * this.targetPercentage;
       this.scrollPosition += offset;
+      this.endScrollPosition = scrollPosition;
       return Math.round(this.scrollPosition * 100) / 100;
     }
   }]);
@@ -593,9 +603,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-var Timing =
-/*#__PURE__*/
-function () {
+var Timing = /*#__PURE__*/function () {
   function Timing($el, eventScrollPosition, eventTriggerPercentage, events) {
     _classCallCheck(this, Timing);
 
@@ -608,9 +616,9 @@ function () {
 
   _createClass(Timing, [{
     key: "getEventScrollElementPosition",
-    value: function getEventScrollElementPosition(scrollPosition, directionPositionName) {
+    value: function getEventScrollElementPosition(endScrollPosition, directionPositionName) {
       return this.eventScrollElementPosition ? Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(this.eventScrollElementPosition) : Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* _offset */ "a"])(this.$el, {
-        scrollPosition: scrollPosition,
+        endScrollPosition: endScrollPosition,
         directionPositionName: directionPositionName
       });
     }
@@ -619,9 +627,10 @@ function () {
     value: function timingEvent(_ref) {
       var stageSize = _ref.stageSize,
           scrollPosition = _ref.scrollPosition,
+          endScrollPosition = _ref.endScrollPosition,
           directionPositionName = _ref.directionPositionName;
       this.eventScrollPlussWindowPerCentPosition = scrollPosition + stageSize * this.eventTriggerPercentage;
-      var isOver = this.eventScrollPlussWindowPerCentPosition >= this.getEventScrollElementPosition(scrollPosition, directionPositionName);
+      var isOver = this.eventScrollPlussWindowPerCentPosition >= this.getEventScrollElementPosition(endScrollPosition, directionPositionName);
 
       if (isOver !== this.isOver) {
         this.isOver = isOver;
@@ -648,7 +657,7 @@ function () {
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -658,9 +667,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-var Speed =
-/*#__PURE__*/
-function () {
+var Speed = /*#__PURE__*/function () {
   function Speed($el, style, speed, min, max, contentScrollPosition, contentStyleValue) {
     _classCallCheck(this, Speed);
 
@@ -747,9 +754,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-var Fit =
-/*#__PURE__*/
-function () {
+var Fit = /*#__PURE__*/function () {
   function Fit($el) {
     _classCallCheck(this, Fit);
 
@@ -1017,7 +1022,7 @@ $.createStatus = function (opt) {
 
 var setScrollEvents = function setScrollEvents(func, opt) {
   var status = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"];
-  status.functions.push([func, opt.targetPercentage !== status.targetPercentage ? new _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* ScrollPosition */ "a"](_objectSpread({}, status, {
+  status.functions.push([func, opt.targetPercentage !== status.targetPercentage ? new _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* ScrollPosition */ "a"](_objectSpread(_objectSpread({}, status), {}, {
     targetPercentage: opt.targetPercentage
   })) : status !== _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"] && status.ScrollPosition]);
 };

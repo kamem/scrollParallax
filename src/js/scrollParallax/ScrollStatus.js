@@ -11,6 +11,7 @@ export default class ScrollStatus {
     this.setDirectionInfo()
     this.ScrollPosition = new ScrollPosition(this)
     this.scrollPosition = this.ScrollPosition.generateScrollPosition()
+    this.endScrollPosition = this.ScrollPosition.endScrollPosition
     this.scrollEventUpdate()
   }
   setVal(opt = {}) {
@@ -21,6 +22,7 @@ export default class ScrollStatus {
     this.updateFunction = opt.updateFunction
     this.ScrollPosition = new ScrollPosition(this)
     this.scrollPosition = this.ScrollPosition.generateScrollPosition()
+    this.endScrollPosition = this.ScrollPosition.endScrollPosition
     this.setDirectionInfo()
     return this
   }
@@ -41,6 +43,7 @@ export default class ScrollStatus {
   }
   update() {
     this.scrollPosition = this.ScrollPosition.generateScrollPosition()
+    this.endScrollPosition = this.ScrollPosition.endScrollPosition
 
     this.stageSize = this.$stage[`inner${this.stageSizeName}`] || this.$stage[`client${this.stageSizeName}`]
     this.contentSize = this.$stage[`scroll${this.stageSizeName}`] || document.documentElement[`scroll${this.stageSizeName}`]
@@ -58,7 +61,9 @@ export class ScrollPosition {
     this.direction = opt.direction
     this.targetPercentage = opt.targetPercentage || 0.2
     this.scrollName = this.$stage === window ? `page${opt.direction.toUpperCase()}Offset` : `scroll${opt.directionPositionName}`
-    this.scrollPosition = this.getScrollPosition()
+    const scrollPosition = this.getScrollPosition()
+    this.scrollPosition = scrollPosition
+    this.endScrollPosition = scrollPosition
   }
   getScrollPosition() {
     return this.$stage[this.scrollName]
@@ -67,6 +72,7 @@ export class ScrollPosition {
     const scrollPosition = this.getScrollPosition()
     const offset = (scrollPosition - this.scrollPosition) * this.targetPercentage
     this.scrollPosition += offset
+    this.endScrollPosition = scrollPosition
     return Math.round(this.scrollPosition * 100) / 100
   }
 }
