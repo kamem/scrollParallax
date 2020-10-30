@@ -2,7 +2,7 @@
  * scroll-parallax-effect
  * Implementing parallax effect by utilizing various events of scroll.
  * https://github.com/kamem/scrollParallax.git
- * @version 0.2.3
+ * @version 0.2.4
  * @license Released under MIT license
  * @author kamem
  */
@@ -1032,7 +1032,7 @@ $.fn.parallaxTiming = function () {
   var opt = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var positionName = _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_1__[/* Status */ "b"].directionPositionName.toLocaleLowerCase();
   var timingEvent = Object.prototype.toString.call(opt) === '[object Array]' ? opt : opt.start ? [opt.start, opt.end] : opt.toggle;
-  var c = opt.class || 'on';
+  var c = opt.className || 'on';
   var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"](opt.target || this[0], opt.eventScrollPosition, opt.eventTriggerPercentage || $.eventTriggerPercentage, timingEvent || [function () {
     return $(_this).addClass(c);
   }, function () {
