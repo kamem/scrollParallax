@@ -66,7 +66,7 @@ const Parallax = {
       [beforeMount]: (el, { value }, d) => {
         const o = isVue3 ? d.props : d.data.attrs
         const opt = value || o
-        const c = opt.class || 'on'
+        const c = opt.className || 'on'
         const timing = new Timing(
           opt.target || el,
           opt.eventScrollPosition,
