@@ -34,7 +34,7 @@ const setScrollEvents = (func, opt, status = Status) => {
 $.fn.parallaxTiming = function (opt = {}) {
   const positionName = Status.directionPositionName.toLocaleLowerCase()
   const timingEvent = Object.prototype.toString.call(opt) === '[object Array]' ? opt : (opt.start ? [opt.start, opt.end] : opt.toggle)
-  const c = opt.class || 'on'
+  const c = opt.className || 'on'
   const timing = new Timing(
     opt.target || this[0],
     opt.eventScrollPosition,

@@ -57,8 +57,7 @@ export const _offset = (element, { endScrollPosition, directionPositionName }) =
   return el && el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + endScrollPosition
 }
 
-export const scrollPositionStringToNumber = (scrollPosition, status = Status) => {
-  const { stageSize, contentSize } = status
+export const scrollPositionStringToNumber = (scrollPosition, { stageSize, contentSize, endScrollPosition, directionPositionName } = Status) => {
   const lastScrollPosition = contentSize - stageSize
 
   if (scrollPosition > lastScrollPosition || ~['lastScrollPosition', 'last'].indexOf(scrollPosition)) {
@@ -68,7 +67,7 @@ export const scrollPositionStringToNumber = (scrollPosition, status = Status) =>
   if (~['string', 'object'].indexOf(typeof scrollPosition)) {
     const i = typeof scrollPosition === 'string' ? scrollPosition.split(',') : scrollPosition
     const positionName = i[0] || scrollPosition
-    const position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(positionName, status)
+    const position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(positionName, { endScrollPosition, directionPositionName })
 
     const s = (parseInt(i[1]) || 0) + Math.min(position, lastScrollPosition)
     return Math.min(s, lastScrollPosition)

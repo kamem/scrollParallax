@@ -2,7 +2,7 @@
  * scroll-parallax-effect
  * Implementing parallax effect by utilizing various events of scroll.
  * https://github.com/kamem/scrollParallax.git
- * @version 0.2.3
+ * @version 0.2.4
  * @license Released under MIT license
  * @author kamem
  */
@@ -198,9 +198,12 @@ var _offset = function _offset(element, _ref) {
   return el && el.getBoundingClientRect()[directionPositionName.toLocaleLowerCase()] + endScrollPosition;
 };
 var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollPosition) {
-  var status = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"];
-  var stageSize = status.stageSize,
-      contentSize = status.contentSize;
+  var _ref2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _scrollParallax_ScrollStatus__WEBPACK_IMPORTED_MODULE_0__[/* Status */ "b"],
+      stageSize = _ref2.stageSize,
+      contentSize = _ref2.contentSize,
+      endScrollPosition = _ref2.endScrollPosition,
+      directionPositionName = _ref2.directionPositionName;
+
   var lastScrollPosition = contentSize - stageSize;
 
   if (scrollPosition > lastScrollPosition || ~['lastScrollPosition', 'last'].indexOf(scrollPosition)) {
@@ -210,7 +213,10 @@ var scrollPositionStringToNumber = function scrollPositionStringToNumber(scrollP
   if (~['string', 'object'].indexOf(_typeof(scrollPosition))) {
     var i = typeof scrollPosition === 'string' ? scrollPosition.split(',') : scrollPosition;
     var positionName = i[0] || scrollPosition;
-    var position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(positionName, status);
+    var position = ~['lastScrollPosition', 'last'].indexOf(positionName) ? lastScrollPosition : _offset(positionName, {
+      endScrollPosition: endScrollPosition,
+      directionPositionName: directionPositionName
+    });
     var s = (parseInt(i[1]) || 0) + Math.min(position, lastScrollPosition);
     return Math.min(s, lastScrollPosition);
   }
@@ -616,21 +622,14 @@ var Timing = /*#__PURE__*/function () {
 
   _createClass(Timing, [{
     key: "getEventScrollElementPosition",
-    value: function getEventScrollElementPosition(endScrollPosition, directionPositionName) {
-      return this.eventScrollElementPosition ? Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(this.eventScrollElementPosition) : Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* _offset */ "a"])(this.$el, {
-        endScrollPosition: endScrollPosition,
-        directionPositionName: directionPositionName
-      });
+    value: function getEventScrollElementPosition(status) {
+      return this.eventScrollElementPosition ? Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* scrollPositionStringToNumber */ "f"])(this.eventScrollElementPosition, status) : Object(_js_scrollParallax_util__WEBPACK_IMPORTED_MODULE_0__[/* _offset */ "a"])(this.$el, status);
     }
   }, {
     key: "timingEvent",
-    value: function timingEvent(_ref) {
-      var stageSize = _ref.stageSize,
-          scrollPosition = _ref.scrollPosition,
-          endScrollPosition = _ref.endScrollPosition,
-          directionPositionName = _ref.directionPositionName;
-      this.eventScrollPlussWindowPerCentPosition = scrollPosition + stageSize * this.eventTriggerPercentage;
-      var isOver = this.eventScrollPlussWindowPerCentPosition >= this.getEventScrollElementPosition(endScrollPosition, directionPositionName);
+    value: function timingEvent(status) {
+      this.eventScrollPlussWindowPerCentPosition = status.scrollPosition + status.stageSize * this.eventTriggerPercentage;
+      var isOver = this.eventScrollPlussWindowPerCentPosition >= this.getEventScrollElementPosition(status);
 
       if (isOver !== this.isOver) {
         this.isOver = isOver;
@@ -1032,7 +1031,7 @@ var ParallaxTiming = function ParallaxTiming(element) {
 
   var el = getElement(element);
   var timingEvent = Object.prototype.toString.call(opt) === '[object Array]' ? opt : opt.start ? [opt.start, opt.end] : opt.toggle;
-  var c = opt.class || 'on';
+  var c = opt.className || 'on';
   var timing = new _scrollParallax_Timing__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"](opt.target || el, opt.eventScrollPosition, opt.eventTriggerPercentage, timingEvent || [function () {
     return el.classList.add(c);
   }, function () {
