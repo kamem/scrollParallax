@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.3](https://github.com/kamem/scrollParallax/compare/v0.2.2...v0.2.3) (2020-10-30)
+
+
+### Bug Fixes
+
+* parallax-timing class → className ([d11d6ab](https://github.com/kamem/scrollParallax/commit/d11d6abb46a6c7931070172db3812b2484a1ec6f))
+
 ### [0.2.2](https://github.com/kamem/scrollParallax/compare/v0.2.0...v0.2.2) (2020-10-23)
 
 
